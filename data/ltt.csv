@@ -1,0 +1,171 @@
+Year,Age,Read for Fun,Percent
+1984,9,Almost every day,53.0
+1984,9,Once or twice a week,28.0
+1984,9,Once or twice a month,7.0
+1984,9,A few times a year,3.0
+1984,9,Never or hardly ever,9.0
+1984,13,Almost every day,35.0
+1984,13,Once or twice a week,35.0
+1984,13,Once or twice a month,14.0
+1984,13,A few times a year,7.0
+1984,13,Never or hardly ever,8.0
+1984,17,Almost every day,31.0
+1984,17,Once or twice a week,33.0
+1984,17,Once or twice a month,17.0
+1984,17,A few times a year,10.0
+1984,17,Never or hardly ever,9.0
+1988,9,Almost every day,54.0
+1988,9,Once or twice a week,26.0
+1988,9,Once or twice a month,7.0
+1988,9,A few times a year,4.0
+1988,9,Never or hardly ever,9.0
+1988,13,Almost every day,36.0
+1988,13,Once or twice a week,31.0
+1988,13,Once or twice a month,15.0
+1988,13,A few times a year,8.0
+1988,13,Never or hardly ever,10.0
+1988,17,Almost every day,28.0
+1988,17,Once or twice a week,32.0
+1988,17,Once or twice a month,21.0
+1988,17,A few times a year,10.0
+1988,17,Never or hardly ever,9.0
+1990,9,Almost every day,54.0
+1990,9,Once or twice a week,25.0
+1990,9,Once or twice a month,6.0
+1990,9,A few times a year,3.0
+1990,9,Never or hardly ever,12.0
+1990,13,Almost every day,35.0
+1990,13,Once or twice a week,32.0
+1990,13,Once or twice a month,13.0
+1990,13,A few times a year,9.0
+1990,13,Never or hardly ever,11.0
+1990,17,Almost every day,31.0
+1990,17,Once or twice a week,31.0
+1990,17,Once or twice a month,15.0
+1990,17,A few times a year,12.0
+1990,17,Never or hardly ever,10.0
+1992,9,Almost every day,56.0
+1992,9,Once or twice a week,28.0
+1992,9,Once or twice a month,6.0
+1992,9,A few times a year,3.0
+1992,9,Never or hardly ever,7.0
+1992,13,Almost every day,37.0
+1992,13,Once or twice a week,32.0
+1992,13,Once or twice a month,13.0
+1992,13,A few times a year,8.0
+1992,13,Never or hardly ever,9.0
+1992,17,Almost every day,27.0
+1992,17,Once or twice a week,33.0
+1992,17,Once or twice a month,18.0
+1992,17,A few times a year,12.0
+1992,17,Never or hardly ever,11.0
+1994,9,Almost every day,58.0
+1994,9,Once or twice a week,25.0
+1994,9,Once or twice a month,5.0
+1994,9,A few times a year,3.0
+1994,9,Never or hardly ever,9.0
+1994,13,Almost every day,32.0
+1994,13,Once or twice a week,32.0
+1994,13,Once or twice a month,14.0
+1994,13,A few times a year,10.0
+1994,13,Never or hardly ever,12.0
+1994,17,Almost every day,30.0
+1994,17,Once or twice a week,31.0
+1994,17,Once or twice a month,15.0
+1994,17,A few times a year,12.0
+1994,17,Never or hardly ever,12.0
+1996,9,Almost every day,54.0
+1996,9,Once or twice a week,27.0
+1996,9,Once or twice a month,8.0
+1996,9,A few times a year,3.0
+1996,9,Never or hardly ever,8.0
+1996,13,Almost every day,32.0
+1996,13,Once or twice a week,31.0
+1996,13,Once or twice a month,15.0
+1996,13,A few times a year,9.0
+1996,13,Never or hardly ever,13.0
+1996,17,Almost every day,23.0
+1996,17,Once or twice a week,32.0
+1996,17,Once or twice a month,17.0
+1996,17,A few times a year,12.0
+1996,17,Never or hardly ever,16.0
+1999,9,Almost every day,54.0
+1999,9,Once or twice a week,26.0
+1999,9,Once or twice a month,6.0
+1999,9,A few times a year,4.0
+1999,9,Never or hardly ever,10.0
+1999,13,Almost every day,28.0
+1999,13,Once or twice a week,36.0
+1999,13,Once or twice a month,17.0
+1999,13,A few times a year,10.0
+1999,13,Never or hardly ever,9.0
+1999,17,Almost every day,25.0
+1999,17,Once or twice a week,28.0
+1999,17,Once or twice a month,19.0
+1999,17,A few times a year,12.0
+1999,17,Never or hardly ever,16.0
+2004,9,Almost every day,54.0
+2004,9,Once or twice a week,26.0
+2004,9,Once or twice a month,7.0
+2004,9,A few times a year,5.0
+2004,9,Never or hardly ever,8.0
+2004,13,Almost every day,30.0
+2004,13,Once or twice a week,34.0
+2004,13,Once or twice a month,15.0
+2004,13,A few times a year,9.0
+2004,13,Never or hardly ever,13.0
+2004,17,Almost every day,22.0
+2004,17,Once or twice a week,30.0
+2004,17,Once or twice a month,15.0
+2004,17,A few times a year,14.0
+2004,17,Never or hardly ever,19.0
+2008,9,Almost every day,48.0
+2008,9,Once or twice a week,23.0
+2008,9,Once or twice a month,8.0
+2008,9,A few times a year,8.0
+2008,9,Never or hardly ever,14.0
+2008,13,Almost every day,26.0
+2008,13,Once or twice a week,25.0
+2008,13,Once or twice a month,13.0
+2008,13,A few times a year,12.0
+2008,13,Never or hardly ever,24.0
+2008,17,Almost every day,20.0
+2008,17,Once or twice a week,22.0
+2008,17,Once or twice a month,17.0
+2008,17,A few times a year,16.0
+2008,17,Never or hardly ever,24.0
+2012,9,Almost every day,53.0
+2012,9,Once or twice a week,23.0
+2012,9,Once or twice a month,7.0
+2012,9,A few times a year,7.0
+2012,9,Never or hardly ever,11.0
+2012,13,Almost every day,27.0
+2012,13,Once or twice a week,26.0
+2012,13,Once or twice a month,14.0
+2012,13,A few times a year,11.0
+2012,13,Never or hardly ever,22.0
+2012,17,Almost every day,19.0
+2012,17,Once or twice a week,21.0
+2012,17,Once or twice a month,16.0
+2012,17,A few times a year,18.0
+2012,17,Never or hardly ever,27.0
+2020,9,Almost every day,42.0
+2020,9,Once or twice a week,25.0
+2020,9,Once or twice a month,9.0
+2020,9,A few times a year,8.0
+2020,9,Never or hardly ever,16.0
+2020,13,Almost every day,17.0
+2020,13,Once or twice a week,23.0
+2020,13,Once or twice a month,16.0
+2020,13,A few times a year,15.0
+2020,13,Never or hardly ever,29.0
+2022,9,Almost every day,39.0
+2022,9,Once or twice a week,25.0
+2022,9,Once or twice a month,10.0
+2022,9,A few times a year,9.0
+2022,9,Never or hardly ever,16.0
+2023,13,Almost every day,14.0
+2023,13,Once or twice a week,22.0
+2023,13,Once or twice a month,17.0
+2023,13,A few times a year,16.0
+2023,13,Never or hardly ever,31.0
