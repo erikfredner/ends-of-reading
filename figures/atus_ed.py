@@ -84,8 +84,8 @@ def main() -> None:
 
     data_path = project_root / "data" / "atus_ed.csv"
     odds_ratio_path = project_root / "data" / "atus_ed_or.csv"
-    atus_output = figures_dir / "atus_ed.png"
-    atus_or_output = figures_dir / "atus_ed_or.png"
+    atus_output = figures_dir / "fig3.png"
+    atus_or_output = figures_dir / "fig4.png"
 
     education_order = [
         "Bachelor's degree and higher",
@@ -112,12 +112,7 @@ def main() -> None:
 
     atus_ed_or_df = pd.read_csv(odds_ratio_path)
     atus_ed_or_df = atus_ed_or_df[atus_ed_or_df["Activity"] == activity].copy()
-    odds_ratio_series = atus_ed_or_df["Odds Ratio"]
-    padding = (odds_ratio_series.max() - odds_ratio_series.min()) * 0.05
-    ylim = (
-        max(0, odds_ratio_series.min() - padding),
-        odds_ratio_series.max() + padding,
-    )
+    ylim = (0, 1.1)
 
     plot_education_timeseries(
         df=atus_ed_or_df,

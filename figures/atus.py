@@ -83,7 +83,7 @@ def main() -> None:
     data_path = project_root / "data" / "atus.csv"
     odds_ratio_path = project_root / "data" / "atus_or.csv"
     atus_output = figures_dir / "atus.png"
-    atus_or_output = figures_dir / "atus_or.png"
+    atus_or_output = figures_dir / "fig2.png"
 
     category_order = [
         "Playing games",

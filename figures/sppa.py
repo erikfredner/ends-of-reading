@@ -29,7 +29,7 @@ def main() -> None:
     figures_dir = Path(__file__).resolve().parent
     project_root = figures_dir.parent
     data_path = project_root / "data" / "sppa.csv"
-    output_path = figures_dir / "sppa.png"
+    output_path = figures_dir / "fig1.png"
 
     apply_style()
 
