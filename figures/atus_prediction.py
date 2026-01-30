@@ -43,6 +43,9 @@ def fit_linear_model(years: np.ndarray, values: np.ndarray) -> dict[str, float]:
     intercept = y_mean - slope * x_mean
     residuals = y - (intercept + slope * x)
     sigma = float(np.sqrt(np.sum(residuals**2) / (n - 2)))
+    ss_res = float(np.sum(residuals**2))
+    ss_tot = float(np.sum((y - y_mean) ** 2))
+    r_squared = 1.0 - ss_res / ss_tot if ss_tot > 0 else 0.0
     return {
         "slope": slope,
         "intercept": intercept,
@@ -50,6 +53,7 @@ def fit_linear_model(years: np.ndarray, values: np.ndarray) -> dict[str, float]:
         "x_mean": x_mean,
         "sxx": sxx,
         "n": float(n),
+        "r_squared": r_squared,
     }
 
 
@@ -169,6 +173,15 @@ def main() -> None:
     ax.xaxis.set_major_locator(mdates.YearLocator(base=step))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     ax.set_ylim(0, max(values) + 5)
+    ax.text(
+        0.02,
+        0.95,
+        rf"$R^2$ = {model['r_squared']:.3f}",
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
+        fontsize=9,
+    )
     ax.legend(frameon=False)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
