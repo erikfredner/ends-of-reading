@@ -1,5 +1,7 @@
 # "The Ends of Reading"
 
+[![DOI](https://zenodo.org/badge/1132267528.svg)](https://doi.org/10.5281/zenodo.18434695)
+
 Code and data to support my essay, "The Ends of Reading."
 
 ## Reproduce
