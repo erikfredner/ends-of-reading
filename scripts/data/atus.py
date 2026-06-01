@@ -10,6 +10,9 @@ def parse_filename(csv_path: Path) -> tuple[str, str]:
     return id_part, activity
 
 
+PARTICIPATION_ID_PREFIX = "TUU30105"
+
+
 def main() -> None:
     project_root = Path(__file__).resolve().parents[2]
     source_dir = project_root / "data" / "source" / "atus"
@@ -18,7 +21,7 @@ def main() -> None:
     fieldnames = ["Year", "ID", "Activity", "Percent"]
     rows = []
 
-    for csv_path in sorted(source_dir.glob("*.csv")):
+    for csv_path in sorted(source_dir.glob(f"{PARTICIPATION_ID_PREFIX}*.csv")):
         id_part, activity = parse_filename(csv_path)
 
         with csv_path.open(newline="", encoding="utf-8-sig") as f:
