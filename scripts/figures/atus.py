@@ -56,9 +56,13 @@ def plot_activity_timeseries(
         subset = df[df["Activity"] == category]
         if subset.empty:
             continue
+        full_years = pd.date_range(
+            start=subset["Year"].min(), end=subset["Year"].max(), freq="YS"
+        )
+        subset = subset.set_index("Year").reindex(full_years)
         style_kwargs = next(style_cycle) if style_cycle is not None else {}
         label = legend_labels.get(category, category)
-        ax.plot(subset["Year"], subset[value_column], label=label, **style_kwargs)
+        ax.plot(subset.index, subset[value_column], label=label, **style_kwargs)
 
     ax.set_xlabel("Year")
     ax.set_ylabel(ylabel)
