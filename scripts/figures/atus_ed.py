@@ -64,7 +64,8 @@ def plot_education_timeseries(
 
     ax.set_xlabel("Year")
     ax.set_ylabel(ylabel)
-    ax.set_xlim(min_year, max_year)
+    padding = (max_year - min_year) * 0.04
+    ax.set_xlim(min_year - padding, max_year + padding)
     ax.xaxis.set_major_locator(mdates.YearLocator(base=step))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     if ylim is not None:

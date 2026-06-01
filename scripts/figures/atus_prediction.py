@@ -168,7 +168,10 @@ def main() -> None:
     step = max(1, math.ceil(n_years / 8))
     ax.set_xlabel("Year")
     ax.set_ylabel("% US adults reading for personal interest on an average day")
-    ax.set_xlim(pd.to_datetime(min_year, format="%Y"), pd.to_datetime(end_year, format="%Y"))
+    min_year_ts = pd.to_datetime(min_year, format="%Y")
+    max_year_ts = pd.to_datetime(end_year, format="%Y")
+    padding = (max_year_ts - min_year_ts) * 0.04
+    ax.set_xlim(min_year_ts - padding, max_year_ts + padding)
     ax.xaxis.set_major_locator(mdates.YearLocator(base=step))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     ax.set_ylim(0, max(values) + 5)

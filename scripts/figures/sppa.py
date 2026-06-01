@@ -56,7 +56,10 @@ def _plot_timeseries(
 
     ax.set_xlabel("Year")
     ax.set_ylabel(ylabel)
-    ax.set_xticks(sorted(df["Year"].unique()))
+    years = sorted(df["Year"].unique())
+    ax.set_xticks(years)
+    padding = (years[-1] - years[0]) * 0.04
+    ax.set_xlim(years[0] - padding, years[-1] + padding)
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     if ylim is not None:
         ax.set_ylim(*ylim)
