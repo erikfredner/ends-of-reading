@@ -11,7 +11,7 @@ Code and data to support my essay, "The Ends of Reading."
 3. Regenerate figures that appear in the paper using this pattern:
 
 ```zsh
-python figures/sppa.py
+python scripts/figures/sppa.py
 ```
 
 ## AI Statement

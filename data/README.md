@@ -2,11 +2,11 @@
 
 Data provenance for "The Ends of Reading."
 
-The files assembled in `data/source/` are transformed into the tidy CSVs in `data/` by the `.py` scripts there.
+The files assembled in `data/source/` are transformed into the tidy CSVs in `data/derived/` by the `.py` scripts under `scripts/data/`.
 
 ## CSVs
 
-- Unless otherwise specified, CSVs in `data/` are point estimates for nationally-weighted averages reported by agencies.
+- Unless otherwise specified, CSVs in `data/derived/` are point estimates for nationally-weighted averages reported by agencies.
 - Blanks represent data that was not collected. A good example would be independent measurements of novel or play readers in the SPPA in 1982 and 1985 in `data/source/sppa.csv`
 - Following the general practices of these agencies, values are represented as percentages (i.e., a cell value of `1.6` means 1.6%, not 160%).
 

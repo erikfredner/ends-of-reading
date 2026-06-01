@@ -76,13 +76,12 @@ def plot_weekly_reading_by_age(
 
 
 def main() -> None:
-    figures_dir = Path(__file__).resolve().parent
-    project_root = figures_dir.parent
+    project_root = Path(__file__).resolve().parents[2]
 
     apply_style()
 
-    data_path = project_root / "data" / "ltt.csv"
-    output_path = figures_dir / "fig5.png"
+    data_path = project_root / "data" / "derived" / "ltt.csv"
+    output_path = project_root / "figures" / "fig5.png"
 
     df = pd.read_csv(data_path)
 

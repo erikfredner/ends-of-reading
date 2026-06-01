@@ -26,10 +26,9 @@ def apply_style() -> None:
 
 
 def main() -> None:
-    figures_dir = Path(__file__).resolve().parent
-    project_root = figures_dir.parent
-    data_path = project_root / "data" / "sppa.csv"
-    output_path = figures_dir / "fig1.png"
+    project_root = Path(__file__).resolve().parents[2]
+    data_path = project_root / "data" / "derived" / "sppa.csv"
+    output_path = project_root / "figures" / "fig1.png"
 
     apply_style()
 

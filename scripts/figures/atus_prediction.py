@@ -94,13 +94,12 @@ def first_year_below_threshold(
 
 
 def main() -> None:
-    figures_dir = Path(__file__).resolve().parent
-    project_root = figures_dir.parent
+    project_root = Path(__file__).resolve().parents[2]
 
     apply_style()
 
-    data_path = project_root / "data" / "atus.csv"
-    output_path = figures_dir / "atus_prediction.png"
+    data_path = project_root / "data" / "derived" / "atus.csv"
+    output_path = project_root / "figures" / "atus_prediction.png"
 
     df = pd.read_csv(data_path)
     df = df[df["Activity"] == ACTIVITY].copy()

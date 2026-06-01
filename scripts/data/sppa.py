@@ -3,9 +3,9 @@ from pathlib import Path
 
 
 def main() -> None:
-    base_dir = Path(__file__).parent
-    source_path = base_dir / "source" / "sppa.csv"
-    output_path = base_dir / "sppa.csv"
+    project_root = Path(__file__).resolve().parents[2]
+    source_path = project_root / "data" / "source" / "sppa.csv"
+    output_path = project_root / "data" / "derived" / "sppa.csv"
 
     with source_path.open(newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)

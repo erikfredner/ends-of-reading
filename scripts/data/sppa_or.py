@@ -5,22 +5,22 @@ from odds import compute_odds
 
 
 def main() -> None:
-    base_dir = Path(__file__).parent
-    source_path = base_dir / "atus_ed.csv"
-    output_path = base_dir / "atus_ed_or.csv"
+    derived_dir = Path(__file__).resolve().parents[2] / "data" / "derived"
+    source_path = derived_dir / "sppa.csv"
+    output_path = derived_dir / "sppa_or.csv"
 
     rows = []
-    edu_order: dict[str, int] = {}
+    category_order: dict[str, int] = {}
 
     with source_path.open(newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
 
         for row in reader:
             year_raw = (row.get("Year") or "").strip()
+            category_raw = (row.get("Read in the last year") or "").strip()
             percent_raw = (row.get("Percent") or "").strip()
-            edu_raw = (row.get("Educational Attainment") or "").strip()
 
-            if not year_raw or not percent_raw or not edu_raw:
+            if not year_raw or not category_raw or not percent_raw:
                 continue
 
             try:
@@ -29,42 +29,40 @@ def main() -> None:
             except ValueError:
                 continue
 
-            if edu_raw not in edu_order:
-                edu_order[edu_raw] = len(edu_order)
+            if category_raw not in category_order:
+                category_order[category_raw] = len(category_order)
 
             rows.append(
                 {
                     "Year": year,
-                    "ID": (row.get("ID") or "").strip(),
-                    "Activity": (row.get("Activity") or "").strip(),
-                    "Educational Attainment": edu_raw,
+                    "Read in the last year": category_raw,
                     "Percent": percent,
-                    "_edu_order": edu_order[edu_raw],
+                    "_category_order": category_order[category_raw],
                 }
             )
 
-    min_year_per_edu: dict[str, int] = {}
+    min_year_per_category: dict[str, int] = {}
     for row in rows:
-        edu_value = row["Educational Attainment"]
+        category = row["Read in the last year"]
         year = row["Year"]
-        if edu_value not in min_year_per_edu or year < min_year_per_edu[edu_value]:
-            min_year_per_edu[edu_value] = year
+        if category not in min_year_per_category or year < min_year_per_category[category]:
+            min_year_per_category[category] = year
 
     baseline_odds: dict[str, float] = {}
     for row in rows:
-        edu_value = row["Educational Attainment"]
-        if row["Year"] != min_year_per_edu.get(edu_value):
+        category = row["Read in the last year"]
+        if row["Year"] != min_year_per_category.get(category):
             continue
 
         try:
-            baseline_odds[edu_value] = compute_odds(row["Percent"])
+            baseline_odds[category] = compute_odds(row["Percent"])
         except ValueError:
             continue
 
     output_rows = []
     for row in rows:
-        edu_value = row["Educational Attainment"]
-        if edu_value not in baseline_odds:
+        category = row["Read in the last year"]
+        if category not in baseline_odds:
             continue
 
         try:
@@ -72,35 +70,25 @@ def main() -> None:
         except ValueError:
             continue
 
-        baseline = baseline_odds[edu_value]
+        baseline = baseline_odds[category]
         odds_ratio = odds / baseline if baseline != 0 else float("nan")
 
         output_rows.append(
             {
                 "Year": row["Year"],
-                "ID": row["ID"],
-                "Activity": row["Activity"],
-                "Educational Attainment": edu_value,
+                "Read in the last year": category,
                 "Percent": row["Percent"],
                 "Odds": round(odds, 6),
                 "Odds Ratio": round(odds_ratio, 6),
-                "_edu_order": row["_edu_order"],
+                "_category_order": row["_category_order"],
             }
         )
 
-    output_rows.sort(key=lambda r: (r["Year"], r["_edu_order"]))
+    output_rows.sort(key=lambda r: (r["Year"], r["_category_order"]))
     for row in output_rows:
-        row.pop("_edu_order", None)
+        row.pop("_category_order", None)
 
-    fieldnames = [
-        "Year",
-        "ID",
-        "Activity",
-        "Educational Attainment",
-        "Percent",
-        "Odds",
-        "Odds Ratio",
-    ]
+    fieldnames = ["Year", "Read in the last year", "Percent", "Odds", "Odds Ratio"]
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)

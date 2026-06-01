@@ -7,9 +7,9 @@ ACTIVITY_VALUE = "Reading for personal interest"
 
 
 def main() -> None:
-    base_dir = Path(__file__).parent
-    source_path = base_dir / "source" / "atus_ed.csv"
-    output_path = base_dir / "atus_ed.csv"
+    project_root = Path(__file__).resolve().parents[2]
+    source_path = project_root / "data" / "source" / "atus_ed.csv"
+    output_path = project_root / "data" / "derived" / "atus_ed.csv"
 
     rows = []
 

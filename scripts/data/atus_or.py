@@ -5,67 +5,63 @@ from odds import compute_odds
 
 
 def main() -> None:
-    base_dir = Path(__file__).parent
-    source_path = base_dir / "ltt.csv"
-    output_path = base_dir / "ltt_or.csv"
+    derived_dir = Path(__file__).resolve().parents[2] / "data" / "derived"
+    source_path = derived_dir / "atus.csv"
+    output_path = derived_dir / "atus_or.csv"
 
     rows = []
-    read_order: dict[str, int] = {}
 
     with source_path.open(newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
 
         for row in reader:
             year_raw = (row.get("Year") or "").strip()
-            age_raw = (row.get("Age") or "").strip()
-            read_raw = (row.get("Read for Fun") or "").strip()
             percent_raw = (row.get("Percent") or "").strip()
 
-            if not year_raw or not age_raw or not read_raw or not percent_raw:
+            if not year_raw or not percent_raw:
                 continue
 
             try:
                 year = int(float(year_raw))
-                age = int(float(age_raw))
                 percent = float(percent_raw)
             except ValueError:
                 continue
 
-            if read_raw not in read_order:
-                read_order[read_raw] = len(read_order)
-
             rows.append(
                 {
                     "Year": year,
-                    "Age": age,
-                    "Read for Fun": read_raw,
+                    "ID": (row.get("ID") or "").strip(),
+                    "Activity": (row.get("Activity") or "").strip(),
                     "Percent": percent,
-                    "_read_order": read_order[read_raw],
                 }
             )
 
-    min_year_per_group: dict[tuple[int, str], int] = {}
+    min_year_per_id: dict[str, int] = {}
     for row in rows:
-        key = (row["Age"], row["Read for Fun"])
+        id_value = row["ID"]
         year = row["Year"]
-        if key not in min_year_per_group or year < min_year_per_group[key]:
-            min_year_per_group[key] = year
+        if not id_value:
+            continue
+        if id_value not in min_year_per_id or year < min_year_per_id[id_value]:
+            min_year_per_id[id_value] = year
 
-    baseline_odds: dict[tuple[int, str], float] = {}
+    baseline_odds: dict[str, float] = {}
     for row in rows:
-        key = (row["Age"], row["Read for Fun"])
-        if row["Year"] != min_year_per_group.get(key):
+        id_value = row["ID"]
+        if not id_value or id_value not in min_year_per_id:
+            continue
+        if row["Year"] != min_year_per_id[id_value]:
             continue
 
         try:
-            baseline_odds[key] = compute_odds(row["Percent"])
+            baseline_odds[id_value] = compute_odds(row["Percent"])
         except ValueError:
             continue
 
     output_rows = []
     for row in rows:
-        key = (row["Age"], row["Read for Fun"])
-        if key not in baseline_odds:
+        id_value = row["ID"]
+        if not id_value or id_value not in baseline_odds:
             continue
 
         try:
@@ -73,26 +69,23 @@ def main() -> None:
         except ValueError:
             continue
 
-        baseline = baseline_odds[key]
+        baseline = baseline_odds[id_value]
         odds_ratio = odds / baseline if baseline != 0 else float("nan")
 
         output_rows.append(
             {
                 "Year": row["Year"],
-                "Age": row["Age"],
-                "Read for Fun": row["Read for Fun"],
+                "ID": id_value,
+                "Activity": row["Activity"],
                 "Percent": row["Percent"],
                 "Odds": round(odds, 6),
                 "Odds Ratio": round(odds_ratio, 6),
-                "_read_order": row["_read_order"],
             }
         )
 
-    output_rows.sort(key=lambda r: (r["Year"], r["Age"], r["_read_order"]))
-    for row in output_rows:
-        row.pop("_read_order", None)
+    output_rows.sort(key=lambda r: (r["Year"], r["ID"]))
 
-    fieldnames = ["Year", "Age", "Read for Fun", "Percent", "Odds", "Odds Ratio"]
+    fieldnames = ["Year", "ID", "Activity", "Percent", "Odds", "Odds Ratio"]
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)

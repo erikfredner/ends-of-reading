@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from pathlib import Path
 from itertools import cycle, islice
 import math
-from pathlib import Path
 
 from cycler import cycler
 import matplotlib.dates as mdates
@@ -26,9 +26,9 @@ def apply_style() -> None:
     )
 
 
-def plot_education_timeseries(
+def plot_activity_timeseries(
     df: pd.DataFrame,
-    education_order: list[str],
+    category_order: list[str],
     legend_labels: dict[str, str],
     value_column: str,
     ylabel: str,
@@ -37,16 +37,14 @@ def plot_education_timeseries(
     hline: float | None = None,
     ylim: tuple[float, float] | None = None,
 ) -> None:
-    df = df[df["Educational Attainment"].isin(education_order)].copy()
+    df = df[df["Activity"].isin(category_order)].copy()
     df["Year"] = pd.to_datetime(df["Year"], format="%Y")
     min_year = df["Year"].min()
     max_year = df["Year"].max()
     n_years = (max_year.year - min_year.year) + 1
     step = max(1, math.ceil(n_years / 8))
-    df["Educational Attainment"] = pd.Categorical(
-        df["Educational Attainment"], categories=education_order, ordered=True
-    )
-    df = df.sort_values(["Educational Attainment", "Year"])
+    df["Activity"] = pd.Categorical(df["Activity"], categories=category_order, ordered=True)
+    df = df.sort_values(["Activity", "Year"])
     prop_cycle = plt.rcParams.get("axes.prop_cycle")
     style_cycle = cycle(prop_cycle) if prop_cycle is not None else None
 
@@ -54,8 +52,8 @@ def plot_education_timeseries(
     if hline is not None:
         ax.axhline(hline, color="gray", linestyle="dashed", linewidth=1)
 
-    for category in education_order:
-        subset = df[df["Educational Attainment"] == category]
+    for category in category_order:
+        subset = df[df["Activity"] == category]
         if subset.empty:
             continue
         style_kwargs = next(style_cycle) if style_cycle is not None else {}
@@ -77,51 +75,60 @@ def plot_education_timeseries(
 
 
 def main() -> None:
-    figures_dir = Path(__file__).resolve().parent
-    project_root = figures_dir.parent
+    project_root = Path(__file__).resolve().parents[2]
+    figures_dir = project_root / "figures"
 
     apply_style()
 
-    data_path = project_root / "data" / "atus_ed.csv"
-    odds_ratio_path = project_root / "data" / "atus_ed_or.csv"
-    atus_output = figures_dir / "fig3.png"
-    atus_or_output = figures_dir / "fig4.png"
+    data_path = project_root / "data" / "derived" / "atus.csv"
+    odds_ratio_path = project_root / "data" / "derived" / "atus_or.csv"
+    atus_output = figures_dir / "atus.png"
+    atus_or_output = figures_dir / "fig2.png"
 
-    education_order = [
-        "Bachelor's degree and higher",
-        "Some college or associate degree",
-        "High school graduates (no college)",
-        "Less than a high school diploma",
+    category_order = [
+        "Playing games",
+        "Computer use for leisure, excluding games",
+        "Watching TV",
+        "Socializing, relaxing, and leisure",
+        "Arts and entertainment (other than sports)",
+        "Reading for personal interest",
     ]
-    legend_labels = {}
-    activity = "Reading for personal interest"
+    legend_labels = {
+        "Socializing, relaxing, and leisure": "Socializing",
+        "Computer use for leisure, excluding games": "Computer use",
+        "Reading for personal interest": "Reading",
+        "Arts and entertainment (other than sports)": "Arts & entertainment",
+    }
 
-    atus_ed_df = pd.read_csv(data_path)
-    atus_ed_df = atus_ed_df[atus_ed_df["Activity"] == activity].copy()
-    plot_education_timeseries(
-        df=atus_ed_df,
-        education_order=education_order,
+    atus_df = pd.read_csv(data_path)
+    plot_activity_timeseries(
+        df=atus_df,
+        category_order=category_order,
         legend_labels=legend_labels,
         value_column="Percent",
-        ylabel="% US adults reading for personal interest on an average day",
+        ylabel="% US adults engaging in activity on an average day",
         output_path=atus_output,
-        legend_title="Education",
-        hline=50,
+        legend_title="Activity (Abbreviated)",
+        hline=None,
         ylim=(0, 100),
     )
 
-    atus_ed_or_df = pd.read_csv(odds_ratio_path)
-    atus_ed_or_df = atus_ed_or_df[atus_ed_or_df["Activity"] == activity].copy()
-    ylim = (0, 1.1)
+    atus_or_df = pd.read_csv(odds_ratio_path)
+    odds_ratio_series = atus_or_df["Odds Ratio"]
+    padding = (odds_ratio_series.max() - odds_ratio_series.min()) * 0.05
+    ylim = (
+        max(0, odds_ratio_series.min() - padding),
+        odds_ratio_series.max() + padding,
+    )
 
-    plot_education_timeseries(
-        df=atus_ed_or_df,
-        education_order=education_order,
+    plot_activity_timeseries(
+        df=atus_or_df,
+        category_order=category_order,
         legend_labels=legend_labels,
         value_column="Odds Ratio",
-        ylabel="Reading for personal interest odds ratio relative to 2004",
+        ylabel="Odds ratio relative to 2003",
         output_path=atus_or_output,
-        legend_title="Education",
+        legend_title="Activity",
         hline=1,
         ylim=ylim,
     )

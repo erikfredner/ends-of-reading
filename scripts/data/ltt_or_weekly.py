@@ -9,9 +9,9 @@ WEEKLY_OR_MORE = {"Almost every day", "Once or twice a week"}
 
 
 def main() -> None:
-    base_dir = Path(__file__).parent
-    source_path = base_dir / "ltt.csv"
-    output_path = base_dir / "ltt_or_weekly.csv"
+    derived_dir = Path(__file__).resolve().parents[2] / "data" / "derived"
+    source_path = derived_dir / "ltt.csv"
+    output_path = derived_dir / "ltt_or_weekly.csv"
 
     sums: dict[tuple[int, int], float] = defaultdict(float)
 

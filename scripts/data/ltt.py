@@ -3,9 +3,9 @@ from pathlib import Path
 
 
 def main() -> None:
-    base_dir = Path(__file__).parent
-    source_dir = base_dir / "source" / "ltt"
-    output_path = base_dir / "ltt.csv"
+    project_root = Path(__file__).resolve().parents[2]
+    source_dir = project_root / "data" / "source" / "ltt"
+    output_path = project_root / "data" / "derived" / "ltt.csv"
 
     fieldnames = ["Year", "Age", "Read for Fun", "Percent"]
     rows = []

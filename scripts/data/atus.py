@@ -11,9 +11,9 @@ def parse_filename(csv_path: Path) -> tuple[str, str]:
 
 
 def main() -> None:
-    base_dir = Path(__file__).parent
-    source_dir = base_dir / "source" / "atus"
-    output_path = base_dir / "atus.csv"
+    project_root = Path(__file__).resolve().parents[2]
+    source_dir = project_root / "data" / "source" / "atus"
+    output_path = project_root / "data" / "derived" / "atus.csv"
 
     fieldnames = ["Year", "ID", "Activity", "Percent"]
     rows = []
