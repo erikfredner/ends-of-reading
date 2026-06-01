@@ -18,15 +18,15 @@ The repo is a two-stage pipeline with scripts separated from data. Understand th
 
 Layout: `scripts/data/*.py` and `scripts/figures/*.py` hold all code; `data/source/` is raw inputs, `data/derived/` is tidy CSVs, `figures/` is PNG outputs. Every script computes `project_root = Path(__file__).resolve().parents[2]` and addresses inputs/outputs from there — preserve that pattern when adding new scripts.
 
-**Stage 1 — `data/source/` → `data/derived/*.csv`.** Each script in `scripts/data/` (excluding the `_or` variants) reads raw file(s) under `data/source/` and writes a tidy CSV to `data/derived/`. Mapping is by filename: `scripts/data/sppa.py` reads `data/source/sppa.csv` and writes `data/derived/sppa.csv`; `scripts/data/atus.py` reads every CSV under `data/source/atus/` (filenames encode `<series_id> - <activity>`) and writes `data/derived/atus.csv`; `scripts/data/ltt.py` reads `data/source/ltt/<age>.csv` files; `scripts/data/atus_ed.py` reads `data/source/atus_ed.csv`.
+**Stage 1 — `data/source/` → `data/derived/*.csv`.** Each script in `scripts/data/` (excluding the `_or` variants) reads raw file(s) under `data/source/` and writes a tidy CSV to `data/derived/`. Mapping is by filename: `scripts/data/atus.py` reads every CSV under `data/source/atus/` (filenames encode `<series_id> - <activity>`) and writes `data/derived/atus.csv`; `scripts/data/ltt.py` reads `data/source/ltt/<age>.csv` files; `scripts/data/atus_ed.py` reads `data/source/atus_ed.csv`. SPPA has no stage-1 script: `data/source/sppa.csv` is already tidy and is consumed directly by `scripts/figures/sppa.py`.
 
 **Stage 2 — `data/derived/*.csv` → `data/derived/*_or.csv` (odds-ratio variants).** Scripts ending in `_or.py` consume a stage-1 CSV and emit an odds-ratio version, using `compute_odds()` from `scripts/data/odds.py`. The import is bare (`from odds import compute_odds`) and works because Python puts the script's directory on `sys.path`; run these as `python scripts/data/<name>_or.py`, not as a module. The odds ratio for each category is computed against that category's earliest available year (the baseline). `scripts/data/ltt_or_weekly.py` is a further derivation that first sums "Almost every day" + "Once or twice a week" before computing odds ratios.
 
-**Stage 3 — `data/derived/*.csv` → `figures/*.png`.** Scripts in `scripts/figures/` read tidy CSVs from `data/derived/` and write PNGs to `figures/`. The published figure mapping is:
+**Stage 3 — tidy CSVs → `figures/*.png`.** Scripts in `scripts/figures/` read tidy CSVs (from `data/derived/`, except `sppa.py` which reads `data/source/sppa.csv` directly) and write PNGs to `figures/`. The published figure mapping is:
 
 | Script | Output(s) |
 | --- | --- |
-| `scripts/figures/sppa.py` | `figures/fig1.png` |
+| `scripts/figures/sppa.py` | `figures/fig1.png`, `figures/fig1_or.png` (odds ratio relative to 1992) |
 | `scripts/figures/atus.py` | `figures/atus.png`, `figures/fig2.png` (odds ratio) |
 | `scripts/figures/atus_ed.py` | `figures/fig3.png`, `figures/fig4.png` (odds ratio) |
 | `scripts/figures/ltt.py` | `figures/fig5.png` |
@@ -36,7 +36,7 @@ To regenerate everything from scratch: re-run every `scripts/data/*.py` (base CS
 
 ## Conventions
 
-- **Percentages are stored as `1.6` meaning 1.6%**, matching how the source agencies (NEA/SPPA, BLS/ATUS, NAEP/LTT) publish them. `data/sppa.py` is the exception that *creates* this convention — its source stores proportions (0.016) and it multiplies by 100. Don't double-convert.
+- **Percentages are stored as `1.6` meaning 1.6%**, matching how the source agencies (NEA/SPPA, BLS/ATUS, NAEP/LTT) publish them.
 - **Blank cells in tidy CSVs represent data not collected**, not zero. Scripts skip empty values rather than imputing.
 - **Odds-ratio scripts baseline each category to its own earliest year**, not to a global year. Two categories with different first-observed years will have ratio = 1 in different years. The figure y-axis labels currently say "relative to 2003" / "relative to 2004" — if you change the underlying data and a category's first year shifts, update the label too.
 - **Each figure script defines its own `apply_style()`** that sets 8x6 inches at 600 dpi, Helvetica Neue, and a combined color+marker cycle. They're duplicated rather than shared; if you change the style, change it in every figure script.
