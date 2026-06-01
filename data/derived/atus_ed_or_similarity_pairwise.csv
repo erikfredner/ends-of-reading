@@ -1,0 +1,7 @@
+Group A,Group B,N Shared Years,Pearson r,Mean Abs Diff
+Bachelor's degree and higher,Some college or associate degree,18,0.948211,0.083226
+Bachelor's degree and higher,High school graduates (no college),18,0.907326,0.072317
+Bachelor's degree and higher,Less than a high school diploma,18,0.93885,0.123294
+Some college or associate degree,High school graduates (no college),18,0.910753,0.064016
+Some college or associate degree,Less than a high school diploma,18,0.949585,0.061068
+High school graduates (no college),Less than a high school diploma,18,0.91096,0.093487
