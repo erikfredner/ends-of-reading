@@ -75,7 +75,8 @@ def plot_activity_timeseries(
     ax.legend(title=legend_title, frameon=False)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path)
+    for suffix in (".png", ".svg", ".eps"):
+        fig.savefig(output_path.with_suffix(suffix))
     plt.close(fig)
 
 
@@ -85,9 +86,7 @@ def main() -> None:
 
     apply_style()
 
-    data_path = project_root / "data" / "derived" / "atus.csv"
     odds_ratio_path = project_root / "data" / "derived" / "atus_or.csv"
-    atus_output = figures_dir / "atus.png"
     atus_or_output = figures_dir / "fig2.png"
 
     category_order = [
@@ -105,19 +104,6 @@ def main() -> None:
         "Arts and entertainment (other than sports)": "Arts & entertainment",
     }
 
-    atus_df = pd.read_csv(data_path)
-    plot_activity_timeseries(
-        df=atus_df,
-        category_order=category_order,
-        legend_labels=legend_labels,
-        value_column="Percent",
-        ylabel="% US adults engaging in activity on an average day",
-        output_path=atus_output,
-        legend_title="Activity (Abbreviated)",
-        hline=None,
-        ylim=(0, 100),
-    )
-
     atus_or_df = pd.read_csv(odds_ratio_path)
     odds_ratio_series = atus_or_df["Odds Ratio"]
     padding = (odds_ratio_series.max() - odds_ratio_series.min()) * 0.05
@@ -131,7 +117,7 @@ def main() -> None:
         category_order=category_order,
         legend_labels=legend_labels,
         value_column="Odds Ratio",
-        ylabel="Odds ratio relative to 2003",
+        ylabel="Odds ratio for participation relative to 2003",
         output_path=atus_or_output,
         legend_title="Activity",
         hline=1,

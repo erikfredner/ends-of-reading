@@ -66,22 +66,9 @@ def _plot_timeseries(
     ax.legend(title="Type of reading", frameon=False)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path)
+    for suffix in (".png", ".svg", ".eps"):
+        fig.savefig(output_path.with_suffix(suffix))
     plt.close(fig)
-
-
-def _compute_odds_ratios(df: pd.DataFrame, baseline_year: int) -> pd.DataFrame:
-    df = df[df["Year"].dt.year >= baseline_year].copy()
-    p = df["Percent"] / 100
-    df["Odds"] = p / (1 - p)
-    baseline = (
-        df[df["Year"].dt.year == baseline_year]
-        .set_index("Read in the last year")["Odds"]
-        .rename("BaselineOdds")
-    )
-    df = df.join(baseline, on="Read in the last year")
-    df["Odds Ratio"] = df["Odds"] / df["BaselineOdds"]
-    return df.drop(columns="BaselineOdds")
 
 
 def main() -> None:
@@ -96,7 +83,6 @@ def main() -> None:
     project_root = Path(__file__).resolve().parents[2]
     data_path = project_root / "data" / "source" / "sppa.csv"
     fig_output = project_root / "figures" / "fig1.png"
-    fig_or_output = project_root / "figures" / "fig1_or.png"
 
     apply_style()
 
@@ -121,22 +107,6 @@ def main() -> None:
         output_path=fig_output,
         hline=50,
         ylim=(0, 100),
-    )
-
-    baseline_year = 1992
-    or_categories = [c for c in category_order if c != "Any book or magazine"]
-    or_df = _compute_odds_ratios(df, baseline_year=baseline_year)
-    odds_ratio_series = or_df[or_df["Read in the last year"].isin(or_categories)]["Odds Ratio"]
-    ylim = (0, odds_ratio_series.max() * 1.05)
-
-    _plot_timeseries(
-        df=or_df,
-        category_order=or_categories,
-        value_column="Odds Ratio",
-        ylabel=f"Odds ratio relative to {baseline_year}",
-        output_path=fig_or_output,
-        hline=1,
-        ylim=ylim,
     )
 
 

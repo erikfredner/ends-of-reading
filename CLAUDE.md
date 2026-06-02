@@ -26,8 +26,8 @@ Layout: `scripts/data/*.py` and `scripts/figures/*.py` hold all code; `data/sour
 
 | Script | Output(s) |
 | --- | --- |
-| `scripts/figures/sppa.py` | `figures/fig1.png`, `figures/fig1_or.png` (odds ratio relative to 1992) |
-| `scripts/figures/atus.py` | `figures/atus.png`, `figures/fig2.png` (odds ratio) |
+| `scripts/figures/sppa.py` | `figures/fig1.png` |
+| `scripts/figures/atus.py` | `figures/fig2.png` (odds ratio) |
 | `scripts/figures/atus_ed.py` | `figures/fig3.png`, `figures/fig4.png` (odds ratio) |
 | `scripts/figures/ltt.py` | `figures/fig5.png` |
 | `scripts/figures/atus_prediction.py` | `figures/atus_prediction.png` (linear fit + 95% CI + year-crosses-10% annotation) |

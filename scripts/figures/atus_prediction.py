@@ -187,7 +187,8 @@ def main() -> None:
     ax.legend(frameon=False)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path)
+    for suffix in (".png", ".svg", ".eps"):
+        fig.savefig(output_path.with_suffix(suffix))
     plt.close(fig)
 
 

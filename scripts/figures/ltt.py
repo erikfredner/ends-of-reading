@@ -73,7 +73,8 @@ def plot_weekly_reading_by_age(
     ax.legend(title="Age", frameon=False)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path)
+    for suffix in (".png", ".svg", ".eps"):
+        fig.savefig(output_path.with_suffix(suffix))
     plt.close(fig)
 
 
@@ -84,9 +85,7 @@ def main() -> None:
     apply_style()
 
     data_path = project_root / "data" / "derived" / "ltt.csv"
-    odds_ratio_path = project_root / "data" / "derived" / "ltt_or_weekly.csv"
     output_path = figures_dir / "fig5.png"
-    odds_ratio_output = figures_dir / "fig5_or.png"
 
     read_weekly = {"Almost every day", "Once or twice a week"}
     df = pd.read_csv(data_path)
@@ -103,24 +102,6 @@ def main() -> None:
         output_path=output_path,
         hline=50,
         ylim=(0, 100),
-    )
-
-    or_df = pd.read_csv(odds_ratio_path)
-    odds_ratio_series = or_df["Odds Ratio"]
-    or_padding = (odds_ratio_series.max() - odds_ratio_series.min()) * 0.05
-    or_ylim = (
-        max(0, odds_ratio_series.min() - or_padding),
-        odds_ratio_series.max() + or_padding,
-    )
-
-    plot_weekly_reading_by_age(
-        df=or_df,
-        age_order=age_order,
-        value_column="Odds Ratio",
-        ylabel="Odds ratio relative to 1984",
-        output_path=odds_ratio_output,
-        hline=1,
-        ylim=or_ylim,
     )
 
 
