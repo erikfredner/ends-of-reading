@@ -21,7 +21,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 STAGE_1 = [
     "scripts/data/atus.py",
     "scripts/data/atus_ed.py",
-    "scripts/data/ltt.py",
+    "scripts/data/ltt_extract.py",
 ]
 
 STAGE_2 = [
