@@ -36,6 +36,7 @@ def plot_activity_timeseries(
     legend_title: str,
     hline: float | None = None,
     ylim: tuple[float, float] | None = None,
+    legend_below: bool = False,
 ) -> None:
     df = df[df["Activity"].isin(category_order)].copy()
     df["Year"] = pd.to_datetime(df["Year"], format="%Y")
@@ -72,7 +73,17 @@ def plot_activity_timeseries(
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     if ylim is not None:
         ax.set_ylim(*ylim)
-    ax.legend(title=legend_title, frameon=False)
+    if legend_below:
+        ax.legend(
+            title=legend_title,
+            frameon=False,
+            loc="upper center",
+            bbox_to_anchor=(0.5, -0.14),
+            ncol=2,
+        )
+        fig.subplots_adjust(bottom=0.30)
+    else:
+        ax.legend(title=legend_title, frameon=False)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     for suffix in (".png", ".svg", ".eps"):
@@ -97,13 +108,6 @@ def main() -> None:
         "Arts and entertainment (other than sports)",
         "Reading for personal interest",
     ]
-    legend_labels = {
-        "Socializing, relaxing, and leisure": "Socializing",
-        "Computer use for leisure, excluding games": "Computer use",
-        "Reading for personal interest": "Reading",
-        "Arts and entertainment (other than sports)": "Arts & entertainment",
-    }
-
     atus_or_df = pd.read_csv(odds_ratio_path)
     odds_ratio_series = atus_or_df["Odds Ratio"]
     padding = (odds_ratio_series.max() - odds_ratio_series.min()) * 0.05
@@ -115,13 +119,14 @@ def main() -> None:
     plot_activity_timeseries(
         df=atus_or_df,
         category_order=category_order,
-        legend_labels=legend_labels,
+        legend_labels={},
         value_column="Odds Ratio",
         ylabel="Odds ratio for participation relative to 2003",
         output_path=atus_or_output,
         legend_title="Activity",
         hline=1,
         ylim=ylim,
+        legend_below=True,
     )
 
 
