@@ -1,0 +1,19 @@
+    Percentages for age 17 long-term trend reading, by read for fun on your own time [S003501] and jurisdiction: 2012, 2008, 2004, 1999, 1996, 1994, 1992, 1990, 1988, and 1984
+
+Data Table 1
+		Almost every day 	Once or twice a week 	Once or twice a month 	A few times a year 	Never or hardly ever
+Year 	Jurisdiction 	Percentage 	Percentage 	Percentage 	Percentage 	Percentage
+2012 	National 	19 	21 	16 	18 	27
+2008 	National 	20 	22 	17 	16 	24
+2004¹ 	National 	22 	30 	15 	14 	19
+1999¹ 	National 	25 	28 	19 	12 	16
+1996¹ 	National 	23 	32 	17 	12 	16
+1994¹ 	National 	30 	31 	15 	12 	12
+1992¹ 	National 	27 	33 	18 	12 	11
+1990¹ 	National 	31 	31 	15 	12 	10
+1988¹ 	National 	28 	32 	21 	10 	9
+1984¹ 	National 	31 	33 	17 	10 	9
+
+    ¹ Original assessment format.
+    NOTE: Some apparent differences between estimates may not be statistically significant.
+    SOURCE: U.S. Department of Education, Institute of Education Sciences, National Center for Education Statistics, National Assessment of Educational Progress (NAEP), 1984, 1988, 1990, 1992, 1994, 1996, 1999, 2004, 2008, and 2012 Long-Term Trend Reading Assessments.

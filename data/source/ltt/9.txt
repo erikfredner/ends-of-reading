@@ -1,0 +1,21 @@
+    Percentages for age 9 long-term trend reading, by read for fun on your own time [S003501] and jurisdiction: 2022, 2020, 2012, 2008, 2004, 1999, 1996, 1994, 1992, 1990, 1988, and 1984
+
+Data Table 1
+		Almost every day 	Once or twice a week 	Once or twice a month 	A few times a year 	Never or hardly ever
+Year 	Jurisdiction 	Percentage 	Percentage 	Percentage 	Percentage 	Percentage
+2022 	National 	39 	25 	10 	9 	16
+2020 	National 	42 	25 	9 	8 	16
+2012 	National 	53 	23 	7 	7 	11
+2008 	National 	48 	23 	8 	8 	14
+2004¹ 	National 	54 	26 	7 	5 	8
+1999¹ 	National 	54 	26 	6 	4 	10
+1996¹ 	National 	54 	27 	8 	3 	8
+1994¹ 	National 	58 	25 	5 	3 	9
+1992¹ 	National 	56 	28 	6 	3 	7
+1990¹ 	National 	54 	25 	6 	3 	12
+1988¹ 	National 	54 	26 	7 	4 	9
+1984¹ 	National 	53 	28 	7 	3 	9
+
+    ¹ Original assessment format.
+    NOTE: Some apparent differences between estimates may not be statistically significant.
+    SOURCE: U.S. Department of Education, Institute of Education Sciences, National Center for Education Statistics, National Assessment of Educational Progress (NAEP), 1984, 1988, 1990, 1992, 1994, 1996, 1999, 2004, 2008, 2012, 2020, and 2022 Long-Term Trend Reading Assessments.
