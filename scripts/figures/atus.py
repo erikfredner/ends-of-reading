@@ -89,7 +89,9 @@ def main() -> None:
         "Playing games",
         "Computer use for leisure, excluding games",
         "Watching TV",
-        "Socializing, relaxing, and leisure",
+        "Relaxing and thinking",
+        "Socializing and communicating (except social events)",
+        "Attending or hosting social events",
         "Arts and entertainment (other than sports)",
         "Reading for personal interest",
     ]
@@ -104,7 +106,9 @@ def main() -> None:
     plot_activity_timeseries(
         df=atus_or_df,
         category_order=category_order,
-        legend_labels={},
+        legend_labels={
+            "Socializing and communicating (except social events)": "Socializing & communicating (not events)",
+        },
         value_column="Odds Ratio",
         ylabel="Odds ratio for participation relative to 2003",
         output_path=atus_or_output,

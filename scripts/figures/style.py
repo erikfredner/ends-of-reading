@@ -18,7 +18,7 @@ def apply_style() -> None:
         "#D55E00",
         "#CC79A7",
     ]
-    markers = ["o", "s", "D", "^", "v", "P", "X"]
+    markers = ["o", "s", "D", "^", "v", "P", "X", "p"]
     marker_cycle = list(islice(cycle(markers), len(palette)))
     plt.rcParams.update(
         {
