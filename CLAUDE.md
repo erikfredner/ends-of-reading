@@ -10,7 +10,7 @@ Reproducibility code and data for the essay "The Ends of Reading." All outputs (
 
 - Python 3.14, managed with `uv` (see `pyproject.toml`, `uv.lock`). Dependencies: `pandas`, `matplotlib` (figure scripts also import `cycler` and `numpy` transitively via matplotlib/pandas).
 - `uv sync` to install. Run scripts as `uv run python <path>` or `python <path>` inside the venv.
-- Figure styling assumes the Helvetica Neue font is available (macOS-friendly default).
+- Figure styling prefers Helvetica Now Micro and falls back to Helvetica (both macOS-friendly).
 
 ## Pipeline architecture
 
@@ -39,7 +39,7 @@ To regenerate everything from scratch: re-run every `scripts/data/*.py` (base CS
 - **Percentages are stored as `1.6` meaning 1.6%**, matching how the source agencies (NEA/SPPA, BLS/ATUS, NAEP/LTT) publish them.
 - **Blank cells in tidy CSVs represent data not collected**, not zero. Scripts skip empty values rather than imputing.
 - **Odds-ratio scripts baseline each category to its own earliest year**, not to a global year. Two categories with different first-observed years will have ratio = 1 in different years. The figure y-axis labels currently say "relative to 2003" / "relative to 2004" — if you change the underlying data and a category's first year shifts, update the label too.
-- **Each figure script defines its own `apply_style()`** that sets 8x6 inches at 600 dpi, Helvetica Neue, and a combined color+marker cycle. They're duplicated rather than shared; if you change the style, change it in every figure script.
+- **Figure styling lives in `scripts/figures/style.py`** as a single `apply_style()` (8x6 inches at 600 dpi, Helvetica Now Micro falling back to Helvetica, combined color+marker cycle). Each figure script imports it as `from style import apply_style` — the bare import works because Python prepends the script's directory to `sys.path`, same as `scripts/data/odds.py`.
 - The `_category_order` / `_edu_order` keys you'll see in `data/*_or.py` are internal sort-stability helpers — they're popped before writing the output CSV.
 
 ## AI usage note
