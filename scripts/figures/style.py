@@ -23,7 +23,7 @@ def apply_style() -> None:
     plt.rcParams.update(
         {
             "figure.figsize": (8, 6),
-            "figure.dpi": 600,
+            "figure.dpi": 900,
             "font.family": "sans-serif",
             "font.sans-serif": ["Helvetica Now Micro", "Helvetica"],
             "axes.prop_cycle": cycler("color", palette)
