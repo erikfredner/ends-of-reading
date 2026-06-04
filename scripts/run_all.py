@@ -35,7 +35,9 @@ STAGE_2 = [
 STAGE_3 = [
     "scripts/figures/sppa.py",
     "scripts/figures/atus.py",
+    "scripts/figures/atus_fit.py",
     "scripts/figures/atus_ed.py",
+    "scripts/figures/atus_ed_fit.py",
     "scripts/figures/ltt.py",
     "scripts/figures/atus_prediction.py",
 ]
