@@ -85,7 +85,7 @@ def main() -> None:
     odds_ratio_path = project_root / "data" / "derived" / "atus_or.csv"
     atus_or_output = figures_dir / "fig2.png"
 
-    category_order = [
+    categories = {
         "Playing games",
         "Computer use for leisure, excluding games",
         "Watching TV",
@@ -94,8 +94,17 @@ def main() -> None:
         "Attending or hosting social events",
         "Arts and entertainment (other than sports)",
         "Reading for personal interest",
-    ]
+    }
     atus_or_df = pd.read_csv(odds_ratio_path)
+    atus_or_df = atus_or_df[atus_or_df["Activity"].isin(categories)]
+    latest_per_category = (
+        atus_or_df.dropna(subset=["Odds Ratio"])
+        .sort_values("Year")
+        .groupby("Activity")
+        .tail(1)
+        .set_index("Activity")["Odds Ratio"]
+    )
+    category_order = latest_per_category.sort_values(ascending=False).index.tolist()
     odds_ratio_series = atus_or_df["Odds Ratio"]
     padding = (odds_ratio_series.max() - odds_ratio_series.min()) * 0.05
     ylim = (
