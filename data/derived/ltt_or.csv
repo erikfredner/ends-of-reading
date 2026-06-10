@@ -164,8 +164,13 @@ Year,Age,Read for Fun,Percent,Odds,Odds Ratio
 2022,9,Once or twice a month,10.0,0.111111,1.47619
 2022,9,A few times a year,9.0,0.098901,3.197802
 2022,9,Never or hardly ever,16.0,0.190476,1.925926
-2023,13,Almost every day,14.0,0.162791,0.302326
-2023,13,Once or twice a week,22.0,0.282051,0.52381
-2023,13,Once or twice a month,17.0,0.204819,1.258176
-2023,13,A few times a year,16.0,0.190476,2.530612
-2023,13,Never or hardly ever,31.0,0.449275,5.166667
+2025,9,Almost every day,37.0,0.587302,0.520815
+2025,9,Once or twice a week,24.0,0.315789,0.81203
+2025,9,Once or twice a month,12.0,0.136364,1.811688
+2025,9,A few times a year,10.0,0.111111,3.592593
+2025,9,Never or hardly ever,17.0,0.204819,2.07095
+2025,13,Almost every day,14.0,0.162791,0.302326
+2025,13,Once or twice a week,21.0,0.265823,0.493671
+2025,13,Once or twice a month,18.0,0.219512,1.348432
+2025,13,A few times a year,18.0,0.219512,2.916376
+2025,13,Never or hardly ever,29.0,0.408451,4.697183
