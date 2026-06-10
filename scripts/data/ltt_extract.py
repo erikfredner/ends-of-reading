@@ -3,22 +3,32 @@ from pathlib import Path
 
 
 AGES = [9, 13, 17]
+MISSING_VALUES = {"", "—"}
+
+
+def _find_header_index(lines: list[str]) -> int:
+    for index, line in enumerate(lines):
+        cells = [cell.strip() for cell in line.split("\t")]
+        if len(cells) >= 3 and cells[0] == "Year" and cells[1] == "Jurisdiction":
+            return index
+    raise ValueError("could not find LTT table header row")
 
 
 def parse_txt(path: Path) -> tuple[list[str], list[dict]]:
     with path.open(encoding="utf-8") as f:
         lines = [line.rstrip("\n") for line in f]
 
-    subheader_cells = [cell.strip() for cell in lines[3].split("\t")]
-    categories = [c for c in subheader_cells if c]
+    header_index = _find_header_index(lines)
+    subheader_cells = [cell.strip() for cell in lines[header_index - 1].split("\t")]
+    categories = [cell for cell in subheader_cells if cell]
     expected_columns = 2 + len(categories)
 
     rows = []
-    for line in lines[5:]:
+    for line in lines[header_index + 1 :]:
         if not line.strip():
             break
         stripped = line.strip()
-        if stripped.startswith(("¹", "NOTE:", "SOURCE:")):
+        if stripped.startswith(("— ", "¹", "NOTE:", "SOURCE:")):
             break
 
         cells = [cell.strip() for cell in line.split("\t")]
@@ -33,7 +43,7 @@ def parse_txt(path: Path) -> tuple[list[str], list[dict]]:
 
         row = {"Year": year, "Jurisdiction": cells[1]}
         for category, value in zip(categories, cells[2 : 2 + len(categories)]):
-            row[category] = value
+            row[category] = "" if value in MISSING_VALUES else value
         rows.append(row)
 
     return categories, rows

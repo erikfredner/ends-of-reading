@@ -83,7 +83,7 @@ def main() -> None:
         df=df,
         age_order=age_order,
         value_column="Percent",
-        ylabel="% US students reading weekly or more often",
+        ylabel="% US students reading for fun weekly or more often",
         output_path=output_path,
         hline=50,
         ylim=(0, 100),
