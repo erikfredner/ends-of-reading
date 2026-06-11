@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from itertools import cycle, islice
-
 from cycler import cycler
 import matplotlib.pyplot as plt
 
@@ -19,14 +17,12 @@ def apply_style() -> None:
         "#CC79A7",
     ]
     markers = ["o", "s", "D", "^", "v", "P", "X", "p"]
-    marker_cycle = list(islice(cycle(markers), len(palette)))
     plt.rcParams.update(
         {
             "figure.figsize": (8, 6),
             "figure.dpi": 900,
             "font.family": "sans-serif",
             "font.sans-serif": ["Helvetica Now Micro", "Helvetica"],
-            "axes.prop_cycle": cycler("color", palette)
-            + cycler("marker", marker_cycle),
+            "axes.prop_cycle": cycler("color", palette) + cycler("marker", markers),
         }
     )

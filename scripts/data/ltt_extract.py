@@ -49,45 +49,34 @@ def parse_txt(path: Path) -> tuple[list[str], list[dict]]:
     return categories, rows
 
 
-def report_discrepancies(
-    age: int, categories: list[str], txt_rows: list[dict], csv_path: Path
-) -> None:
-    if not csv_path.exists():
-        print(f"Age {age}: no legacy CSV at {csv_path.name}; skipping comparison")
-        return
-
-    with csv_path.open(newline="", encoding="utf-8-sig") as f:
-        csv_rows = list(csv.DictReader(f))
-
-    txt_by_year = {row["Year"]: row for row in txt_rows}
-    csv_by_year = {int(row["Year"]): row for row in csv_rows}
-
-    in_csv_only = sorted(csv_by_year.keys() - txt_by_year.keys())
-    in_txt_only = sorted(txt_by_year.keys() - csv_by_year.keys())
-
-    mismatches = []
-    for year in sorted(txt_by_year.keys() & csv_by_year.keys()):
-        txt_row = txt_by_year[year]
-        csv_row = csv_by_year[year]
+def tidy(age: int, categories: list[str], txt_rows: list[dict]) -> list[dict]:
+    # NAEP dumps can list a year twice (original and revised assessment
+    # formats, e.g. "2004" and "2004¹"). Today at most one of the pair carries
+    # values; if both ever do, summing downstream would silently double-count.
+    seen: set[tuple[int, str]] = set()
+    rows = []
+    for row in txt_rows:
         for category in categories:
-            txt_value = txt_row.get(category, "")
-            csv_value = (csv_row.get(category) or "").strip()
-            if txt_value != csv_value:
-                mismatches.append((year, category, txt_value, csv_value))
-
-    if not in_csv_only and not in_txt_only and not mismatches:
-        print(f"Age {age}: TXT and CSV agree")
-        return
-
-    print(f"Age {age}:")
-    print(f"  In CSV but not in TXT: {in_csv_only}")
-    print(f"  In TXT but not in CSV: {in_txt_only}")
-    if mismatches:
-        print("  Value mismatches:")
-        for year, category, txt_value, csv_value in mismatches:
-            print(f"    {year} {category!r}: TXT={txt_value!r} CSV={csv_value!r}")
-    else:
-        print("  Value mismatches: none")
+            value = row.get(category, "")
+            if value == "":
+                continue
+            key = (row["Year"], category)
+            if key in seen:
+                raise ValueError(
+                    f"duplicate LTT value for year {row['Year']}, age {age}, "
+                    f"category {category!r} — multiple assessment formats "
+                    "with data for the same year?"
+                )
+            seen.add(key)
+            rows.append(
+                {
+                    "Year": row["Year"],
+                    "Age": age,
+                    "Read for Fun": category,
+                    "Percent": float(value),
+                }
+            )
+    return rows
 
 
 def main() -> None:
@@ -98,28 +87,9 @@ def main() -> None:
     fieldnames = ["Year", "Age", "Read for Fun", "Percent"]
     tidy_rows = []
 
-    print("Discrepancy report (TXT vs CSV):")
     for age in AGES:
-        txt_path = source_dir / f"{age}.txt"
-        csv_path = source_dir / f"{age}.csv"
-
-        categories, txt_rows = parse_txt(txt_path)
-
-        for row in txt_rows:
-            for category in categories:
-                value = row.get(category, "")
-                if value == "":
-                    continue
-                tidy_rows.append(
-                    {
-                        "Year": row["Year"],
-                        "Age": age,
-                        "Read for Fun": category,
-                        "Percent": float(value),
-                    }
-                )
-
-        report_discrepancies(age, categories, txt_rows, csv_path)
+        categories, txt_rows = parse_txt(source_dir / f"{age}.txt")
+        tidy_rows.extend(tidy(age, categories, txt_rows))
 
     tidy_rows.sort(key=lambda r: (r["Year"], r["Age"]))
 

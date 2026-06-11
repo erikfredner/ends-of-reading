@@ -1,5 +1,5 @@
 Educational Attainment,N Years,Slope (OR per year),Intercept,Pearson r vs Year
-Bachelor's degree and higher,18,-0.024041,49.145228,-0.91382
-Some college or associate degree,18,-0.026568,54.14951,-0.893223
-High school graduates (no college),18,-0.031698,64.510503,-0.953173
-Less than a high school diploma,18,-0.033931,68.926587,-0.922565
+Bachelor's degree and higher,18,-0.02403,49.122251,-0.914328
+Some college or associate degree,18,-0.026663,54.339189,-0.894573
+High school graduates (no college),18,-0.031681,64.476833,-0.952906
+Less than a high school diploma,18,-0.033832,68.726379,-0.923618

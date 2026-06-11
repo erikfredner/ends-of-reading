@@ -37,7 +37,7 @@ def main() -> None:
                     continue
 
                 try:
-                    percent = round(float(value_raw), 1)
+                    percent = float(value_raw)
                 except ValueError:
                     continue
 

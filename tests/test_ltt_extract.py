@@ -1,4 +1,6 @@
-from ltt_extract import parse_txt
+import pytest
+
+from ltt_extract import parse_txt, tidy
 
 
 def test_parse_txt_handles_current_naep_layout(tmp_path):
@@ -50,3 +52,28 @@ def test_parse_txt_handles_current_naep_layout(tmp_path):
             "Never or hardly ever": "8",
         },
     ]
+
+
+def test_tidy_skips_blank_duplicate_year():
+    categories = ["Almost every day"]
+    txt_rows = [
+        {"Year": 2004, "Jurisdiction": "National", "Almost every day": ""},
+        {"Year": 2004, "Jurisdiction": "National", "Almost every day": "54"},
+    ]
+
+    rows = tidy(9, categories, txt_rows)
+
+    assert rows == [
+        {"Year": 2004, "Age": 9, "Read for Fun": "Almost every day", "Percent": 54.0}
+    ]
+
+
+def test_tidy_raises_when_both_assessment_formats_have_values():
+    categories = ["Almost every day"]
+    txt_rows = [
+        {"Year": 2004, "Jurisdiction": "National", "Almost every day": "50"},
+        {"Year": 2004, "Jurisdiction": "National", "Almost every day": "54"},
+    ]
+
+    with pytest.raises(ValueError, match="duplicate LTT value"):
+        tidy(9, categories, txt_rows)

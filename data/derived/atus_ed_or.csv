@@ -1,73 +1,73 @@
 Year,ID,Activity,Educational Attainment,Percent,Odds,Odds Ratio
-2004,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,15.7,0.18624,1.0
-2004,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),25.2,0.336898,1.0
-2004,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,29.4,0.416431,1.0
-2004,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,37.7,0.605136,1.0
-2005,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,15.4,0.182033,0.977413
-2005,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),24.0,0.315789,0.937343
-2005,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,27.7,0.383126,0.920023
-2005,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,38.4,0.623377,1.030142
-2006,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,14.2,0.165501,0.888646
-2006,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),23.2,0.302083,0.89666
-2006,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,28.8,0.404494,0.971337
-2006,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,37.4,0.597444,0.987288
-2007,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,13.2,0.152074,0.816549
-2007,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),23.1,0.30039,0.891634
-2007,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,24.0,0.315789,0.758324
-2007,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,36.1,0.564945,0.933583
-2008,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,11.3,0.127396,0.684042
-2008,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),22.9,0.297017,0.881621
-2008,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,23.7,0.310616,0.745901
-2008,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,34.0,0.515152,0.851298
-2009,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,11.8,0.133787,0.718359
-2009,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),23.9,0.31406,0.932211
-2009,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,23.5,0.30719,0.737673
-2009,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,33.2,0.497006,0.821312
-2010,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,10.6,0.118568,0.636643
-2010,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),20.2,0.253133,0.751363
-2010,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,20.5,0.257862,0.619219
-2010,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,29.2,0.412429,0.681548
-2011,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,9.1,0.10011,0.537533
-2011,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),18.2,0.222494,0.660418
-2011,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,19.0,0.234568,0.563282
-2011,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,29.4,0.416431,0.68816
-2012,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,10.5,0.117318,0.629933
-2012,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),20.0,0.25,0.742063
-2012,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,22.3,0.287001,0.689194
-2012,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,31.2,0.453488,0.749399
-2013,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,11.3,0.127396,0.684042
-2013,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),17.7,0.215067,0.638373
-2013,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,21.7,0.277139,0.665511
-2013,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,30.1,0.430615,0.7116
-2014,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,11.3,0.127396,0.684042
-2014,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),20.4,0.256281,0.760708
-2014,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,23.3,0.303781,0.729488
-2014,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,30.4,0.436782,0.72179
-2015,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,10.1,0.112347,0.603239
-2015,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),19.8,0.246883,0.732811
-2015,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,22.3,0.287001,0.689194
-2015,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,31.2,0.453488,0.749399
-2016,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,9.0,0.098901,0.531042
-2016,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),16.9,0.203369,0.603652
-2016,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,20.6,0.259446,0.623023
-2016,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,29.3,0.414427,0.684849
-2017,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,8.5,0.092896,0.498799
-2017,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),17.2,0.207729,0.616594
-2017,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,18.3,0.22399,0.537881
-2017,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,28.0,0.388889,0.642647
-2018,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,8.0,0.086957,0.466907
-2018,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),14.4,0.168224,0.499332
-2018,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,18.3,0.22399,0.537881
-2018,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,26.8,0.36612,0.605021
-2019,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,8.8,0.096491,0.518103
-2019,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),13.7,0.158749,0.471206
-2019,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,16.9,0.203369,0.488363
-2019,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,28.8,0.404494,0.668435
-2021,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,7.0,0.075269,0.40415
-2021,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),13.5,0.156069,0.463254
-2021,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,17.4,0.210654,0.505856
-2021,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,26.5,0.360544,0.595806
-2022,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,3.3,0.034126,0.183238
-2022,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),11.9,0.135074,0.400933
-2022,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,14.8,0.173709,0.417138
-2022,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,25.3,0.338688,0.559689
+2004,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,15.708193,0.186355,1.0
+2004,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),25.1779474,0.336504,1.0
+2004,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,29.406313,0.416557,1.0
+2004,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,37.7272334,0.605838,1.0
+2005,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,15.3531919,0.181379,0.973301
+2005,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),24.0249411,0.316221,0.939725
+2005,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,27.6584535,0.382332,0.917837
+2005,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,38.4019102,0.623427,1.029032
+2006,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,14.2036071,0.16555,0.88836
+2006,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),23.158912,0.301387,0.895641
+2006,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,28.8431877,0.405347,0.973088
+2006,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,37.3686352,0.596644,0.984824
+2007,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,13.195269,0.152011,0.815707
+2007,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),23.1321039,0.300933,0.894292
+2007,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,24.0491476,0.316641,0.760138
+2007,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,36.110746,0.565208,0.932936
+2008,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,11.3103143,0.127527,0.684322
+2008,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),22.8503611,0.296182,0.880174
+2008,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,23.7334412,0.311191,0.747054
+2008,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,33.9528889,0.514071,0.848528
+2009,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,11.7676349,0.133371,0.715683
+2009,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),23.8617154,0.3134,0.931339
+2009,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,23.526002,0.307634,0.738516
+2009,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,33.1824529,0.496613,0.819712
+2010,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,10.5972456,0.118534,0.636065
+2010,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),20.1861902,0.252916,0.751598
+2010,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,20.5478762,0.25862,0.62085
+2010,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,29.2305196,0.413038,0.681763
+2011,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,9.1100261,0.100231,0.537852
+2011,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),18.1866061,0.222294,0.660597
+2011,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,19.0065601,0.234668,0.563351
+2011,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,29.4048991,0.416529,0.687525
+2012,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,10.5382833,0.117797,0.632109
+2012,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),19.9823708,0.249725,0.742114
+2012,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,22.3399292,0.287663,0.690573
+2012,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,31.2005881,0.453501,0.748551
+2013,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,11.2858915,0.127216,0.682657
+2013,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),17.6686882,0.214605,0.637747
+2013,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,21.6940193,0.277042,0.665075
+2013,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,30.0894586,0.430399,0.71042
+2014,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,11.2943459,0.127324,0.683233
+2014,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),20.3976174,0.256244,0.761487
+2014,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,23.2768601,0.303388,0.728322
+2014,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,30.3825229,0.436421,0.720359
+2015,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,10.1139905,0.11252,0.603795
+2015,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),19.8231035,0.247242,0.734737
+2015,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,22.2864092,0.286776,0.688444
+2015,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,31.1906393,0.453291,0.748204
+2016,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,9.0225908,0.099174,0.532178
+2016,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),16.9020603,0.203399,0.604448
+2016,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,20.6393474,0.26007,0.624333
+2016,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,29.2560838,0.413549,0.682606
+2017,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,8.5021851,0.092922,0.498631
+2017,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),17.1969303,0.207685,0.617183
+2017,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,18.2663734,0.223487,0.536509
+2017,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,27.9938173,0.38877,0.641705
+2018,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,7.9977909,0.08693,0.466478
+2018,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),14.4389745,0.168756,0.501499
+2018,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,18.2539683,0.223301,0.536063
+2018,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,26.7869819,0.365877,0.603919
+2019,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,8.7505506,0.095897,0.514593
+2019,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),13.6647821,0.158276,0.470353
+2019,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,16.8640636,0.202849,0.486966
+2019,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,28.7858326,0.404215,0.667199
+2021,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,7.0099742,0.075384,0.404519
+2021,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),13.5367249,0.15656,0.465255
+2021,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,17.4029451,0.210697,0.505805
+2021,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,26.4926434,0.360408,0.594891
+2022,TUU30105AA01006315,Reading for personal interest,Less than a high school diploma,3.3471744,0.034631,0.185833
+2022,TUU30105AA01006315,Reading for personal interest,High school graduates (no college),11.8667799,0.134646,0.400131
+2022,TUU30105AA01006315,Reading for personal interest,Some college or associate degree,14.7850351,0.173503,0.416516
+2022,TUU30105AA01006315,Reading for personal interest,Bachelor's degree and higher,25.308498,0.33884,0.559292

@@ -2,58 +2,11 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
-from itertools import cycle
 
-import matplotlib.dates as mdates
-import matplotlib.pyplot as plt
 import pandas as pd
 
+from plotting import plot_grouped_timeseries
 from style import apply_style
-
-
-def _plot_timeseries(
-    df: pd.DataFrame,
-    category_order: list[str],
-    value_column: str,
-    ylabel: str,
-    output_path: Path,
-    hline: float | None = None,
-    ylim: tuple[float, float] | None = None,
-) -> None:
-    df = df[df["Read in the last year"].isin(category_order)].copy()
-    df["Read in the last year"] = pd.Categorical(
-        df["Read in the last year"], categories=category_order, ordered=True
-    )
-    df = df.sort_values(["Read in the last year", "Year"])
-    prop_cycle = plt.rcParams.get("axes.prop_cycle")
-    style_cycle = cycle(prop_cycle) if prop_cycle is not None else None
-
-    fig, ax = plt.subplots()
-    if hline is not None:
-        ax.axhline(hline, color="gray", linestyle="dashed", linewidth=1)
-
-    for category in category_order:
-        subset = df[df["Read in the last year"] == category]
-        if subset.empty:
-            continue
-        style_kwargs = next(style_cycle) if style_cycle is not None else {}
-        ax.plot(subset["Year"], subset[value_column], label=category, **style_kwargs)
-
-    ax.set_xlabel("Year")
-    ax.set_ylabel(ylabel)
-    years = sorted(df["Year"].unique())
-    ax.set_xticks(years)
-    padding = (years[-1] - years[0]) * 0.04
-    ax.set_xlim(years[0] - padding, years[-1] + padding)
-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
-    if ylim is not None:
-        ax.set_ylim(*ylim)
-    ax.legend(title="Type of reading", frameon=False)
-
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    for suffix in (".png", ".svg", ".eps"):
-        fig.savefig(output_path.with_suffix(suffix))
-    plt.close(fig)
 
 
 def main() -> None:
@@ -72,7 +25,6 @@ def main() -> None:
     apply_style()
 
     df = pd.read_csv(data_path)
-    df["Year"] = pd.to_datetime(df["Year"], format="%Y")
 
     category_order = [
         "Any book",
@@ -84,14 +36,17 @@ def main() -> None:
     if args.include_magazine:
         category_order.insert(0, "Any book or magazine")
 
-    _plot_timeseries(
+    plot_grouped_timeseries(
         df=df,
-        category_order=category_order,
+        group_col="Read in the last year",
+        group_order=category_order,
         value_column="Percent",
         ylabel="% US adults reading in the past year",
         output_path=fig_output,
+        legend_title="Type of reading",
         hline=50,
         ylim=(0, 100),
+        tick_every_year=True,
     )
 
 

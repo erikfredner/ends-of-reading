@@ -2,29 +2,43 @@ from __future__ import annotations
 
 from pathlib import Path
 import math
-from statistics import NormalDist
+from statistics import NormalDist, linear_regression
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from plotting import save_figure
 from style import apply_style
 
 
 ACTIVITY = "Reading for personal interest"
 
 
+def t_critical(df: int, ci: float = 0.95) -> float:
+    """Two-sided Student-t critical value for ``df`` degrees of freedom.
+
+    Cornish-Fisher expansion of the t quantile around the normal quantile
+    (Abramowitz & Stegun 26.7.5); accurate to ~3e-4 for df >= 5.
+    """
+    z = NormalDist().inv_cdf(1 - (1 - ci) / 2)
+    z2 = z * z
+    g1 = (z2 + 1) * z / 4
+    g2 = ((5 * z2 + 16) * z2 + 3) * z / 96
+    g3 = (((3 * z2 + 19) * z2 + 17) * z2 - 15) * z / 384
+    g4 = ((((79 * z2 + 776) * z2 + 1482) * z2 - 1920) * z2 - 945) * z / 92160
+    return z + g1 / df + g2 / df**2 + g3 / df**3 + g4 / df**4
+
+
 def fit_linear_model(years: np.ndarray, values: np.ndarray) -> dict[str, float]:
     x = years.astype(float)
     y = values.astype(float)
     n = len(x)
+    slope, intercept = linear_regression(x.tolist(), y.tolist())
     x_mean = float(np.mean(x))
     y_mean = float(np.mean(y))
     sxx = float(np.sum((x - x_mean) ** 2))
-    sxy = float(np.sum((x - x_mean) * (y - y_mean)))
-    slope = sxy / sxx
-    intercept = y_mean - slope * x_mean
     residuals = y - (intercept + slope * x)
     sigma = float(np.sqrt(np.sum(residuals**2) / (n - 2)))
     ss_res = float(np.sum(residuals**2))
@@ -53,8 +67,7 @@ def predict_with_ci(
     n = model["n"]
 
     y_hat = intercept + slope * x
-    alpha = 1.0 - ci
-    crit = NormalDist().inv_cdf(1 - alpha / 2)
+    crit = t_critical(int(n) - 2, ci)
     se_mean = sigma * np.sqrt(1 / n + (x - x_mean) ** 2 / sxx)
     lower = y_hat - crit * se_mean
     upper = y_hat + crit * se_mean
@@ -170,10 +183,7 @@ def main() -> None:
     )
     ax.legend(frameon=False)
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    for suffix in (".png", ".svg", ".eps"):
-        fig.savefig(output_path.with_suffix(suffix))
-    plt.close(fig)
+    save_figure(fig, output_path)
 
 
 if __name__ == "__main__":
