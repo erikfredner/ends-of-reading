@@ -24,11 +24,11 @@ Layout: `scripts/data/*.py` and `scripts/figures/*.py` hold all pipeline code; `
 - `scripts/data/ltt_or_weekly.py` sums "Almost every day" + "Once or twice a week" before computing odds ratios.
 - `scripts/data/atus_ed_or_similarity.py` reads `atus_ed_or.csv` and writes three similarity CSVs (`atus_ed_or_similarity_pairwise.csv`, `_slopes.csv`, `_spread.csv`) summarizing how the four education-level trajectories converge or diverge.
 
-**Stage 3 — tidy CSVs → `figures/*.{png,svg,eps}`.** Scripts in `scripts/figures/` read tidy CSVs (from `data/derived/`, except `sppa.py` which reads `data/source/sppa.csv` directly) and write figures to `figures/`. Shared plotting code lives in `scripts/figures/plotting.py`: `plot_grouped_timeseries()` (one line per group), `plot_grouped_fits()` (scatter + per-group OLS line), `latest_value_order()` (legend ordering shared by fig2/fig2_fit), and `save_figure()` which writes all three formats (`.png`, `.svg`, `.eps`) — use these when adding new figure scripts. The published figure mapping:
+**Stage 3 — tidy CSVs → `figures/*.{png,svg,eps,pdf}`.** Scripts in `scripts/figures/` read tidy CSVs (from `data/derived/`, except `sppa.py` which reads `data/source/sppa.csv` directly) and write figures to `figures/`. Shared plotting code lives in `scripts/figures/plotting.py`: `plot_grouped_timeseries()` (one line per group), `plot_grouped_fits()` (scatter + per-group OLS line), `latest_value_order()` (legend ordering shared by fig2/fig2_fit), and `save_figure()` which writes all four formats (`.png`, `.svg`, `.eps`, `.pdf`) — use these when adding new figure scripts. The published figure mapping:
 
 | Script | Output(s) |
 | --- | --- |
-| `scripts/figures/sppa.py` | `figures/fig1.{png,svg,eps}` |
+| `scripts/figures/sppa.py` | `figures/fig1.{png,svg,eps,pdf}` |
 | `scripts/figures/atus.py` | `figures/fig2.*` (odds ratio) |
 | `scripts/figures/atus_fit.py` | `figures/fig2_fit.*` (linear-fit overlay variant of fig2) |
 | `scripts/figures/atus_ed.py` | `figures/fig3.*`, `figures/fig4.*` (odds ratio, by education) |

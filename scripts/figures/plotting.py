@@ -17,7 +17,7 @@ from matplotlib.lines import Line2D
 
 def save_figure(fig, output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    for suffix in (".png", ".svg", ".eps"):
+    for suffix in (".png", ".svg", ".eps", ".pdf"):
         fig.savefig(output_path.with_suffix(suffix))
     plt.close(fig)
 
