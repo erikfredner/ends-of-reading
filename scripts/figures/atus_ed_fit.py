@@ -36,6 +36,7 @@ def main() -> None:
         legend_title="Education",
         hline=1,
         ylim=(0, 1.1),
+        show_r2=True,
     )
 
 

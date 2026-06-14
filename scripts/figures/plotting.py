@@ -7,7 +7,7 @@ from __future__ import annotations
 from itertools import cycle
 import math
 from pathlib import Path
-from statistics import linear_regression
+from statistics import correlation, linear_regression
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
@@ -124,8 +124,13 @@ def plot_grouped_fits(
     hline: float | None = None,
     ylim: tuple[float, float] | None = None,
     legend_below: bool = False,
+    show_r2: bool = False,
 ) -> None:
-    """Per-group scatter of observed values with an OLS line through each."""
+    """Per-group scatter of observed values with an OLS line through each.
+
+    ``show_r2`` appends each fit's coefficient of determination (R²) to its
+    legend label.
+    """
     legend_labels = legend_labels or {}
     df = df[df[group_col].isin(group_order)].copy()
     df = df.dropna(subset=[value_column])
@@ -165,6 +170,9 @@ def plot_grouped_fits(
             linewidth=1.5,
         )
         label = str(legend_labels.get(group, group))
+        if show_r2:
+            r2 = correlation(years, values) ** 2
+            label = f"{label} (R² = {r2:.2f})"
         handles.append(Line2D([0], [0], color=color, marker=marker, label=label))
 
     ax.set_xlabel("Year")
