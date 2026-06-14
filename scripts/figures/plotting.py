@@ -41,10 +41,14 @@ def _setup_year_axis(ax, min_year: pd.Timestamp, max_year: pd.Timestamp) -> None
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
 
 
-def _finish_legend(fig, ax, legend_title: str, legend_below: bool, handles=None) -> None:
+def _finish_legend(
+    fig, ax, legend_title: str, legend_below: bool, handles=None, fontsize=None
+) -> None:
     kwargs = {"title": legend_title, "frameon": False}
     if handles is not None:
         kwargs["handles"] = handles
+    if fontsize is not None:
+        kwargs["fontsize"] = fontsize
     if legend_below:
         ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14), ncol=2, **kwargs)
         fig.subplots_adjust(bottom=0.30)
@@ -125,11 +129,13 @@ def plot_grouped_fits(
     ylim: tuple[float, float] | None = None,
     legend_below: bool = False,
     show_r2: bool = False,
+    legend_fontsize: float | None = None,
 ) -> None:
     """Per-group scatter of observed values with an OLS line through each.
 
     ``show_r2`` appends each fit's coefficient of determination (R²) to its
-    legend label.
+    legend label. ``legend_fontsize`` shrinks the legend text when the labels
+    would otherwise overflow the figure.
     """
     legend_labels = legend_labels or {}
     df = df[df[group_col].isin(group_order)].copy()
@@ -184,6 +190,13 @@ def plot_grouped_fits(
     )
     if ylim is not None:
         ax.set_ylim(*ylim)
-    _finish_legend(fig, ax, legend_title, legend_below, handles=handles)
+    _finish_legend(
+        fig,
+        ax,
+        legend_title,
+        legend_below,
+        handles=handles,
+        fontsize=legend_fontsize,
+    )
 
     save_figure(fig, output_path)

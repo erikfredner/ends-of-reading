@@ -41,6 +41,8 @@ def main() -> None:
         hline=1,
         ylim=ylim,
         legend_below=True,
+        show_r2=True,
+        legend_fontsize="x-small",
     )
 
 
