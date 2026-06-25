@@ -7,6 +7,7 @@ data source and arithmetic shown in parentheses for spot-checking.
 from __future__ import annotations
 
 import csv
+import math
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -68,12 +69,18 @@ def _atus_estimate_rows(path: Path) -> list[tuple[int, float]]:
 
     rows = []
     for row in csv.DictReader(data_lines):
+        year_str = (row.get("Year") or "").strip()
         estimate = (row.get("Estimate") or "").strip()
+        if not year_str or not estimate:
+            continue
         try:
+            year = int(float(year_str))
             value = float(estimate)
         except ValueError:
             continue
-        rows.append((int(row["Year"]), value))
+        if math.isnan(value):
+            continue
+        rows.append((year, value))
     rows.sort(key=lambda r: r[0])
     return rows
 
