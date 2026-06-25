@@ -1,3 +1,18 @@
+ Data extracted on: June 25, 2026 (10:08:00 AM)
+
+American Time Use
+
+
+Series Id:        TUU30105AA01005514
+
+Not seasonally adjusted
+Series Title:     Percent participating on an avg day - Attending or hosting social events
+Type of estimate: Percent of population engaged in activity on an average day
+Activity:         Attending or hosting social events
+Type of Days:     All days
+Age Group:        15 years and over
+
+
 Year,Period,Estimate,Standard Error
 2003,Annual,3.4,0.14
 2004,Annual,3.5,0.20
@@ -21,3 +36,4 @@ Year,Period,Estimate,Standard Error
 2022,Annual,1.8,0.15
 2023,Annual,2.2,0.18
 2024,Annual,1.7,0.16
+2025,Annual,2.0,0.21

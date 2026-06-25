@@ -1,3 +1,18 @@
+ Data extracted on: June 25, 2026 (10:10:24 AM)
+
+American Time Use
+
+
+Series Id:        TUU30105AA01006315
+
+Not seasonally adjusted
+Series Title:     Percent participating on an avg day - Reading for personal interest
+Type of estimate: Percent of population engaged in activity on an average day
+Activity:         Reading for personal interest
+Type of Days:     All days
+Age Group:        15 years and over
+
+
 Year,Period,Estimate,Standard Error
 2003,Annual,26.3,0.33
 2004,Annual,27.7,0.42
@@ -21,3 +36,4 @@ Year,Period,Estimate,Standard Error
 2022,Annual,16.7,0.51
 2023,Annual,16.2,0.49
 2024,Annual,16.1,0.44
+2025,Annual,16.1,0.53

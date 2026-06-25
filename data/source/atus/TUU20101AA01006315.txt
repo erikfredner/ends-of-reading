@@ -1,3 +1,18 @@
+ Data extracted on: June 25, 2026 (10:21:37 AM)
+
+American Time Use
+
+
+Series Id:        TUU20101AA01006315
+
+Not seasonally adjusted
+Series Title:     Avg hrs per day for participants - Reading for personal interest
+Type of estimate: Average hours per day for participants in an activity
+Activity:         Reading for personal interest
+Type of Days:     All days
+Age Group:        15 years and over
+
+
 Year,Period,Estimate,Standard Error
 2003,Annual,1.39,0.023
 2004,Annual,1.38,0.021
@@ -21,4 +36,4 @@ Year,Period,Estimate,Standard Error
 2022,Annual,1.58,0.040
 2023,Annual,1.61,0.046
 2024,Annual,1.74,0.058
-
+2025,Annual,1.67,0.065

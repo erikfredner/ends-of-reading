@@ -1,3 +1,18 @@
+ Data extracted on: June 25, 2026 (10:08:33 AM)
+
+American Time Use
+
+
+Series Id:        TUU30105AA01005658
+
+Not seasonally adjusted
+Series Title:     Percent participating on an avg day - Relaxing and thinking
+Type of estimate: Percent of population engaged in activity on an average day
+Activity:         Relaxing and thinking
+Type of Days:     All days
+Age Group:        15 years and over
+
+
 Year,Period,Estimate,Standard Error
 2003,Annual,23.7,0.37
 2004,Annual,21.0,0.42
@@ -21,3 +36,4 @@ Year,Period,Estimate,Standard Error
 2022,Annual,21.6,0.54
 2023,Annual,21.2,0.63
 2024,Annual,20.6,0.61
+2025,Annual,20.2,0.67

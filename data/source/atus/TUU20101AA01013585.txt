@@ -1,3 +1,18 @@
+ Data extracted on: June 25, 2026 (10:06:14 AM)
+
+American Time Use
+
+
+Series Id:        TUU20101AA01013585
+
+Not seasonally adjusted
+Series Title:     Avg hrs per day for participants - Leisure and sports (includes travel)
+Type of estimate: Average hours per day for participants in an activity
+Activity:         Leisure and sports (includes travel)
+Type of Days:     All days
+Age Group:        15 years and over
+
+
 Year,Period,Estimate,Standard Error
 2003,Annual,5.33,0.026
 2004,Annual,5.39,0.033
@@ -21,4 +36,4 @@ Year,Period,Estimate,Standard Error
 2022,Annual,5.47,0.048
 2023,Annual,5.48,0.053
 2024,Annual,5.39,0.051
-
+2025,Annual,5.43,0.060

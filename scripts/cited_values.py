@@ -14,18 +14,10 @@ SPPA_PATH = PROJECT_ROOT / "data" / "source" / "sppa.csv"
 ATUS_PATH = PROJECT_ROOT / "data" / "derived" / "atus.csv"
 LTT_OR_WEEKLY_PATH = PROJECT_ROOT / "data" / "derived" / "ltt_or_weekly.csv"
 ATUS_SOURCE_DIR = PROJECT_ROOT / "data" / "source" / "atus"
-ATUS_AVG_HRS_READING_PATH = (
-    ATUS_SOURCE_DIR
-    / "TUU10101AA01006315 Avg hrs per day - Reading for personal interest.csv"
-)
-ATUS_AVG_HRS_READING_PARTICIPANTS_PATH = (
-    ATUS_SOURCE_DIR
-    / "TUU20101AA01006315 Avg hrs per day for participants - Reading for personal interest.csv"
-)
-ATUS_AVG_HRS_LEISURE_PARTICIPANTS_PATH = (
-    ATUS_SOURCE_DIR
-    / "TUU20101AA01013585 Avg hrs per day for participants - Leisure and sports (includes travel).csv"
-)
+# Raw BLS ATUS dumps; filenames are bare series ids (see _atus_estimate_rows).
+ATUS_AVG_HRS_READING_PATH = ATUS_SOURCE_DIR / "TUU10101AA01006315.txt"
+ATUS_AVG_HRS_READING_PARTICIPANTS_PATH = ATUS_SOURCE_DIR / "TUU20101AA01006315.txt"
+ATUS_AVG_HRS_LEISURE_PARTICIPANTS_PATH = ATUS_SOURCE_DIR / "TUU20101AA01013585.txt"
 
 
 def _odds(percent: float) -> float:
@@ -65,12 +57,17 @@ def _atus_rows(activity: str) -> list[tuple[int, float]]:
 
 
 def _atus_estimate_rows(path: Path) -> list[tuple[int, float]]:
-    """Read a raw BLS ATUS CSV (Year,Period,Estimate,Standard Error).
+    """Read a raw BLS ATUS dump (metadata header + Year,Period,Estimate,...).
 
-    Skips suppressed rows (the BLS marks these as "-(M)" or similar).
+    The dumps carry a metadata header block; skip to the ``Year,`` line before
+    parsing. Suppressed rows (BLS marks these "-(M)" or similar) are skipped.
     """
+    lines = path.read_text(encoding="utf-8-sig").splitlines()
+    header_idx = next((i for i, line in enumerate(lines) if line.startswith("Year,")), None)
+    data_lines = lines[header_idx:] if header_idx is not None else []
+
     rows = []
-    for row in _read(path):
+    for row in csv.DictReader(data_lines):
         estimate = (row.get("Estimate") or "").strip()
         try:
             value = float(estimate)

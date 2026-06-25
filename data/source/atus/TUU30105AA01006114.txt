@@ -1,3 +1,18 @@
+ Data extracted on: June 25, 2026 (10:09:47 AM)
+
+American Time Use
+
+
+Series Id:        TUU30105AA01006114
+
+Not seasonally adjusted
+Series Title:     Percent participating on an avg day - Computer use for leisure, excluding games
+Type of estimate: Percent of population engaged in activity on an average day
+Activity:         Computer use for leisure (excluding games)
+Type of Days:     All days
+Age Group:        15 years and over
+
+
 Year,Period,Estimate,Standard Error
 2003,Annual,8.2,0.23
 2004,Annual,9.5,0.31
@@ -21,3 +36,4 @@ Year,Period,Estimate,Standard Error
 2022,Annual,13.5,0.51
 2023,Annual,13.7,0.52
 2024,Annual,13.0,0.52
+2025,Annual,14.7,0.65

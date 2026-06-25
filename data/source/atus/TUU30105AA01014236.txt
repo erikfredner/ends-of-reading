@@ -1,3 +1,18 @@
+ Data extracted on: June 25, 2026 (10:11:59 AM)
+
+American Time Use
+
+
+Series Id:        TUU30105AA01014236
+
+Not seasonally adjusted
+Series Title:     Percent participating on an avg day - Watching TV
+Type of estimate: Percent of population engaged in activity on an average day
+Activity:         Watching TV
+Type of Days:     All days
+Age Group:        15 years and over
+
+
 Year,Period,Estimate,Standard Error
 2003,Annual,78.8,0.34
 2004,Annual,80.6,0.40
@@ -21,4 +36,4 @@ Year,Period,Estimate,Standard Error
 2022,Annual,76.5,0.65
 2023,Annual,73.7,0.65
 2024,Annual,72.8,0.73
-
+2025,Annual,74.3,0.72

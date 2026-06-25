@@ -1,3 +1,18 @@
+ Data extracted on: June 25, 2026 (10:07:21 AM)
+
+American Time Use
+
+
+Series Id:        TUU30105AA01005442
+
+Not seasonally adjusted
+Series Title:     Percent participating on an avg day - Socializing and communicating (except social events)
+Type of estimate: Percent of population engaged in activity on an average day
+Activity:         Socializing and communicating (except social events)
+Type of Days:     All days
+Age Group:        15 years and over
+
+
 Year,Period,Estimate,Standard Error
 2003,Annual,38.2,0.39
 2004,Annual,38.0,0.51
@@ -21,3 +36,4 @@ Year,Period,Estimate,Standard Error
 2022,Annual,27.5,0.61
 2023,Annual,27.7,0.57
 2024,Annual,28.9,0.68
+2025,Annual,29.3,0.83
