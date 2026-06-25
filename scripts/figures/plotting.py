@@ -7,12 +7,10 @@ from __future__ import annotations
 from itertools import cycle
 import math
 from pathlib import Path
-from statistics import correlation, linear_regression
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import pandas as pd
-from matplotlib.lines import Line2D
 
 
 def save_figure(fig, output_path: Path) -> None:
@@ -41,14 +39,8 @@ def _setup_year_axis(ax, min_year: pd.Timestamp, max_year: pd.Timestamp) -> None
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
 
 
-def _finish_legend(
-    fig, ax, legend_title: str, legend_below: bool, handles=None, fontsize=None
-) -> None:
+def _finish_legend(fig, ax, legend_title: str, legend_below: bool) -> None:
     kwargs = {"title": legend_title, "frameon": False}
-    if handles is not None:
-        kwargs["handles"] = handles
-    if fontsize is not None:
-        kwargs["fontsize"] = fontsize
     if legend_below:
         ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14), ncol=2, **kwargs)
         fig.subplots_adjust(bottom=0.30)
@@ -112,91 +104,5 @@ def plot_grouped_timeseries(
     if ylim is not None:
         ax.set_ylim(*ylim)
     _finish_legend(fig, ax, legend_title, legend_below)
-
-    save_figure(fig, output_path)
-
-
-def plot_grouped_fits(
-    df: pd.DataFrame,
-    group_col: str,
-    group_order: list,
-    value_column: str,
-    ylabel: str,
-    output_path: Path,
-    legend_title: str,
-    legend_labels: dict | None = None,
-    hline: float | None = None,
-    ylim: tuple[float, float] | None = None,
-    legend_below: bool = False,
-    show_r2: bool = False,
-    legend_fontsize: float | None = None,
-) -> None:
-    """Per-group scatter of observed values with an OLS line through each.
-
-    ``show_r2`` appends each fit's coefficient of determination (R²) to its
-    legend label. ``legend_fontsize`` shrinks the legend text when the labels
-    would otherwise overflow the figure.
-    """
-    legend_labels = legend_labels or {}
-    df = df[df[group_col].isin(group_order)].copy()
-    df = df.dropna(subset=[value_column])
-    min_year = int(df["Year"].min())
-    max_year = int(df["Year"].max())
-    style_cycle = cycle(plt.rcParams["axes.prop_cycle"])
-
-    fig, ax = plt.subplots()
-    if hline is not None:
-        ax.axhline(hline, color="gray", linestyle="dashed", linewidth=1)
-
-    handles: list[Line2D] = []
-    for group in group_order:
-        subset = df[df[group_col] == group].sort_values("Year")
-        if subset.empty:
-            continue
-        style_kwargs = next(style_cycle)
-        color = style_kwargs.get("color")
-        marker = style_kwargs.get("marker", "o")
-        years = subset["Year"].astype(float).tolist()
-        values = subset[value_column].astype(float).tolist()
-        slope, intercept = linear_regression(years, values)
-        fit_x = [int(min(years)), int(max(years))]
-        fit_y = [intercept + slope * x for x in fit_x]
-        ax.scatter(
-            pd.to_datetime(subset["Year"], format="%Y"),
-            values,
-            color=color,
-            marker=marker,
-            zorder=3,
-        )
-        ax.plot(
-            pd.to_datetime(fit_x, format="%Y"),
-            fit_y,
-            color=color,
-            marker="",
-            linewidth=1.5,
-        )
-        label = str(legend_labels.get(group, group))
-        if show_r2:
-            r2 = correlation(years, values) ** 2
-            label = f"{label} (R² = {r2:.2f})"
-        handles.append(Line2D([0], [0], color=color, marker=marker, label=label))
-
-    ax.set_xlabel("Year")
-    ax.set_ylabel(ylabel)
-    _setup_year_axis(
-        ax,
-        pd.to_datetime(min_year, format="%Y"),
-        pd.to_datetime(max_year, format="%Y"),
-    )
-    if ylim is not None:
-        ax.set_ylim(*ylim)
-    _finish_legend(
-        fig,
-        ax,
-        legend_title,
-        legend_below,
-        handles=handles,
-        fontsize=legend_fontsize,
-    )
 
     save_figure(fig, output_path)
