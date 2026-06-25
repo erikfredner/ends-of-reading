@@ -55,9 +55,16 @@ def fit_linear_model(years: np.ndarray, values: np.ndarray) -> dict[str, float]:
     }
 
 
-def predict_with_ci(
+def predict_with_pi(
     years: np.ndarray, model: dict[str, float], ci: float = 0.95
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Point forecast plus a prediction interval for a single new observation.
+
+    The ``1 +`` term inside the square root is what separates this from a
+    confidence band on the mean response: it adds the irreducible scatter of an
+    individual year around the trend line, so the band answers "where would a
+    single future year's value fall" rather than "where is the mean trend".
+    """
     x = years.astype(float)
     slope = model["slope"]
     intercept = model["intercept"]
@@ -68,9 +75,9 @@ def predict_with_ci(
 
     y_hat = intercept + slope * x
     crit = t_critical(int(n) - 2, ci)
-    se_mean = sigma * np.sqrt(1 / n + (x - x_mean) ** 2 / sxx)
-    lower = y_hat - crit * se_mean
-    upper = y_hat + crit * se_mean
+    se_pred = sigma * np.sqrt(1 + 1 / n + (x - x_mean) ** 2 / sxx)
+    lower = y_hat - crit * se_pred
+    upper = y_hat + crit * se_pred
     return y_hat, lower, upper
 
 
@@ -115,7 +122,7 @@ def main() -> None:
         end_year = max(end_year, threshold_year + 1)
 
     plot_years = np.arange(min_year, end_year + 1)
-    y_hat, lower, upper = predict_with_ci(plot_years, model)
+    y_hat, lower, upper = predict_with_pi(plot_years, model)
 
     fig, ax = plt.subplots()
     colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
@@ -143,7 +150,7 @@ def main() -> None:
         upper,
         color=color_pred,
         alpha=0.2,
-        label="95% CI",
+        label="95% prediction interval",
     )
 
     ax.axhline(10, color="gray", linestyle="dashed", linewidth=1)
