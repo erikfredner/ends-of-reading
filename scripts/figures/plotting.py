@@ -10,6 +10,7 @@ from pathlib import Path
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
 import pandas as pd
 
 
@@ -62,6 +63,7 @@ def plot_grouped_timeseries(
     legend_below: bool = False,
     fill_year_gaps: bool = False,
     tick_every_year: bool = False,
+    percent_y: bool = False,
 ) -> None:
     """One line per group over time.
 
@@ -69,6 +71,8 @@ def plot_grouped_timeseries(
     years (e.g. ATUS 2020) render as gaps instead of being bridged.
     ``tick_every_year`` puts a tick at every observed year (for sparse,
     irregular surveys like the SPPA) instead of an evenly stepped locator.
+    ``percent_y`` appends "%" to the y-axis tick labels (values are already
+    on a 0-100 scale).
     """
     legend_labels = legend_labels or {}
     df = df[df[group_col].isin(group_order)].copy()
@@ -103,6 +107,8 @@ def plot_grouped_timeseries(
         ax.set_xticks(sorted(df["Year"].unique()))
     if ylim is not None:
         ax.set_ylim(*ylim)
+    if percent_y:
+        ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=100, decimals=0))
     _finish_legend(fig, ax, legend_title, legend_below)
 
     save_figure(fig, output_path)

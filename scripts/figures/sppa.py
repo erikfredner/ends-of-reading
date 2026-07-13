@@ -41,12 +41,13 @@ def main() -> None:
         group_col="Read in the last year",
         group_order=category_order,
         value_column="Percent",
-        ylabel="% US adults reading in the past year",
+        ylabel="US adults reading in the past year",
         output_path=fig_output,
         legend_title="Type of reading",
         hline=50,
         ylim=(0, 100),
         tick_every_year=True,
+        percent_y=True,
     )
 
 

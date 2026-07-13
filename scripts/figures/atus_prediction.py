@@ -6,6 +6,7 @@ from statistics import NormalDist, linear_regression
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
 import numpy as np
 import pandas as pd
 
@@ -171,7 +172,7 @@ def main() -> None:
     n_years = (end_year - min_year) + 1
     step = max(1, math.ceil(n_years / 8))
     ax.set_xlabel("Year")
-    ax.set_ylabel("% US adults reading for personal interest on an average day")
+    ax.set_ylabel("US adults reading for personal interest on an average day")
     min_year_ts = pd.to_datetime(min_year, format="%Y")
     max_year_ts = pd.to_datetime(end_year, format="%Y")
     padding = (max_year_ts - min_year_ts) * 0.04
@@ -179,6 +180,7 @@ def main() -> None:
     ax.xaxis.set_major_locator(mdates.YearLocator(base=step))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     ax.set_ylim(0, max(values) + 5)
+    ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=100, decimals=0))
     ax.text(
         0.02,
         0.95,

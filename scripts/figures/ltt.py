@@ -23,11 +23,12 @@ def main() -> None:
         group_col="Age",
         group_order=age_order,
         value_column="Percent",
-        ylabel="% US students reading for fun weekly or more often",
+        ylabel="US students reading for fun weekly or more often",
         output_path=output_path,
         legend_title="Age",
         hline=50,
         ylim=(0, 100),
+        percent_y=True,
     )
 
 

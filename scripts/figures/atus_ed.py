@@ -31,12 +31,13 @@ def main() -> None:
         group_col="Educational Attainment",
         group_order=EDUCATION_ORDER,
         value_column="Percent",
-        ylabel="% US adults reading for personal interest on an average day",
+        ylabel="US adults reading for personal interest on an average day",
         output_path=figures_dir / "fig3.png",
         legend_title="Education",
         hline=50,
         ylim=(0, 100),
         fill_year_gaps=True,
+        percent_y=True,
     )
 
     atus_ed_or_df = pd.read_csv(odds_ratio_path)
