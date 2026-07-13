@@ -188,6 +188,50 @@ def _ltt_age_or(age: int, sentence_template: str) -> str:
     )
 
 
+def _ltt_weekly_rows(age: int) -> list[tuple[int, float]]:
+    rows = []
+    for row in _read(LTT_OR_WEEKLY_PATH):
+        if int(row["Age"]) != age:
+            continue
+        rows.append((int(row["Year"]), float(row["Percent"])))
+    rows.sort(key=lambda r: r[0])
+    return rows
+
+
+def sentence_ltt_ages9_13_or_2008() -> str:
+    """Variant of the 1984-baseline LTT claims confined to the revised
+    assessment format (2008 onward), so the comparison never crosses NAEP's
+    original-to-revised format change."""
+    baseline_year = 2008
+    results = []
+    for age in (9, 13):
+        rows = dict(_ltt_weekly_rows(age))
+        latest_year = max(rows)
+        baseline_odds = _odds(rows[baseline_year])
+        latest_odds = _odds(rows[latest_year])
+        odds_ratio = latest_odds / baseline_odds
+        lower_pct = (1 - odds_ratio) * 100
+        results.append((age, rows, latest_year, baseline_odds, latest_odds, odds_ratio, lower_pct))
+    age9_pct = round(results[0][6])
+    age13_pct = round(results[1][6])
+    sentence = (
+        f'Even within the revised assessment format alone, the odds of '
+        f'nine-year-olds reading for fun weekly or more often are {age9_pct}% lower '
+        f'than they were in {baseline_year}, and the odds of thirteen-year-olds '
+        f'are {age13_pct}% lower.'
+    )
+    lines = [f'Sentence: {sentence}', '  Computed:']
+    for age, rows, latest_year, baseline_odds, latest_odds, odds_ratio, lower_pct in results:
+        lines.append(
+            f'    Age {age}: {lower_pct:.1f}% lower  '
+            f'(LTT "Weekly or more often", '
+            f'{baseline_year}: {rows[baseline_year]}% → odds {baseline_odds:.4f}; '
+            f'{latest_year}: {rows[latest_year]}% → odds {latest_odds:.4f}; '
+            f'OR {odds_ratio:.4f} → 1−OR)'
+        )
+    return '\n'.join(lines)
+
+
 def _sppa_category_or(category: str, baseline_year: int, sentence_template: str) -> str:
     rows = dict(_sppa_rows(category))
     latest_year = max(rows)
@@ -396,6 +440,7 @@ CLAIMS = [
     sentence_ltt_age9_or_1984,
     sentence_ltt_age13_or_1984_v2,
     sentence_ltt_age17_or_1984,
+    sentence_ltt_ages9_13_or_2008,
 ]
 
 
