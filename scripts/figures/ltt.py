@@ -2,12 +2,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import pandas as pd
 
-from plotting import _setup_year_axis, plot_grouped_timeseries, save_figure
+from plotting import _setup_year_axis, save_figure
 from style import apply_style
 
 # NAEP administered the LTT reading questions in their original format through
@@ -16,18 +15,11 @@ from style import apply_style
 LAST_ORIGINAL_FORMAT_YEAR = 2004
 
 
-def _lighten(color: str, amount: float = 0.6) -> tuple[float, float, float]:
-    """Blend a color toward white by ``amount`` (0 = unchanged, 1 = white)."""
-    r, g, b = mcolors.to_rgb(color)
-    return (r + (1 - r) * amount, g + (1 - g) * amount, b + (1 - b) * amount)
-
-
 def plot_format_variant(df: pd.DataFrame, age_order: list, output_path: Path) -> None:
     """One line per age, split into original- and revised-format segments.
 
-    Each age keeps one hue: the original-format points (through 2004) are a
-    lightened shade, the revised-format points (2008 onward) the full color,
-    with no line bridging the format change.
+    Each age keeps one hue across both segments; no line bridges the format
+    change, and the divider and era labels mark where it falls.
     """
     prop = plt.rcParams["axes.prop_cycle"].by_key()
     colors, markers = prop["color"], prop["marker"]
@@ -45,7 +37,7 @@ def plot_format_variant(df: pd.DataFrame, age_order: list, output_path: Path) ->
         ax.plot(
             original["Year"],
             original["Percent"],
-            color=_lighten(colors[i]),
+            color=colors[i],
             marker=markers[i],
             label="_nolegend_",
         )
@@ -86,37 +78,7 @@ def main() -> None:
     df = pd.read_csv(data_path)
     age_order = sorted(df["Age"].unique())
 
-    plot_grouped_timeseries(
-        df=df,
-        group_col="Age",
-        group_order=age_order,
-        value_column="Percent",
-        ylabel="US students reading for fun weekly or more often",
-        output_path=output_path,
-        legend_title="Age",
-        hline=50,
-        ylim=(0, 100),
-        percent_y=True,
-    )
-
-    # Variant with every point, but original- vs revised-format segments
-    # distinguished by lightened vs full hue within each age's color.
-    plot_format_variant(df, age_order, project_root / "figures" / "fig5_formats.png")
-
-    # Variant restricted to the revised assessment format (2008 onward), so
-    # no line spans NAEP's original-to-revised format change after 2004.
-    plot_grouped_timeseries(
-        df=df[df["Year"] >= 2008],
-        group_col="Age",
-        group_order=age_order,
-        value_column="Percent",
-        ylabel="US students reading for fun weekly or more often",
-        output_path=project_root / "figures" / "fig5_2008.png",
-        legend_title="Age",
-        hline=50,
-        ylim=(0, 100),
-        percent_y=True,
-    )
+    plot_format_variant(df, age_order, output_path)
 
 
 if __name__ == "__main__":
