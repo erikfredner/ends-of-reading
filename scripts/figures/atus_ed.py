@@ -47,7 +47,7 @@ def main() -> None:
         group_col="Educational Attainment",
         group_order=EDUCATION_ORDER,
         value_column="Odds Ratio",
-        ylabel="Reading for personal interest odds ratio relative to 2004",
+        ylabel="Odds ratio of reading for personal interest relative to 2004",
         output_path=figures_dir / "fig4.png",
         legend_title="Education",
         hline=1,

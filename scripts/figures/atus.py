@@ -34,7 +34,7 @@ def main() -> None:
         group_order=category_order,
         legend_labels=LEGEND_LABELS,
         value_column="Odds Ratio",
-        ylabel="Odds ratio for participation relative to 2003",
+        ylabel="Odds ratio of participation relative to 2003",
         output_path=output_path,
         legend_title="Activity",
         hline=1,
