@@ -1,8 +1,9 @@
 # "The Ends of Reading"
 
-[![DOI](https://zenodo.org/badge/1132267528.svg)](https://doi.org/10.5281/zenodo.18434695)
+Code and data to support my essay, "The Ends of Reading," which is forthcoming in *American Literature*.
 
-Code and data to support my essay, "The Ends of Reading," which is [forthcoming in *American Literature*](https://doi.org/10.1215/00029831-12720407)
+- [Essay](https://doi.org/10.1215/00029831-12720407)
+- [Zenodo](https://doi.org/10.5281/zenodo.18434695)
 
 ## Reproduce
 
