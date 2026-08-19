@@ -44,4 +44,4 @@ your own time" (`S003501`).
 
 <https://www.nationsreportcard.gov/ndecore/xplore/ltt>
 
-NAEP revised the assessment after 2004. In the downloaded tables the years collected under the earlier instrument carry a superscript one (`2004¹`); the revised-format years are unmarked. `ltt_extract.py` preserves this distinction as an `Assessment Format` column rather than hard-coding the changeover year, and `ltt_or_weekly.py` uses it to write `ltt_or_weekly_revised.csv`, a copy of the weekly-or-more series restricted to the revised format and baselined to 2008. Comparisons back to 1984 span both formats, and 2004 to 2008 is the largest single step in every age series, so `cited_values.py` reports both readings.
+NAEP revised the assessment after 2004.
