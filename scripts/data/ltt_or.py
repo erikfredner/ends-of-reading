@@ -21,6 +21,7 @@ def main() -> None:
                     "Age": int(row["Age"]),
                     "Read for Fun": read_value,
                     "Percent": float(row["Percent"]),
+                    "Assessment Format": row["Assessment Format"],
                 }
             )
 
@@ -31,7 +32,15 @@ def main() -> None:
     )
     output_rows.sort(key=lambda r: (r["Year"], r["Age"], read_order[r["Read for Fun"]]))
 
-    fieldnames = ["Year", "Age", "Read for Fun", "Percent", "Odds", "Odds Ratio"]
+    fieldnames = [
+        "Year",
+        "Age",
+        "Read for Fun",
+        "Percent",
+        "Assessment Format",
+        "Odds",
+        "Odds Ratio",
+    ]
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)

@@ -5,6 +5,14 @@ from pathlib import Path
 AGES = [9, 13, 17]
 MISSING_VALUES = {"", "—"}
 
+# NAEP footnotes the years collected under the pre-2008 instrument with a
+# superscript one ("2004¹") and leaves the revised-format years unmarked. The
+# marker is the only record of the break in the dumps, so carry it through
+# rather than hard-coding the changeover year downstream.
+ORIGINAL_FORMAT_MARKER = "¹"
+ORIGINAL_FORMAT = "Original"
+REVISED_FORMAT = "Revised"
+
 
 def _find_header_index(lines: list[str]) -> int:
     for index, line in enumerate(lines):
@@ -35,13 +43,22 @@ def parse_txt(path: Path) -> tuple[list[str], list[dict]]:
         if len(cells) < expected_columns:
             continue
 
-        year_raw = cells[0].replace("¹", "")
+        year_raw = cells[0].replace(ORIGINAL_FORMAT_MARKER, "")
         try:
             year = int(year_raw)
         except ValueError:
             continue
 
-        row = {"Year": year, "Jurisdiction": cells[1]}
+        assessment_format = (
+            ORIGINAL_FORMAT
+            if ORIGINAL_FORMAT_MARKER in cells[0]
+            else REVISED_FORMAT
+        )
+        row = {
+            "Year": year,
+            "Jurisdiction": cells[1],
+            "Assessment Format": assessment_format,
+        }
         for category, value in zip(categories, cells[2 : 2 + len(categories)]):
             row[category] = "" if value in MISSING_VALUES else value
         rows.append(row)
@@ -74,6 +91,7 @@ def tidy(age: int, categories: list[str], txt_rows: list[dict]) -> list[dict]:
                     "Age": age,
                     "Read for Fun": category,
                     "Percent": float(value),
+                    "Assessment Format": row["Assessment Format"],
                 }
             )
     return rows
@@ -84,7 +102,7 @@ def main() -> None:
     source_dir = project_root / "data" / "source" / "ltt"
     output_path = project_root / "data" / "derived" / "ltt.csv"
 
-    fieldnames = ["Year", "Age", "Read for Fun", "Percent"]
+    fieldnames = ["Year", "Age", "Read for Fun", "Percent", "Assessment Format"]
     tidy_rows = []
 
     for age in AGES:

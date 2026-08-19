@@ -11,6 +11,11 @@ CASES = [
     {"name": "atus_ed_or", "output": "atus_ed_or.csv", "group_cols": ["Educational Attainment"]},
     {"name": "ltt_or", "output": "ltt_or.csv", "group_cols": ["Age", "Read for Fun"]},
     {"name": "ltt_or_weekly", "output": "ltt_or_weekly.csv", "group_cols": ["Age"]},
+    {
+        "name": "ltt_or_weekly_revised",
+        "output": "ltt_or_weekly_revised.csv",
+        "group_cols": ["Age"],
+    },
 ]
 
 
@@ -103,3 +108,31 @@ def test_sppa_or_drops_precomparable_poetry():
     df = _load_or_skip(DERIVED / "sppa_or.csv")
     poetry_years = set(df.loc[df["Read in the last year"] == "Poetry", "Year"])
     assert not poetry_years & {1982, 1985}
+
+
+def test_ltt_revised_output_holds_only_revised_format_years():
+    """The revised-format variants exist to avoid spanning NAEP's instrument
+    change, so a single original-format row leaking in would defeat them."""
+    full = _load_or_skip(DERIVED / "ltt_or_weekly.csv")
+    revised = _load_or_skip(DERIVED / "ltt_or_weekly_revised.csv")
+
+    assert set(revised["Assessment Format"]) == {"Revised"}
+    assert set(revised["Year"]) == set(full.loc[full["Assessment Format"] == "Revised", "Year"])
+    assert revised.groupby("Age")["Year"].min().unique().tolist() == [2008]
+
+
+def test_ltt_revised_percents_match_the_full_series():
+    """Rebaselining must change only the odds ratios, never the underlying
+    participation percentages."""
+    full = _load_or_skip(DERIVED / "ltt_or_weekly.csv")
+    revised = _load_or_skip(DERIVED / "ltt_or_weekly_revised.csv")
+
+    merged = revised.merge(
+        full[["Year", "Age", "Percent"]],
+        on=["Year", "Age"],
+        how="left",
+        suffixes=("", "_full"),
+        validate="one_to_one",
+    )
+    assert merged["Percent_full"].notna().all()
+    assert (merged["Percent"] - merged["Percent_full"]).abs().max() < 1e-9

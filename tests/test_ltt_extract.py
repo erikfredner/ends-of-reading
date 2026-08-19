@@ -33,6 +33,7 @@ def test_parse_txt_handles_current_naep_layout(tmp_path):
         {
             "Year": 2025,
             "Jurisdiction": "National",
+            "Assessment Format": "Revised",
             "Almost every day": "37",
             "Once or twice a week": "24",
             "Never or hardly ever": "17",
@@ -40,6 +41,7 @@ def test_parse_txt_handles_current_naep_layout(tmp_path):
         {
             "Year": 2004,
             "Jurisdiction": "National",
+            "Assessment Format": "Revised",
             "Almost every day": "",
             "Once or twice a week": "",
             "Never or hardly ever": "",
@@ -47,6 +49,7 @@ def test_parse_txt_handles_current_naep_layout(tmp_path):
         {
             "Year": 2004,
             "Jurisdiction": "National",
+            "Assessment Format": "Original",
             "Almost every day": "54",
             "Once or twice a week": "26",
             "Never or hardly ever": "8",
@@ -57,22 +60,48 @@ def test_parse_txt_handles_current_naep_layout(tmp_path):
 def test_tidy_skips_blank_duplicate_year():
     categories = ["Almost every day"]
     txt_rows = [
-        {"Year": 2004, "Jurisdiction": "National", "Almost every day": ""},
-        {"Year": 2004, "Jurisdiction": "National", "Almost every day": "54"},
+        {
+            "Year": 2004,
+            "Jurisdiction": "National",
+            "Assessment Format": "Revised",
+            "Almost every day": "",
+        },
+        {
+            "Year": 2004,
+            "Jurisdiction": "National",
+            "Assessment Format": "Original",
+            "Almost every day": "54",
+        },
     ]
 
     rows = tidy(9, categories, txt_rows)
 
     assert rows == [
-        {"Year": 2004, "Age": 9, "Read for Fun": "Almost every day", "Percent": 54.0}
+        {
+            "Year": 2004,
+            "Age": 9,
+            "Read for Fun": "Almost every day",
+            "Percent": 54.0,
+            "Assessment Format": "Original",
+        }
     ]
 
 
 def test_tidy_raises_when_both_assessment_formats_have_values():
     categories = ["Almost every day"]
     txt_rows = [
-        {"Year": 2004, "Jurisdiction": "National", "Almost every day": "50"},
-        {"Year": 2004, "Jurisdiction": "National", "Almost every day": "54"},
+        {
+            "Year": 2004,
+            "Jurisdiction": "National",
+            "Assessment Format": "Revised",
+            "Almost every day": "50",
+        },
+        {
+            "Year": 2004,
+            "Jurisdiction": "National",
+            "Assessment Format": "Original",
+            "Almost every day": "54",
+        },
     ]
 
     with pytest.raises(ValueError, match="duplicate LTT value"):

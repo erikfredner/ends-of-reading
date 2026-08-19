@@ -1,176 +1,176 @@
-Year,Age,Read for Fun,Percent,Odds,Odds Ratio
-1984,9,Almost every day,53.0,1.12766,1.0
-1984,9,Once or twice a week,28.0,0.388889,1.0
-1984,9,Once or twice a month,7.0,0.075269,1.0
-1984,9,A few times a year,3.0,0.030928,1.0
-1984,9,Never or hardly ever,9.0,0.098901,1.0
-1984,13,Almost every day,35.0,0.538462,1.0
-1984,13,Once or twice a week,35.0,0.538462,1.0
-1984,13,Once or twice a month,14.0,0.162791,1.0
-1984,13,A few times a year,7.0,0.075269,1.0
-1984,13,Never or hardly ever,8.0,0.086957,1.0
-1984,17,Almost every day,31.0,0.449275,1.0
-1984,17,Once or twice a week,33.0,0.492537,1.0
-1984,17,Once or twice a month,17.0,0.204819,1.0
-1984,17,A few times a year,10.0,0.111111,1.0
-1984,17,Never or hardly ever,9.0,0.098901,1.0
-1988,9,Almost every day,54.0,1.173913,1.041017
-1988,9,Once or twice a week,26.0,0.351351,0.903475
-1988,9,Once or twice a month,7.0,0.075269,1.0
-1988,9,A few times a year,4.0,0.041667,1.347222
-1988,9,Never or hardly ever,9.0,0.098901,1.0
-1988,13,Almost every day,36.0,0.5625,1.044643
-1988,13,Once or twice a week,31.0,0.449275,0.834369
-1988,13,Once or twice a month,15.0,0.176471,1.084034
-1988,13,A few times a year,8.0,0.086957,1.15528
-1988,13,Never or hardly ever,10.0,0.111111,1.277778
-1988,17,Almost every day,28.0,0.388889,0.865591
-1988,17,Once or twice a week,32.0,0.470588,0.955437
-1988,17,Once or twice a month,21.0,0.265823,1.297841
-1988,17,A few times a year,10.0,0.111111,1.0
-1988,17,Never or hardly ever,9.0,0.098901,1.0
-1990,9,Almost every day,54.0,1.173913,1.041017
-1990,9,Once or twice a week,25.0,0.333333,0.857143
-1990,9,Once or twice a month,6.0,0.06383,0.848024
-1990,9,A few times a year,3.0,0.030928,1.0
-1990,9,Never or hardly ever,12.0,0.136364,1.378788
-1990,13,Almost every day,35.0,0.538462,1.0
-1990,13,Once or twice a week,32.0,0.470588,0.87395
-1990,13,Once or twice a month,13.0,0.149425,0.917898
-1990,13,A few times a year,9.0,0.098901,1.313972
-1990,13,Never or hardly ever,11.0,0.123596,1.421348
-1990,17,Almost every day,31.0,0.449275,1.0
-1990,17,Once or twice a week,31.0,0.449275,0.912165
-1990,17,Once or twice a month,15.0,0.176471,0.861592
-1990,17,A few times a year,12.0,0.136364,1.227273
-1990,17,Never or hardly ever,10.0,0.111111,1.123457
-1992,9,Almost every day,56.0,1.272727,1.128645
-1992,9,Once or twice a week,28.0,0.388889,1.0
-1992,9,Once or twice a month,6.0,0.06383,0.848024
-1992,9,A few times a year,3.0,0.030928,1.0
-1992,9,Never or hardly ever,7.0,0.075269,0.761051
-1992,13,Almost every day,37.0,0.587302,1.090703
-1992,13,Once or twice a week,32.0,0.470588,0.87395
-1992,13,Once or twice a month,13.0,0.149425,0.917898
-1992,13,A few times a year,8.0,0.086957,1.15528
-1992,13,Never or hardly ever,9.0,0.098901,1.137363
-1992,17,Almost every day,27.0,0.369863,0.823243
-1992,17,Once or twice a week,33.0,0.492537,1.0
-1992,17,Once or twice a month,18.0,0.219512,1.071736
-1992,17,A few times a year,12.0,0.136364,1.227273
-1992,17,Never or hardly ever,11.0,0.123596,1.249688
-1994,9,Almost every day,58.0,1.380952,1.224618
-1994,9,Once or twice a week,25.0,0.333333,0.857143
-1994,9,Once or twice a month,5.0,0.052632,0.699248
-1994,9,A few times a year,3.0,0.030928,1.0
-1994,9,Never or hardly ever,9.0,0.098901,1.0
-1994,13,Almost every day,32.0,0.470588,0.87395
-1994,13,Once or twice a week,32.0,0.470588,0.87395
-1994,13,Once or twice a month,14.0,0.162791,1.0
-1994,13,A few times a year,10.0,0.111111,1.47619
-1994,13,Never or hardly ever,12.0,0.136364,1.568182
-1994,17,Almost every day,30.0,0.428571,0.953917
-1994,17,Once or twice a week,31.0,0.449275,0.912165
-1994,17,Once or twice a month,15.0,0.176471,0.861592
-1994,17,A few times a year,12.0,0.136364,1.227273
-1994,17,Never or hardly ever,12.0,0.136364,1.378788
-1996,9,Almost every day,54.0,1.173913,1.041017
-1996,9,Once or twice a week,27.0,0.369863,0.951076
-1996,9,Once or twice a month,8.0,0.086957,1.15528
-1996,9,A few times a year,3.0,0.030928,1.0
-1996,9,Never or hardly ever,8.0,0.086957,0.879227
-1996,13,Almost every day,32.0,0.470588,0.87395
-1996,13,Once or twice a week,31.0,0.449275,0.834369
-1996,13,Once or twice a month,15.0,0.176471,1.084034
-1996,13,A few times a year,9.0,0.098901,1.313972
-1996,13,Never or hardly ever,13.0,0.149425,1.718391
-1996,17,Almost every day,23.0,0.298701,0.664851
-1996,17,Once or twice a week,32.0,0.470588,0.955437
-1996,17,Once or twice a month,17.0,0.204819,1.0
-1996,17,A few times a year,12.0,0.136364,1.227273
-1996,17,Never or hardly ever,16.0,0.190476,1.925926
-1999,9,Almost every day,54.0,1.173913,1.041017
-1999,9,Once or twice a week,26.0,0.351351,0.903475
-1999,9,Once or twice a month,6.0,0.06383,0.848024
-1999,9,A few times a year,4.0,0.041667,1.347222
-1999,9,Never or hardly ever,10.0,0.111111,1.123457
-1999,13,Almost every day,28.0,0.388889,0.722222
-1999,13,Once or twice a week,36.0,0.5625,1.044643
-1999,13,Once or twice a month,17.0,0.204819,1.258176
-1999,13,A few times a year,10.0,0.111111,1.47619
-1999,13,Never or hardly ever,9.0,0.098901,1.137363
-1999,17,Almost every day,25.0,0.333333,0.741935
-1999,17,Once or twice a week,28.0,0.388889,0.789562
-1999,17,Once or twice a month,19.0,0.234568,1.145243
-1999,17,A few times a year,12.0,0.136364,1.227273
-1999,17,Never or hardly ever,16.0,0.190476,1.925926
-2004,9,Almost every day,54.0,1.173913,1.041017
-2004,9,Once or twice a week,26.0,0.351351,0.903475
-2004,9,Once or twice a month,7.0,0.075269,1.0
-2004,9,A few times a year,5.0,0.052632,1.701754
-2004,9,Never or hardly ever,8.0,0.086957,0.879227
-2004,13,Almost every day,30.0,0.428571,0.795918
-2004,13,Once or twice a week,34.0,0.515152,0.95671
-2004,13,Once or twice a month,15.0,0.176471,1.084034
-2004,13,A few times a year,9.0,0.098901,1.313972
-2004,13,Never or hardly ever,13.0,0.149425,1.718391
-2004,17,Almost every day,22.0,0.282051,0.627792
-2004,17,Once or twice a week,30.0,0.428571,0.87013
-2004,17,Once or twice a month,15.0,0.176471,0.861592
-2004,17,A few times a year,14.0,0.162791,1.465116
-2004,17,Never or hardly ever,19.0,0.234568,2.371742
-2008,9,Almost every day,48.0,0.923077,0.818578
-2008,9,Once or twice a week,23.0,0.298701,0.768089
-2008,9,Once or twice a month,8.0,0.086957,1.15528
-2008,9,A few times a year,8.0,0.086957,2.811594
-2008,9,Never or hardly ever,14.0,0.162791,1.645995
-2008,13,Almost every day,26.0,0.351351,0.65251
-2008,13,Once or twice a week,25.0,0.333333,0.619048
-2008,13,Once or twice a month,13.0,0.149425,0.917898
-2008,13,A few times a year,12.0,0.136364,1.811688
-2008,13,Never or hardly ever,24.0,0.315789,3.631579
-2008,17,Almost every day,20.0,0.25,0.556452
-2008,17,Once or twice a week,22.0,0.282051,0.57265
-2008,17,Once or twice a month,17.0,0.204819,1.0
-2008,17,A few times a year,16.0,0.190476,1.714286
-2008,17,Never or hardly ever,24.0,0.315789,3.192982
-2012,9,Almost every day,53.0,1.12766,1.0
-2012,9,Once or twice a week,23.0,0.298701,0.768089
-2012,9,Once or twice a month,7.0,0.075269,1.0
-2012,9,A few times a year,7.0,0.075269,2.433692
-2012,9,Never or hardly ever,11.0,0.123596,1.249688
-2012,13,Almost every day,27.0,0.369863,0.686888
-2012,13,Once or twice a week,26.0,0.351351,0.65251
-2012,13,Once or twice a month,14.0,0.162791,1.0
-2012,13,A few times a year,11.0,0.123596,1.642055
-2012,13,Never or hardly ever,22.0,0.282051,3.24359
-2012,17,Almost every day,19.0,0.234568,0.522103
-2012,17,Once or twice a week,21.0,0.265823,0.539701
-2012,17,Once or twice a month,16.0,0.190476,0.929972
-2012,17,A few times a year,18.0,0.219512,1.97561
-2012,17,Never or hardly ever,27.0,0.369863,3.739726
-2020,9,Almost every day,42.0,0.724138,0.64216
-2020,9,Once or twice a week,25.0,0.333333,0.857143
-2020,9,Once or twice a month,9.0,0.098901,1.313972
-2020,9,A few times a year,8.0,0.086957,2.811594
-2020,9,Never or hardly ever,16.0,0.190476,1.925926
-2020,13,Almost every day,17.0,0.204819,0.380379
-2020,13,Once or twice a week,23.0,0.298701,0.554731
-2020,13,Once or twice a month,16.0,0.190476,1.170068
-2020,13,A few times a year,15.0,0.176471,2.344538
-2020,13,Never or hardly ever,29.0,0.408451,4.697183
-2022,9,Almost every day,39.0,0.639344,0.566966
-2022,9,Once or twice a week,25.0,0.333333,0.857143
-2022,9,Once or twice a month,10.0,0.111111,1.47619
-2022,9,A few times a year,9.0,0.098901,3.197802
-2022,9,Never or hardly ever,16.0,0.190476,1.925926
-2025,9,Almost every day,37.0,0.587302,0.520815
-2025,9,Once or twice a week,24.0,0.315789,0.81203
-2025,9,Once or twice a month,12.0,0.136364,1.811688
-2025,9,A few times a year,10.0,0.111111,3.592593
-2025,9,Never or hardly ever,17.0,0.204819,2.07095
-2025,13,Almost every day,14.0,0.162791,0.302326
-2025,13,Once or twice a week,21.0,0.265823,0.493671
-2025,13,Once or twice a month,18.0,0.219512,1.348432
-2025,13,A few times a year,18.0,0.219512,2.916376
-2025,13,Never or hardly ever,29.0,0.408451,4.697183
+Year,Age,Read for Fun,Percent,Assessment Format,Odds,Odds Ratio
+1984,9,Almost every day,53.0,Original,1.12766,1.0
+1984,9,Once or twice a week,28.0,Original,0.388889,1.0
+1984,9,Once or twice a month,7.0,Original,0.075269,1.0
+1984,9,A few times a year,3.0,Original,0.030928,1.0
+1984,9,Never or hardly ever,9.0,Original,0.098901,1.0
+1984,13,Almost every day,35.0,Original,0.538462,1.0
+1984,13,Once or twice a week,35.0,Original,0.538462,1.0
+1984,13,Once or twice a month,14.0,Original,0.162791,1.0
+1984,13,A few times a year,7.0,Original,0.075269,1.0
+1984,13,Never or hardly ever,8.0,Original,0.086957,1.0
+1984,17,Almost every day,31.0,Original,0.449275,1.0
+1984,17,Once or twice a week,33.0,Original,0.492537,1.0
+1984,17,Once or twice a month,17.0,Original,0.204819,1.0
+1984,17,A few times a year,10.0,Original,0.111111,1.0
+1984,17,Never or hardly ever,9.0,Original,0.098901,1.0
+1988,9,Almost every day,54.0,Original,1.173913,1.041017
+1988,9,Once or twice a week,26.0,Original,0.351351,0.903475
+1988,9,Once or twice a month,7.0,Original,0.075269,1.0
+1988,9,A few times a year,4.0,Original,0.041667,1.347222
+1988,9,Never or hardly ever,9.0,Original,0.098901,1.0
+1988,13,Almost every day,36.0,Original,0.5625,1.044643
+1988,13,Once or twice a week,31.0,Original,0.449275,0.834369
+1988,13,Once or twice a month,15.0,Original,0.176471,1.084034
+1988,13,A few times a year,8.0,Original,0.086957,1.15528
+1988,13,Never or hardly ever,10.0,Original,0.111111,1.277778
+1988,17,Almost every day,28.0,Original,0.388889,0.865591
+1988,17,Once or twice a week,32.0,Original,0.470588,0.955437
+1988,17,Once or twice a month,21.0,Original,0.265823,1.297841
+1988,17,A few times a year,10.0,Original,0.111111,1.0
+1988,17,Never or hardly ever,9.0,Original,0.098901,1.0
+1990,9,Almost every day,54.0,Original,1.173913,1.041017
+1990,9,Once or twice a week,25.0,Original,0.333333,0.857143
+1990,9,Once or twice a month,6.0,Original,0.06383,0.848024
+1990,9,A few times a year,3.0,Original,0.030928,1.0
+1990,9,Never or hardly ever,12.0,Original,0.136364,1.378788
+1990,13,Almost every day,35.0,Original,0.538462,1.0
+1990,13,Once or twice a week,32.0,Original,0.470588,0.87395
+1990,13,Once or twice a month,13.0,Original,0.149425,0.917898
+1990,13,A few times a year,9.0,Original,0.098901,1.313972
+1990,13,Never or hardly ever,11.0,Original,0.123596,1.421348
+1990,17,Almost every day,31.0,Original,0.449275,1.0
+1990,17,Once or twice a week,31.0,Original,0.449275,0.912165
+1990,17,Once or twice a month,15.0,Original,0.176471,0.861592
+1990,17,A few times a year,12.0,Original,0.136364,1.227273
+1990,17,Never or hardly ever,10.0,Original,0.111111,1.123457
+1992,9,Almost every day,56.0,Original,1.272727,1.128645
+1992,9,Once or twice a week,28.0,Original,0.388889,1.0
+1992,9,Once or twice a month,6.0,Original,0.06383,0.848024
+1992,9,A few times a year,3.0,Original,0.030928,1.0
+1992,9,Never or hardly ever,7.0,Original,0.075269,0.761051
+1992,13,Almost every day,37.0,Original,0.587302,1.090703
+1992,13,Once or twice a week,32.0,Original,0.470588,0.87395
+1992,13,Once or twice a month,13.0,Original,0.149425,0.917898
+1992,13,A few times a year,8.0,Original,0.086957,1.15528
+1992,13,Never or hardly ever,9.0,Original,0.098901,1.137363
+1992,17,Almost every day,27.0,Original,0.369863,0.823243
+1992,17,Once or twice a week,33.0,Original,0.492537,1.0
+1992,17,Once or twice a month,18.0,Original,0.219512,1.071736
+1992,17,A few times a year,12.0,Original,0.136364,1.227273
+1992,17,Never or hardly ever,11.0,Original,0.123596,1.249688
+1994,9,Almost every day,58.0,Original,1.380952,1.224618
+1994,9,Once or twice a week,25.0,Original,0.333333,0.857143
+1994,9,Once or twice a month,5.0,Original,0.052632,0.699248
+1994,9,A few times a year,3.0,Original,0.030928,1.0
+1994,9,Never or hardly ever,9.0,Original,0.098901,1.0
+1994,13,Almost every day,32.0,Original,0.470588,0.87395
+1994,13,Once or twice a week,32.0,Original,0.470588,0.87395
+1994,13,Once or twice a month,14.0,Original,0.162791,1.0
+1994,13,A few times a year,10.0,Original,0.111111,1.47619
+1994,13,Never or hardly ever,12.0,Original,0.136364,1.568182
+1994,17,Almost every day,30.0,Original,0.428571,0.953917
+1994,17,Once or twice a week,31.0,Original,0.449275,0.912165
+1994,17,Once or twice a month,15.0,Original,0.176471,0.861592
+1994,17,A few times a year,12.0,Original,0.136364,1.227273
+1994,17,Never or hardly ever,12.0,Original,0.136364,1.378788
+1996,9,Almost every day,54.0,Original,1.173913,1.041017
+1996,9,Once or twice a week,27.0,Original,0.369863,0.951076
+1996,9,Once or twice a month,8.0,Original,0.086957,1.15528
+1996,9,A few times a year,3.0,Original,0.030928,1.0
+1996,9,Never or hardly ever,8.0,Original,0.086957,0.879227
+1996,13,Almost every day,32.0,Original,0.470588,0.87395
+1996,13,Once or twice a week,31.0,Original,0.449275,0.834369
+1996,13,Once or twice a month,15.0,Original,0.176471,1.084034
+1996,13,A few times a year,9.0,Original,0.098901,1.313972
+1996,13,Never or hardly ever,13.0,Original,0.149425,1.718391
+1996,17,Almost every day,23.0,Original,0.298701,0.664851
+1996,17,Once or twice a week,32.0,Original,0.470588,0.955437
+1996,17,Once or twice a month,17.0,Original,0.204819,1.0
+1996,17,A few times a year,12.0,Original,0.136364,1.227273
+1996,17,Never or hardly ever,16.0,Original,0.190476,1.925926
+1999,9,Almost every day,54.0,Original,1.173913,1.041017
+1999,9,Once or twice a week,26.0,Original,0.351351,0.903475
+1999,9,Once or twice a month,6.0,Original,0.06383,0.848024
+1999,9,A few times a year,4.0,Original,0.041667,1.347222
+1999,9,Never or hardly ever,10.0,Original,0.111111,1.123457
+1999,13,Almost every day,28.0,Original,0.388889,0.722222
+1999,13,Once or twice a week,36.0,Original,0.5625,1.044643
+1999,13,Once or twice a month,17.0,Original,0.204819,1.258176
+1999,13,A few times a year,10.0,Original,0.111111,1.47619
+1999,13,Never or hardly ever,9.0,Original,0.098901,1.137363
+1999,17,Almost every day,25.0,Original,0.333333,0.741935
+1999,17,Once or twice a week,28.0,Original,0.388889,0.789562
+1999,17,Once or twice a month,19.0,Original,0.234568,1.145243
+1999,17,A few times a year,12.0,Original,0.136364,1.227273
+1999,17,Never or hardly ever,16.0,Original,0.190476,1.925926
+2004,9,Almost every day,54.0,Original,1.173913,1.041017
+2004,9,Once or twice a week,26.0,Original,0.351351,0.903475
+2004,9,Once or twice a month,7.0,Original,0.075269,1.0
+2004,9,A few times a year,5.0,Original,0.052632,1.701754
+2004,9,Never or hardly ever,8.0,Original,0.086957,0.879227
+2004,13,Almost every day,30.0,Original,0.428571,0.795918
+2004,13,Once or twice a week,34.0,Original,0.515152,0.95671
+2004,13,Once or twice a month,15.0,Original,0.176471,1.084034
+2004,13,A few times a year,9.0,Original,0.098901,1.313972
+2004,13,Never or hardly ever,13.0,Original,0.149425,1.718391
+2004,17,Almost every day,22.0,Original,0.282051,0.627792
+2004,17,Once or twice a week,30.0,Original,0.428571,0.87013
+2004,17,Once or twice a month,15.0,Original,0.176471,0.861592
+2004,17,A few times a year,14.0,Original,0.162791,1.465116
+2004,17,Never or hardly ever,19.0,Original,0.234568,2.371742
+2008,9,Almost every day,48.0,Revised,0.923077,0.818578
+2008,9,Once or twice a week,23.0,Revised,0.298701,0.768089
+2008,9,Once or twice a month,8.0,Revised,0.086957,1.15528
+2008,9,A few times a year,8.0,Revised,0.086957,2.811594
+2008,9,Never or hardly ever,14.0,Revised,0.162791,1.645995
+2008,13,Almost every day,26.0,Revised,0.351351,0.65251
+2008,13,Once or twice a week,25.0,Revised,0.333333,0.619048
+2008,13,Once or twice a month,13.0,Revised,0.149425,0.917898
+2008,13,A few times a year,12.0,Revised,0.136364,1.811688
+2008,13,Never or hardly ever,24.0,Revised,0.315789,3.631579
+2008,17,Almost every day,20.0,Revised,0.25,0.556452
+2008,17,Once or twice a week,22.0,Revised,0.282051,0.57265
+2008,17,Once or twice a month,17.0,Revised,0.204819,1.0
+2008,17,A few times a year,16.0,Revised,0.190476,1.714286
+2008,17,Never or hardly ever,24.0,Revised,0.315789,3.192982
+2012,9,Almost every day,53.0,Revised,1.12766,1.0
+2012,9,Once or twice a week,23.0,Revised,0.298701,0.768089
+2012,9,Once or twice a month,7.0,Revised,0.075269,1.0
+2012,9,A few times a year,7.0,Revised,0.075269,2.433692
+2012,9,Never or hardly ever,11.0,Revised,0.123596,1.249688
+2012,13,Almost every day,27.0,Revised,0.369863,0.686888
+2012,13,Once or twice a week,26.0,Revised,0.351351,0.65251
+2012,13,Once or twice a month,14.0,Revised,0.162791,1.0
+2012,13,A few times a year,11.0,Revised,0.123596,1.642055
+2012,13,Never or hardly ever,22.0,Revised,0.282051,3.24359
+2012,17,Almost every day,19.0,Revised,0.234568,0.522103
+2012,17,Once or twice a week,21.0,Revised,0.265823,0.539701
+2012,17,Once or twice a month,16.0,Revised,0.190476,0.929972
+2012,17,A few times a year,18.0,Revised,0.219512,1.97561
+2012,17,Never or hardly ever,27.0,Revised,0.369863,3.739726
+2020,9,Almost every day,42.0,Revised,0.724138,0.64216
+2020,9,Once or twice a week,25.0,Revised,0.333333,0.857143
+2020,9,Once or twice a month,9.0,Revised,0.098901,1.313972
+2020,9,A few times a year,8.0,Revised,0.086957,2.811594
+2020,9,Never or hardly ever,16.0,Revised,0.190476,1.925926
+2020,13,Almost every day,17.0,Revised,0.204819,0.380379
+2020,13,Once or twice a week,23.0,Revised,0.298701,0.554731
+2020,13,Once or twice a month,16.0,Revised,0.190476,1.170068
+2020,13,A few times a year,15.0,Revised,0.176471,2.344538
+2020,13,Never or hardly ever,29.0,Revised,0.408451,4.697183
+2022,9,Almost every day,39.0,Revised,0.639344,0.566966
+2022,9,Once or twice a week,25.0,Revised,0.333333,0.857143
+2022,9,Once or twice a month,10.0,Revised,0.111111,1.47619
+2022,9,A few times a year,9.0,Revised,0.098901,3.197802
+2022,9,Never or hardly ever,16.0,Revised,0.190476,1.925926
+2025,9,Almost every day,37.0,Revised,0.587302,0.520815
+2025,9,Once or twice a week,24.0,Revised,0.315789,0.81203
+2025,9,Once or twice a month,12.0,Revised,0.136364,1.811688
+2025,9,A few times a year,10.0,Revised,0.111111,3.592593
+2025,9,Never or hardly ever,17.0,Revised,0.204819,2.07095
+2025,13,Almost every day,14.0,Revised,0.162791,0.302326
+2025,13,Once or twice a week,21.0,Revised,0.265823,0.493671
+2025,13,Once or twice a month,18.0,Revised,0.219512,1.348432
+2025,13,A few times a year,18.0,Revised,0.219512,2.916376
+2025,13,Never or hardly ever,29.0,Revised,0.408451,4.697183
