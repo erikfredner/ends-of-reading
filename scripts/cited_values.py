@@ -41,9 +41,10 @@ READING = "Reading for personal interest"
 def _round(value: float) -> int:
     """Round half away from zero, the convention the manuscript's prose uses.
 
-    Builtin ``round`` is banker's rounding, so exact halves go to the nearest
-    even integer: it renders the seventeen-year-old LTT decline (exactly 62.5%)
-    as 62 while the manuscript prints 63.
+    Exact halves do occur here — the SPPA non-reader figure is 51.5% — and
+    builtin ``round`` is banker's rounding, which sends them to the nearest
+    even integer. It happens to agree on 51.5 because 52 is even; a half
+    landing on an odd integer would disagree with the manuscript silently.
     """
     return int(Decimal(repr(value)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
 
@@ -241,10 +242,6 @@ def sentence_ltt_age13_or_1984_revised() -> str:
     return _ltt_age_or_revised(age=13, subject="thirteen-year-olds")
 
 
-def sentence_ltt_age17_or_1984_revised() -> str:
-    return _ltt_age_or_revised(age=17, subject="seventeen-year-olds")
-
-
 def sentence_sppa_novels_poetry_plays_or_1992() -> str:
     categories = ("Novels or short stories", "Poetry", "Plays")
     declines = [_sppa_decline(category) for category in categories]
@@ -406,13 +403,6 @@ def sentence_ltt_age13_or_1984_v2() -> str:
     )
 
 
-def sentence_ltt_age17_or_1984() -> str:
-    return _ltt_age_or(
-        age=17,
-        sentence_template='The odds of seventeen-year-olds reading are {pct}% lower.',
-    )
-
-
 CLAIMS = [
     sentence_sppa_any_book_nonreaders,
     sentence_atus_nonreaders,
@@ -432,8 +422,6 @@ CLAIMS = [
     sentence_ltt_age9_or_1984_revised,
     sentence_ltt_age13_or_1984_v2,
     sentence_ltt_age13_or_1984_revised,
-    sentence_ltt_age17_or_1984,
-    sentence_ltt_age17_or_1984_revised,
 ]
 
 
