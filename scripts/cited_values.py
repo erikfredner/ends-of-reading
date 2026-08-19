@@ -9,6 +9,10 @@ recomputed here, so every odds-ratio sentence in the manuscript goes through
 the same ``scripts/data/odds.py`` derivation that
 ``tests/test_odds_ratio_outputs.py`` verifies.
 
+The prediction claim is the one exception to reading from committed CSVs: its
+forecast is a regression fit at plot time, so it reuses the fit in
+``scripts/figures/atus_prediction.py`` rather than restating a crossing year.
+
 Blocks labelled ``Variant`` are not manuscript sentences. They restate an LTT
 claim inside NAEP's revised assessment format, which the manuscript's 1984
 baselines span.
@@ -18,6 +22,7 @@ from __future__ import annotations
 
 import csv
 import math
+import sys
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
@@ -30,6 +35,7 @@ LTT_OR_WEEKLY_PATH = PROJECT_ROOT / "data" / "derived" / "ltt_or_weekly.csv"
 LTT_OR_WEEKLY_REVISED_PATH = (
     PROJECT_ROOT / "data" / "derived" / "ltt_or_weekly_revised.csv"
 )
+FIGURES_DIR = PROJECT_ROOT / "scripts" / "figures"
 ATUS_SOURCE_DIR = PROJECT_ROOT / "data" / "source" / "atus"
 # Raw BLS ATUS dumps; filenames are bare series ids (see _atus_estimate_rows).
 ATUS_AVG_HRS_READING_PATH = ATUS_SOURCE_DIR / "TUU10101AA01006315.txt"
@@ -37,6 +43,8 @@ ATUS_AVG_HRS_READING_PARTICIPANTS_PATH = ATUS_SOURCE_DIR / "TUU20101AA01006315.t
 ATUS_AVG_HRS_LEISURE_PARTICIPANTS_PATH = ATUS_SOURCE_DIR / "TUU20101AA01013585.txt"
 
 READING = "Reading for personal interest"
+# "fewer than one in ten Americans", the threshold the manuscript's forecast names.
+PREDICTION_THRESHOLD = 10.0
 
 
 def _round(value: float) -> int:
@@ -406,6 +414,55 @@ def sentence_ltt_age13_or_1984_v2() -> str:
     )
 
 
+def sentence_atus_prediction_year() -> str:
+    """Recompute the year the manuscript's forecast crosses one in ten.
+
+    This claim is the one here with no committed CSV behind it: the forecast is
+    a regression fit at plot time. So rather than restate a crossing year, it
+    reuses the fit in ``scripts/figures/atus_prediction.py`` — the same model
+    the figure draws — imported bare off its own directory, the way
+    ``tests/conftest.py`` reaches the pipeline modules. The import is local to
+    this function so the other claims do not pay for pulling in matplotlib.
+    """
+    figures_dir = str(FIGURES_DIR)
+    if figures_dir not in sys.path:
+        sys.path.insert(0, figures_dir)
+
+    import numpy as np
+
+    from atus_prediction import first_year_below_threshold, fit_linear_model
+
+    rows = _atus_rows(READING)
+    years = np.array([year for year, _ in rows])
+    percents = np.array([percent for _, percent in rows])
+    model = fit_linear_model(years, percents)
+    crossing_year = first_year_below_threshold(model, PREDICTION_THRESHOLD)
+
+    if crossing_year is None:
+        sentence = (
+            "The fitted trend no longer falls below one in ten, so the "
+            "manuscript's prediction sentence needs rewriting."
+        )
+        computed = "no crossing (the fitted slope is not negative)"
+    else:
+        sentence = (
+            "If the federal government is still administering the ATUS, a simple "
+            "linear model predicts that fewer than one in ten Americans will read "
+            "for personal interest on an average day for the first time in "
+            f"{crossing_year}."
+        )
+        computed = f"first year below {_round(PREDICTION_THRESHOLD)}% = {crossing_year}"
+
+    return (
+        f"Sentence: {sentence}\n"
+        f"  Computed: {computed}  "
+        f'(OLS on ATUS "{READING}", {rows[0][0]}–{rows[-1][0]}, '
+        f"n={model['n']:.0f}: slope {model['slope']:+.4f} points/year, "
+        f"intercept {model['intercept']:.1f}, R² {model['r_squared']:.3f}; "
+        "same fit as scripts/figures/atus_prediction.py)"
+    )
+
+
 CLAIMS = [
     sentence_sppa_any_book_nonreaders,
     sentence_atus_nonreaders,
@@ -425,6 +482,7 @@ CLAIMS = [
     sentence_ltt_age9_or_1984_revised,
     sentence_ltt_age13_or_1984_v2,
     sentence_ltt_age13_or_1984_revised,
+    sentence_atus_prediction_year,
 ]
 
 
