@@ -1,7 +1,6 @@
 import csv
 from pathlib import Path
 
-
 ID_VALUE = "TUU30105AA01006315"
 ACTIVITY_VALUE = "Reading for personal interest"
 

@@ -3,7 +3,6 @@ import statistics
 from itertools import combinations
 from pathlib import Path
 
-
 EDUCATION_ORDER = [
     "Bachelor's degree and higher",
     "Some college or associate degree",
@@ -53,9 +52,7 @@ def write_pairwise(
         values_b = [series[edu_b][y] for y in shared_years]
 
         pearson_r = statistics.correlation(values_a, values_b)
-        mean_abs_diff = statistics.fmean(
-            abs(a - b) for a, b in zip(values_a, values_b)
-        )
+        mean_abs_diff = statistics.fmean(abs(a - b) for a, b in zip(values_a, values_b))
 
         rows.append(
             {
@@ -77,10 +74,10 @@ def write_pairwise(
     return rows
 
 
-def write_spread(
-    series: dict[str, dict[int, float]], output_path: Path
-) -> list[dict]:
-    all_years = sorted({year for group_series in series.values() for year in group_series})
+def write_spread(series: dict[str, dict[int, float]], output_path: Path) -> list[dict]:
+    all_years = sorted(
+        {year for group_series in series.values() for year in group_series}
+    )
 
     rows: list[dict] = []
     for year in all_years:
@@ -114,9 +111,7 @@ def write_spread(
     return rows
 
 
-def write_slopes(
-    series: dict[str, dict[int, float]], output_path: Path
-) -> list[dict]:
+def write_slopes(series: dict[str, dict[int, float]], output_path: Path) -> list[dict]:
     rows: list[dict] = []
     for edu in EDUCATION_ORDER:
         years_map = series[edu]
@@ -195,12 +190,8 @@ def main() -> None:
     pairwise_rows = write_pairwise(
         series, derived_dir / "atus_ed_or_similarity_pairwise.csv"
     )
-    spread_rows = write_spread(
-        series, derived_dir / "atus_ed_or_similarity_spread.csv"
-    )
-    slope_rows = write_slopes(
-        series, derived_dir / "atus_ed_or_similarity_slopes.csv"
-    )
+    spread_rows = write_spread(series, derived_dir / "atus_ed_or_similarity_spread.csv")
+    slope_rows = write_slopes(series, derived_dir / "atus_ed_or_similarity_slopes.csv")
 
     print_summary(pairwise_rows, spread_rows, slope_rows)
 

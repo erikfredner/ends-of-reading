@@ -14,4 +14,26 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=8",
+    "ruff>=0.16.3",
+]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.format]
+docstring-code-format = true
+
+# Pipeline modules are imported bare (`from odds import ...`), resolving only via
+# the script-directory / conftest `sys.path` entries. Name them so isort keeps them
+# in their own block instead of filing them under third-party.
+[tool.ruff.lint.isort]
+known-first-party = [
+    "atus",
+    "atus_ed",
+    "atus_prediction",
+    "conftest",
+    "ltt_extract",
+    "odds",
+    "plotting",
+    "style",
 ]

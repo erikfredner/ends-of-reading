@@ -1,7 +1,6 @@
 import csv
 from pathlib import Path
 
-
 AGES = [9, 13, 17]
 MISSING_VALUES = {"", "—"}
 
@@ -50,9 +49,7 @@ def parse_txt(path: Path) -> tuple[list[str], list[dict]]:
             continue
 
         assessment_format = (
-            ORIGINAL_FORMAT
-            if ORIGINAL_FORMAT_MARKER in cells[0]
-            else REVISED_FORMAT
+            ORIGINAL_FORMAT if ORIGINAL_FORMAT_MARKER in cells[0] else REVISED_FORMAT
         )
         row = {
             "Year": year,

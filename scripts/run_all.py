@@ -9,6 +9,7 @@ Subprocess invocation (rather than import) is required because the
 ``_or.py`` scripts use a bare ``from odds import compute_odds`` that only
 resolves when Python puts the script's own directory on ``sys.path``.
 """
+
 from __future__ import annotations
 
 import subprocess

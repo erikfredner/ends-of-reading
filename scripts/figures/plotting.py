@@ -2,10 +2,11 @@
 
 Imported bare (``from plotting import …``), same convention as ``style.py``.
 """
+
 from __future__ import annotations
 
-from itertools import cycle
 import math
+from itertools import cycle
 from pathlib import Path
 
 import matplotlib.dates as mdates

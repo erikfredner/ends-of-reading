@@ -42,19 +42,21 @@ def test_odds_ratio_matches_paper_definition(pj, pk):
     assert compute_odds(pj) / compute_odds(pk) == pytest.approx(paper_formula)
 
 
-from odds import add_odds_ratios  # noqa: E402
+from odds import add_odds_ratios
 
 
 def _rows(*items):
     return [{"Group": g, "Year": y, "Percent": p} for g, y, p in items]
 
 
-BY_GROUP = lambda row: row["Group"]  # noqa: E731
+BY_GROUP = lambda row: row["Group"]
 
 
 def test_add_odds_ratios_baselines_each_group_to_its_own_earliest_year():
     out = add_odds_ratios(
-        _rows(("a", 2000, 50.0), ("a", 2010, 25.0), ("b", 2005, 80.0), ("b", 2010, 50.0)),
+        _rows(
+            ("a", 2000, 50.0), ("a", 2010, 25.0), ("b", 2005, 80.0), ("b", 2010, 50.0)
+        ),
         key=BY_GROUP,
     )
     ratios = {(r["Group"], r["Year"]): r["Odds Ratio"] for r in out}

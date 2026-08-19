@@ -8,12 +8,12 @@ be quoted without spanning the instrument change. Which years belong to which
 format comes from the ``Assessment Format`` column that ``ltt_extract.py``
 carries over from NAEP's own footnote markers.
 """
+
 import csv
 from collections import defaultdict
 from pathlib import Path
 
 from odds import add_odds_ratios
-
 
 WEEKLY_OR_MORE = {"Almost every day", "Once or twice a week"}
 REVISED_FORMAT = "Revised"
@@ -67,7 +67,7 @@ def main() -> None:
         for (year, age), percent in sums.items()
     ]
 
-    by_age = lambda r: r["Age"]  # noqa: E731
+    by_age = lambda r: r["Age"]
 
     output_rows = add_odds_ratios(
         aggregated_rows, key=by_age, require_common_baseline=True

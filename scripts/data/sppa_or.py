@@ -10,11 +10,11 @@ baselines poetry to 1992 alongside novels/short stories and plays, and this
 script drops the earlier poetry rows rather than carrying them at a ratio that
 would not mean what the rest of the column means.
 """
+
 import csv
 from pathlib import Path
 
 from odds import add_odds_ratios
-
 
 CATEGORY_ORDER = [
     "Any book or magazine",
@@ -51,7 +51,7 @@ def main() -> None:
                 }
             )
 
-    key = lambda r: r["Read in the last year"]  # noqa: E731
+    key = lambda r: r["Read in the last year"]
     output_rows = add_odds_ratios(
         [r for r in rows if key(r) not in PINNED_BASELINES], key=key
     )

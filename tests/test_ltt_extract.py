@@ -6,7 +6,9 @@ from ltt_extract import parse_txt, tidy
 def test_parse_txt_handles_current_naep_layout(tmp_path):
     source = tmp_path / "ltt.txt"
     source.write_text(
-        "\n".join(
+        # A list of lines is the legible shape for a tabular fixture; an
+        # f-string here would obscure the NAEP layout under test.
+        "\n".join(  # noqa: FLY002
             [
                 "Percentages for age 9 long-term trend reading",
                 "Data Table 1",

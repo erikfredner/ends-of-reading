@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from cycler import cycler
 import matplotlib.pyplot as plt
+from cycler import cycler
 
 
 def apply_style() -> None:

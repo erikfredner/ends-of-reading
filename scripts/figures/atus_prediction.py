@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from pathlib import Path
 import math
+from pathlib import Path
 from statistics import NormalDist, linear_regression
 
 import matplotlib.dates as mdates
@@ -12,7 +12,6 @@ import pandas as pd
 
 from plotting import save_figure
 from style import apply_style
-
 
 ACTIVITY = "Reading for personal interest"
 
@@ -82,9 +81,7 @@ def predict_with_pi(
     return y_hat, lower, upper
 
 
-def first_year_below_threshold(
-    model: dict[str, float], threshold: float
-) -> int | None:
+def first_year_below_threshold(model: dict[str, float], threshold: float) -> int | None:
     slope = model["slope"]
     intercept = model["intercept"]
     if slope == 0:
@@ -94,7 +91,7 @@ def first_year_below_threshold(
 
     crossing = (threshold - intercept) / slope
     if math.isclose(crossing, round(crossing), abs_tol=1e-9):
-        return int(round(crossing)) + 1
+        return round(crossing) + 1
     return math.ceil(crossing)
 
 

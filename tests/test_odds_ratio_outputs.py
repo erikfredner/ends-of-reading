@@ -6,9 +6,17 @@ from conftest import DERIVED
 WEEKLY_OR_MORE = {"Almost every day", "Once or twice a week"}
 
 CASES = [
-    {"name": "sppa_or", "output": "sppa_or.csv", "group_cols": ["Read in the last year"]},
+    {
+        "name": "sppa_or",
+        "output": "sppa_or.csv",
+        "group_cols": ["Read in the last year"],
+    },
     {"name": "atus_or", "output": "atus_or.csv", "group_cols": ["ID"]},
-    {"name": "atus_ed_or", "output": "atus_ed_or.csv", "group_cols": ["Educational Attainment"]},
+    {
+        "name": "atus_ed_or",
+        "output": "atus_ed_or.csv",
+        "group_cols": ["Educational Attainment"],
+    },
     {"name": "ltt_or", "output": "ltt_or.csv", "group_cols": ["Age", "Read for Fun"]},
     {"name": "ltt_or_weekly", "output": "ltt_or_weekly.csv", "group_cols": ["Age"]},
     {
@@ -21,7 +29,9 @@ CASES = [
 
 def _load_or_skip(path):
     if not path.exists():
-        pytest.skip(f"{path} not found — run scripts/data/*.py and scripts/data/*_or.py first")
+        pytest.skip(
+            f"{path} not found — run scripts/data/*.py and scripts/data/*_or.py first"
+        )
     return pd.read_csv(path)
 
 
@@ -36,9 +46,8 @@ def test_output_csv_matches_paper_formula(case):
     group_cols = case["group_cols"]
 
     baseline_idx = df.groupby(group_cols)["Year"].idxmin()
-    baseline = (
-        df.loc[baseline_idx, group_cols + ["Year", "Percent"]]
-        .rename(columns={"Year": "BaselineYear", "Percent": "BaselinePercent"})
+    baseline = df.loc[baseline_idx, group_cols + ["Year", "Percent"]].rename(
+        columns={"Year": "BaselineYear", "Percent": "BaselinePercent"}
     )
     merged = df.merge(baseline, on=group_cols, how="left", validate="many_to_one")
 
@@ -75,8 +84,12 @@ def test_ltt_or_weekly_aggregates_before_odds():
         .rename(columns={"Percent": "ExpectedPercent"})
     )
 
-    merged = output.merge(expected, on=["Year", "Age"], how="left", validate="one_to_one")
-    assert merged["ExpectedPercent"].notna().all(), "output rows without a matching source aggregate"
+    merged = output.merge(
+        expected, on=["Year", "Age"], how="left", validate="one_to_one"
+    )
+    assert merged["ExpectedPercent"].notna().all(), (
+        "output rows without a matching source aggregate"
+    )
     assert (merged["Percent"] - merged["ExpectedPercent"]).abs().max() < 1e-9
 
 
@@ -117,7 +130,9 @@ def test_ltt_revised_output_holds_only_revised_format_years():
     revised = _load_or_skip(DERIVED / "ltt_or_weekly_revised.csv")
 
     assert set(revised["Assessment Format"]) == {"Revised"}
-    assert set(revised["Year"]) == set(full.loc[full["Assessment Format"] == "Revised", "Year"])
+    assert set(revised["Year"]) == set(
+        full.loc[full["Assessment Format"] == "Revised", "Year"]
+    )
     assert revised.groupby("Age")["Year"].min().unique().tolist() == [2008]
 
 

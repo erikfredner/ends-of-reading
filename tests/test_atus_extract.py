@@ -182,6 +182,4 @@ def test_atus_csv_matches_independent_rederivation():
         .reset_index(drop=True)
     )
     expected = _rederive_from_source()
-    pd.testing.assert_frame_equal(
-        df[["Year", "ID", "Activity", "Percent"]], expected
-    )
+    pd.testing.assert_frame_equal(df[["Year", "ID", "Activity", "Percent"]], expected)

@@ -1,4 +1,4 @@
-from typing import Callable, Hashable
+from collections.abc import Callable, Hashable
 
 
 def compute_odds(percent: float) -> float:
