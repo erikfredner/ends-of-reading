@@ -8,6 +8,10 @@ Odds ratios are read from the committed ``data/derived/*_or.csv`` rather than
 recomputed here, so every odds-ratio sentence in the manuscript goes through
 the same ``scripts/data/odds.py`` derivation that
 ``tests/test_odds_ratio_outputs.py`` verifies.
+
+Blocks labelled ``Variant`` are not manuscript sentences. They restate an LTT
+claim inside NAEP's revised assessment format, which the manuscript's 1984
+baselines span.
 """
 from __future__ import annotations
 
@@ -22,6 +26,9 @@ SPPA_OR_PATH = PROJECT_ROOT / "data" / "derived" / "sppa_or.csv"
 ATUS_PATH = PROJECT_ROOT / "data" / "derived" / "atus.csv"
 ATUS_OR_PATH = PROJECT_ROOT / "data" / "derived" / "atus_or.csv"
 LTT_OR_WEEKLY_PATH = PROJECT_ROOT / "data" / "derived" / "ltt_or_weekly.csv"
+LTT_OR_WEEKLY_REVISED_PATH = (
+    PROJECT_ROOT / "data" / "derived" / "ltt_or_weekly_revised.csv"
+)
 ATUS_SOURCE_DIR = PROJECT_ROOT / "data" / "source" / "atus"
 # Raw BLS ATUS dumps; filenames are bare series ids (see _atus_estimate_rows).
 ATUS_AVG_HRS_READING_PATH = ATUS_SOURCE_DIR / "TUU10101AA01006315.txt"
@@ -200,6 +207,44 @@ def _ltt_age_or(age: int, sentence_template: str) -> str:
     )
 
 
+def _ltt_age_or_revised(age: int, subject: str) -> str:
+    """Restate one LTT sentence inside NAEP's revised assessment format.
+
+    NAEP changed the instrument after 2004, so the manuscript's 1984 baselines
+    span two formats and the 2004-to-2008 step is the largest in every age
+    series. These variants rebaseline to the first revised-format year, which
+    costs comparability with the early 1980s but buys a like-for-like
+    comparison. Both readings are reported; neither replaces the other.
+    """
+    full = _decline(LTT_OR_WEEKLY_PATH, "Age", str(age))
+    d = _decline(LTT_OR_WEEKLY_REVISED_PATH, "Age", str(age))
+    sentence = (
+        f'Within NAEP\'s revised assessment format alone, the odds of {subject} '
+        f'reading for fun weekly or more often in {d["latest_year"]} are '
+        f'{_round(d["lower_pct"])}% lower than they were in {d["baseline_year"]}.'
+    )
+    return (
+        f'Variant: {sentence}\n'
+        f'  Computed: {d["lower_pct"]:.1f}% lower  '
+        + _arithmetic(f'LTT "Weekly or more often", age {age}, revised format', d)
+        + f'\n  Compare: {full["lower_pct"]:.1f}% lower across both formats '
+        f'({full["baseline_year"]}–{full["latest_year"]}), the reading the '
+        f'manuscript prints.'
+    )
+
+
+def sentence_ltt_age9_or_1984_revised() -> str:
+    return _ltt_age_or_revised(age=9, subject="nine-year-olds")
+
+
+def sentence_ltt_age13_or_1984_revised() -> str:
+    return _ltt_age_or_revised(age=13, subject="thirteen-year-olds")
+
+
+def sentence_ltt_age17_or_1984_revised() -> str:
+    return _ltt_age_or_revised(age=17, subject="seventeen-year-olds")
+
+
 def sentence_sppa_novels_poetry_plays_or_1992() -> str:
     categories = ("Novels or short stories", "Poetry", "Plays")
     declines = [_sppa_decline(category) for category in categories]
@@ -374,6 +419,7 @@ CLAIMS = [
     sentence_atus_or_2003,
     sentence_sppa_literature_or_1982,
     sentence_ltt_age13_or_1984,
+    sentence_ltt_age13_or_1984_revised,
     sentence_sppa_novels_poetry_plays_or_1992,
     sentence_sppa_literature_or_1982_v2,
     sentence_atus_zero_minutes,
@@ -383,8 +429,11 @@ CLAIMS = [
     sentence_atus_or_2003_v2,
     sentence_leisure_time_change,
     sentence_ltt_age9_or_1984,
+    sentence_ltt_age9_or_1984_revised,
     sentence_ltt_age13_or_1984_v2,
+    sentence_ltt_age13_or_1984_revised,
     sentence_ltt_age17_or_1984,
+    sentence_ltt_age17_or_1984_revised,
 ]
 
 
