@@ -1,0 +1,35 @@
+Year,Read in the last year,Percent,Source,Location,Odds,Odds Ratio
+1982,Any book or magazine,84.1,Who Reads Literature (1990),20,5.289308,1.0
+1982,Literature,56.9,Humanities Indicators (2025),V-05a,1.320186,1.0
+1985,Any book or magazine,85.6,Who Reads Literature (1990),20,5.944444,1.12386
+1985,Literature,56.0,Who Reads Literature (1990),20,1.272727,0.964052
+1992,Any book,60.9,How Do We Read (2020),18,1.557545,1.0
+1992,Literature,54.0,Humanities Indicators (2025),V-05a,1.173913,0.889203
+1992,Novels or short stories,52.1,How Do We Read (2020),18,1.087683,1.0
+1992,Poetry,17.0,How Do We Read (2020),18,0.204819,1.0
+1992,Plays,5.3,How Do We Read (2020),18,0.055966,1.0
+2002,Any book,56.6,How Do We Read (2020),18,1.304147,0.83731
+2002,Literature,46.7,Humanities Indicators (2025),V-05a,0.876173,0.663674
+2002,Novels or short stories,45.1,How Do We Read (2020),18,0.821494,0.75527
+2002,Poetry,12.1,How Do We Read (2020),18,0.137656,0.672087
+2002,Plays,3.6,How Do We Read (2020),18,0.037344,0.667267
+2008,Any book,54.3,How Do We Read (2020),18,1.188184,0.762857
+2008,Literature,50.2,Humanities Indicators (2025),V-05a,1.008032,0.763553
+2008,Novels or short stories,47.0,How Do We Read (2020),18,0.886792,0.815304
+2008,Poetry,8.3,How Do We Read (2020),18,0.090513,0.441914
+2008,Plays,2.6,How Do We Read (2020),18,0.026694,0.476967
+2012,Any book,54.6,How Do We Read (2020),18,1.202643,0.77214
+2012,Literature,47.0,Humanities Indicators (2025),V-05a,0.886792,0.671718
+2012,Novels or short stories,45.2,How Do We Read (2020),18,0.824818,0.758326
+2012,Poetry,6.7,How Do We Read (2020),18,0.071811,0.350608
+2012,Plays,2.9,How Do We Read (2020),18,0.029866,0.533646
+2017,Any book,52.7,How Do We Read (2020),18,1.114165,0.715334
+2017,Literature,44.2,Humanities Indicators (2025),V-05a,0.792115,0.600003
+2017,Novels or short stories,41.8,How Do We Read (2020),18,0.718213,0.660315
+2017,Poetry,11.7,How Do We Read (2020),18,0.132503,0.646926
+2017,Plays,3.7,How Do We Read (2020),18,0.038422,0.686514
+2022,Any book,48.5,"By All Means, the Arts (2025)",50,0.941748,0.604636
+2022,Literature,40.1,Humanities Indicators (2025),V-05a,0.669449,0.507087
+2022,Novels or short stories,37.6,"By All Means, the Arts (2025)",50,0.602564,0.553989
+2022,Poetry,9.2,"By All Means, the Arts (2025)",50,0.101322,0.494688
+2022,Plays,2.4,"By All Means, the Arts (2025)",50,0.02459,0.439375

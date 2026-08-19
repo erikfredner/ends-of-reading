@@ -25,6 +25,7 @@ STAGE_1 = [
 ]
 
 STAGE_2 = [
+    "scripts/data/sppa_or.py",
     "scripts/data/atus_or.py",
     "scripts/data/atus_ed_or.py",
     "scripts/data/ltt_or.py",

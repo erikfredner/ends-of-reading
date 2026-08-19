@@ -3,16 +3,24 @@
 Run as ``python scripts/cited_values.py``. Each block prints one manuscript
 sentence followed by the value recomputed from the current CSVs, with the
 data source and arithmetic shown in parentheses for spot-checking.
+
+Odds ratios are read from the committed ``data/derived/*_or.csv`` rather than
+recomputed here, so every odds-ratio sentence in the manuscript goes through
+the same ``scripts/data/odds.py`` derivation that
+``tests/test_odds_ratio_outputs.py`` verifies.
 """
 from __future__ import annotations
 
 import csv
 import math
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SPPA_PATH = PROJECT_ROOT / "data" / "source" / "sppa.csv"
+
+SPPA_OR_PATH = PROJECT_ROOT / "data" / "derived" / "sppa_or.csv"
 ATUS_PATH = PROJECT_ROOT / "data" / "derived" / "atus.csv"
+ATUS_OR_PATH = PROJECT_ROOT / "data" / "derived" / "atus_or.csv"
 LTT_OR_WEEKLY_PATH = PROJECT_ROOT / "data" / "derived" / "ltt_or_weekly.csv"
 ATUS_SOURCE_DIR = PROJECT_ROOT / "data" / "source" / "atus"
 # Raw BLS ATUS dumps; filenames are bare series ids (see _atus_estimate_rows).
@@ -20,28 +28,22 @@ ATUS_AVG_HRS_READING_PATH = ATUS_SOURCE_DIR / "TUU10101AA01006315.txt"
 ATUS_AVG_HRS_READING_PARTICIPANTS_PATH = ATUS_SOURCE_DIR / "TUU20101AA01006315.txt"
 ATUS_AVG_HRS_LEISURE_PARTICIPANTS_PATH = ATUS_SOURCE_DIR / "TUU20101AA01013585.txt"
 
+READING = "Reading for personal interest"
 
-def _odds(percent: float) -> float:
-    p = percent / 100
-    return p / (1 - p)
+
+def _round(value: float) -> int:
+    """Round half away from zero, the convention the manuscript's prose uses.
+
+    Builtin ``round`` is banker's rounding, so exact halves go to the nearest
+    even integer: it renders the seventeen-year-old LTT decline (exactly 62.5%)
+    as 62 while the manuscript prints 63.
+    """
+    return int(Decimal(repr(value)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
 
 
 def _read(path: Path) -> list[dict[str, str]]:
     with path.open() as f:
         return list(csv.DictReader(f))
-
-
-def _sppa_rows(category: str) -> list[tuple[int, float]]:
-    rows = []
-    for row in _read(SPPA_PATH):
-        if row["Read in the last year"] != category:
-            continue
-        percent = row["Percent"]
-        if not percent:
-            continue
-        rows.append((int(row["Year"]), float(percent)))
-    rows.sort(key=lambda r: r[0])
-    return rows
 
 
 def _atus_rows(activity: str) -> list[tuple[int, float]]:
@@ -85,76 +87,92 @@ def _atus_estimate_rows(path: Path) -> list[tuple[int, float]]:
     return rows
 
 
-def sentence_any_book_nonreaders() -> str:
-    rows = _sppa_rows("Any book")
-    year, percent = rows[-1]
-    nonreaders = 100 - percent
-    sentence = (
-        f'{round(nonreaders)}% of US adults have not read any book in the preceding year.'
+def _decline(path: Path, group_col: str, group: str) -> dict:
+    """Decline in the odds for one group of a derived ``*_or.csv``.
+
+    The group's baseline year is whichever year the derivation baselined it to,
+    i.e. the earliest year present in its output rows, where its odds ratio is
+    1.0 by construction.
+    """
+    rows = [row for row in _read(path) if row[group_col] == group]
+    rows.sort(key=lambda row: int(row["Year"]))
+    baseline, latest = rows[0], rows[-1]
+    odds_ratio = float(latest["Odds Ratio"])
+    return {
+        "baseline_year": int(baseline["Year"]),
+        "baseline_percent": float(baseline["Percent"]),
+        "baseline_odds": float(baseline["Odds"]),
+        "latest_year": int(latest["Year"]),
+        "latest_percent": float(latest["Percent"]),
+        "latest_odds": float(latest["Odds"]),
+        "odds_ratio": odds_ratio,
+        "lower_pct": (1 - odds_ratio) * 100,
+    }
+
+
+def _arithmetic(source: str, d: dict) -> str:
+    return (
+        f'({source}, '
+        f'{d["baseline_year"]}: {d["baseline_percent"]}% → odds {d["baseline_odds"]:.4f}; '
+        f'{d["latest_year"]}: {d["latest_percent"]}% → odds {d["latest_odds"]:.4f}; '
+        f'OR {d["odds_ratio"]:.4f} → 1−OR)'
+    )
+
+
+def _sppa_decline(category: str) -> dict:
+    return _decline(SPPA_OR_PATH, "Read in the last year", category)
+
+
+def _sppa_or_sentence(category: str, sentence_template: str) -> str:
+    d = _sppa_decline(category)
+    sentence = sentence_template.format(
+        pct=_round(d["lower_pct"]), baseline_year=d["baseline_year"]
     )
     return (
         f'Sentence: {sentence}\n'
-        f'  Computed: {nonreaders:.1f}%  '
-        f'(SPPA "Any book", {year}: {percent}% read → 100−{percent})'
+        f'  Computed: {d["lower_pct"]:.1f}% lower  '
+        + _arithmetic(f'SPPA "{category}"', d)
     )
 
 
+def _atus_reading_decline() -> dict:
+    return _decline(ATUS_OR_PATH, "Activity", READING)
+
+
 def sentence_atus_nonreaders() -> str:
-    rows = _atus_rows("Reading for personal interest")
+    rows = _atus_rows(READING)
     year, percent = rows[-1]
     nonreaders = 100 - percent
     sentence = (
-        f'{round(nonreaders)}% of US adults do not read anything for personal interest on '
+        f'{_round(nonreaders)}% of US adults do not read anything for personal interest on '
         'an average day, including the news.'
     )
     return (
         f'Sentence: {sentence}\n'
         f'  Computed: {nonreaders:.1f}%  '
-        f'(ATUS "Reading for personal interest", {year}: {percent}% → 100−{percent})'
+        f'(ATUS "{READING}", {year}: {percent}% → 100−{percent})'
     )
 
 
 def sentence_atus_or_2003() -> str:
-    rows = dict(_atus_rows("Reading for personal interest"))
-    baseline_year = 2003
-    latest_year = max(rows)
-    baseline_odds = _odds(rows[baseline_year])
-    latest_odds = _odds(rows[latest_year])
-    odds_ratio = latest_odds / baseline_odds
-    lower_pct = (1 - odds_ratio) * 100
+    d = _atus_reading_decline()
     sentence = (
         f'The odds of US adults reading anything for personal interest on '
-        f'an average day are {round(lower_pct)}% lower than they were in {baseline_year}.'
+        f'an average day are {_round(d["lower_pct"])}% lower than they were in '
+        f'{d["baseline_year"]}.'
     )
     return (
         f'Sentence: {sentence}\n'
-        f'  Computed: {lower_pct:.1f}% lower  '
-        f'(ATUS "Reading for personal interest", '
-        f'{baseline_year}: {rows[baseline_year]}% → odds {baseline_odds:.4f}; '
-        f'{latest_year}: {rows[latest_year]}% → odds {latest_odds:.4f}; '
-        f'OR {odds_ratio:.4f} → 1−OR)'
+        f'  Computed: {d["lower_pct"]:.1f}% lower  '
+        + _arithmetic(f'ATUS "{READING}"', d)
     )
 
 
 def sentence_sppa_literature_or_1982() -> str:
-    rows = dict(_sppa_rows("Literature"))
-    baseline_year = 1982
-    latest_year = max(rows)
-    baseline_odds = _odds(rows[baseline_year])
-    latest_odds = _odds(rows[latest_year])
-    odds_ratio = latest_odds / baseline_odds
-    lower_pct = (1 - odds_ratio) * 100
-    sentence = (
-        f'The odds of US adults reading a novel, short story, poem, or '
-        f'play in the previous year are {round(lower_pct)}% lower than they were in {baseline_year}.'
-    )
-    return (
-        f'Sentence: {sentence}\n'
-        f'  Computed: {lower_pct:.1f}% lower  '
-        f'(SPPA "Literature", '
-        f'{baseline_year}: {rows[baseline_year]}% → odds {baseline_odds:.4f}; '
-        f'{latest_year}: {rows[latest_year]}% → odds {latest_odds:.4f}; '
-        f'OR {odds_ratio:.4f} → 1−OR)'
+    return _sppa_or_sentence(
+        "Literature",
+        'The odds of US adults reading a novel, short story, poem, or play in the '
+        'previous year are {pct}% lower than they were in {baseline_year}.',
     )
 
 
@@ -169,139 +187,74 @@ def sentence_ltt_age13_or_1984() -> str:
 
 
 def _ltt_age_or(age: int, sentence_template: str) -> str:
-    rows = []
-    for row in _read(LTT_OR_WEEKLY_PATH):
-        if int(row["Age"]) != age:
-            continue
-        rows.append((int(row["Year"]), float(row["Percent"]), float(row["Odds Ratio"])))
-    rows.sort(key=lambda r: r[0])
-    baseline_year = rows[0][0]
-    latest_year, latest_percent, latest_or = rows[-1]
-    lower_pct = (1 - latest_or) * 100
-    sentence = sentence_template.format(pct=round(lower_pct), baseline_year=baseline_year)
+    d = _decline(LTT_OR_WEEKLY_PATH, "Age", str(age))
+    sentence = sentence_template.format(
+        pct=_round(d["lower_pct"]),
+        baseline_year=d["baseline_year"],
+        latest_year=d["latest_year"],
+    )
     return (
         f'Sentence: {sentence}\n'
-        f'  Computed: {lower_pct:.1f}% lower  '
-        f'(LTT "Weekly or more often", age {age}, baselined to {baseline_year} by '
-        f'scripts/data/ltt_or_weekly.py; {latest_year}: {latest_percent}%, '
-        f'OR {latest_or:.4f} → 1−OR)'
-    )
-
-
-def _ltt_weekly_rows(age: int) -> list[tuple[int, float]]:
-    rows = []
-    for row in _read(LTT_OR_WEEKLY_PATH):
-        if int(row["Age"]) != age:
-            continue
-        rows.append((int(row["Year"]), float(row["Percent"])))
-    rows.sort(key=lambda r: r[0])
-    return rows
-
-
-def sentence_ltt_ages9_13_or_2008() -> str:
-    """Variant of the 1984-baseline LTT claims confined to the revised
-    assessment format (2008 onward), so the comparison never crosses NAEP's
-    original-to-revised format change."""
-    baseline_year = 2008
-    results = []
-    for age in (9, 13):
-        rows = dict(_ltt_weekly_rows(age))
-        latest_year = max(rows)
-        baseline_odds = _odds(rows[baseline_year])
-        latest_odds = _odds(rows[latest_year])
-        odds_ratio = latest_odds / baseline_odds
-        lower_pct = (1 - odds_ratio) * 100
-        results.append((age, rows, latest_year, baseline_odds, latest_odds, odds_ratio, lower_pct))
-    age9_pct = round(results[0][6])
-    age13_pct = round(results[1][6])
-    sentence = (
-        f'Even within the revised assessment format alone, the odds of '
-        f'nine-year-olds reading for fun weekly or more often are {age9_pct}% lower '
-        f'than they were in {baseline_year}, and the odds of thirteen-year-olds '
-        f'are {age13_pct}% lower.'
-    )
-    lines = [f'Sentence: {sentence}', '  Computed:']
-    for age, rows, latest_year, baseline_odds, latest_odds, odds_ratio, lower_pct in results:
-        lines.append(
-            f'    Age {age}: {lower_pct:.1f}% lower  '
-            f'(LTT "Weekly or more often", '
-            f'{baseline_year}: {rows[baseline_year]}% → odds {baseline_odds:.4f}; '
-            f'{latest_year}: {rows[latest_year]}% → odds {latest_odds:.4f}; '
-            f'OR {odds_ratio:.4f} → 1−OR)'
-        )
-    return '\n'.join(lines)
-
-
-def _sppa_category_or(category: str, baseline_year: int, sentence_template: str) -> str:
-    rows = dict(_sppa_rows(category))
-    latest_year = max(rows)
-    baseline_odds = _odds(rows[baseline_year])
-    latest_odds = _odds(rows[latest_year])
-    odds_ratio = latest_odds / baseline_odds
-    lower_pct = (1 - odds_ratio) * 100
-    sentence = sentence_template.format(pct=round(lower_pct), baseline_year=baseline_year)
-    return (
-        f'Sentence: {sentence}\n'
-        f'  Computed: {lower_pct:.1f}% lower  '
-        f'(SPPA "{category}", '
-        f'{baseline_year}: {rows[baseline_year]}% → odds {baseline_odds:.4f}; '
-        f'{latest_year}: {rows[latest_year]}% → odds {latest_odds:.4f}; '
-        f'OR {odds_ratio:.4f} → 1−OR)'
+        f'  Computed: {d["lower_pct"]:.1f}% lower  '
+        + _arithmetic(f'LTT "Weekly or more often", age {age}', d)
     )
 
 
 def sentence_sppa_novels_poetry_plays_or_1992() -> str:
-    baseline_year = 1992
     categories = ("Novels or short stories", "Poetry", "Plays")
-    results = []
-    for category in categories:
-        rows = dict(_sppa_rows(category))
-        latest_year = max(rows)
-        baseline_odds = _odds(rows[baseline_year])
-        latest_odds = _odds(rows[latest_year])
-        odds_ratio = latest_odds / baseline_odds
-        lower_pct = (1 - odds_ratio) * 100
-        results.append((category, rows, latest_year, baseline_odds, latest_odds, odds_ratio, lower_pct))
-    novels_pct = round(results[0][6])
-    poetry_pct = round(results[1][6])
-    plays_pct = round(results[2][6])
+    declines = [_sppa_decline(category) for category in categories]
+    baseline_year = declines[0]["baseline_year"]
+    latest_year = declines[0]["latest_year"]
+    novels_pct, poetry_pct, plays_pct = (_round(d["lower_pct"]) for d in declines)
     sentence = (
-        f'The odds of reading novels or short stories are {novels_pct}% lower than they '
-        f'were in {baseline_year}, whereas the odds of reading poetry or plays are down '
-        f'by {poetry_pct}% and {plays_pct}%, respectively.'
+        f'The odds of reading novels or short stories in {latest_year} are '
+        f'{novels_pct}% lower than they were in {baseline_year}, whereas the odds of '
+        f'reading poetry or plays are down by {poetry_pct}% and {plays_pct}%, '
+        f'respectively.'
     )
     lines = [f'Sentence: {sentence}', '  Computed:']
-    for category, rows, latest_year, baseline_odds, latest_odds, odds_ratio, lower_pct in results:
+    for category, d in zip(categories, declines):
         lines.append(
-            f'    {category}: {lower_pct:.1f}% lower  '
-            f'({baseline_year}: {rows[baseline_year]}% → odds {baseline_odds:.4f}; '
-            f'{latest_year}: {rows[latest_year]}% → odds {latest_odds:.4f}; '
-            f'OR {odds_ratio:.4f} → 1−OR)'
+            f'    {category}: {d["lower_pct"]:.1f}% lower  ' + _arithmetic("SPPA", d)
         )
     return '\n'.join(lines)
 
 
 def sentence_sppa_literature_or_1982_v2() -> str:
-    return _sppa_category_or(
+    return _sppa_or_sentence(
         "Literature",
-        1982,
         'The odds of reading literature in the preceding year are about {pct}% lower '
         'than they were in {baseline_year}.',
     )
 
 
+def sentence_sppa_any_book_nonreaders() -> str:
+    d = _sppa_decline("Any book")
+    nonreaders = 100 - d["latest_percent"]
+    sentence = (
+        f'In {d["latest_year"]}, {_round(nonreaders)}% of US adults had not read any '
+        'book in the preceding year.'
+    )
+    return (
+        f'Sentence: {sentence}\n'
+        f'  Computed: {nonreaders:.1f}%  '
+        f'(SPPA "Any book", {d["latest_year"]}: {d["latest_percent"]}% read '
+        f'→ 100−{d["latest_percent"]})'
+    )
+
+
 def sentence_atus_zero_minutes() -> str:
-    rows = _atus_rows("Reading for personal interest")
+    rows = _atus_rows(READING)
     year, percent = rows[-1]
     nonreaders = 100 - percent
     sentence = (
-        f'However, this average conceals the fact that {round(nonreaders)}% of people in '
+        f'However, this average conceals the fact that {_round(nonreaders)}% of people in '
         'the US read for zero minutes on an average day.'
     )
     return (
         f'Sentence: {sentence}\n'
         f'  Computed: {nonreaders:.1f}%  '
-        f'(ATUS "Reading for personal interest", {year}: {percent}% participated → 100−{percent})'
+        f'(ATUS "{READING}", {year}: {percent}% participated → 100−{percent})'
     )
 
 
@@ -311,7 +264,7 @@ def sentence_atus_avg_minutes() -> str:
     hours = rows[year]
     minutes = hours * 60
     sentence = (
-        f'As of {year}, {round(minutes)} minutes a day is about the average amount of '
+        f'As of {year}, {_round(minutes)} minutes a day is about the average amount of '
         'time Americans spent reading anything for personal interest on an average '
         'day.'
     )
@@ -328,7 +281,7 @@ def sentence_atus_avg_minutes_participants() -> str:
     year = max(rows)
     hours = rows[year]
     minutes = hours * 60
-    sentence = f'On average, readers read for {round(minutes)} minutes.'
+    sentence = f'On average, readers read for {_round(minutes)} minutes.'
     return (
         f'Sentence: {sentence}\n'
         f'  Computed: {minutes:.1f} minutes/day  '
@@ -337,42 +290,34 @@ def sentence_atus_avg_minutes_participants() -> str:
     )
 
 
-def sentence_atus_peak_2004_vs_2024() -> str:
-    rows = dict(_atus_rows("Reading for personal interest"))
+def sentence_atus_peak_2004_vs_latest() -> str:
+    rows = dict(_atus_rows(READING))
     latest_year = max(rows)
     p_latest = rows[latest_year]
     peak_year = max(rows, key=lambda y: rows[y])
     peak_percent = rows[peak_year]
     sentence = (
-        f'In the peak year of {peak_year}, {round(peak_percent)}% of the US population read for '
-        f'personal interest on an average day; in {latest_year}, {round(p_latest)}% did.'
+        f'In the peak year of {peak_year}, {_round(peak_percent)}% of the US population '
+        f'read for personal interest on an average day; in {latest_year}, '
+        f'{_round(p_latest)}% did.'
     )
     return (
         f'Sentence: {sentence}\n'
         f'  Computed: {peak_year} = {peak_percent:.1f}%, {latest_year} = {p_latest:.1f}%  '
-        f'(ATUS "Reading for personal interest")'
+        f'(ATUS "{READING}")'
     )
 
 
 def sentence_atus_or_2003_v2() -> str:
-    rows = dict(_atus_rows("Reading for personal interest"))
-    baseline_year = 2003
-    latest_year = max(rows)
-    baseline_odds = _odds(rows[baseline_year])
-    latest_odds = _odds(rows[latest_year])
-    odds_ratio = latest_odds / baseline_odds
-    lower_pct = (1 - odds_ratio) * 100
+    d = _atus_reading_decline()
     sentence = (
-        f'In {latest_year}, the odds of Americans reading for personal interest '
-        f'were {round(lower_pct)}% lower than they were in {baseline_year}.'
+        f'In {d["latest_year"]}, the odds of Americans reading for personal interest '
+        f'were {_round(d["lower_pct"])}% lower than they were in {d["baseline_year"]}.'
     )
     return (
         f'Sentence: {sentence}\n'
-        f'  Computed: {lower_pct:.1f}% lower  '
-        f'(ATUS "Reading for personal interest", '
-        f'{baseline_year}: {rows[baseline_year]}% → odds {baseline_odds:.4f}; '
-        f'{latest_year}: {rows[latest_year]}% → odds {latest_odds:.4f}; '
-        f'OR {odds_ratio:.4f} → 1−OR)'
+        f'  Computed: {d["lower_pct"]:.1f}% lower  '
+        + _arithmetic(f'ATUS "{READING}"', d)
     )
 
 
@@ -384,7 +329,7 @@ def sentence_leisure_time_change() -> str:
     latest_hrs = rows[latest_year]
     change_pct = (latest_hrs - baseline_hrs) / baseline_hrs * 100
     sentence = (
-        f'Surprisingly, people in the US reported about {round(change_pct)}% more leisure '
+        f'Surprisingly, people in the US reported about {_round(change_pct)}% more leisure '
         f'time in {latest_year} than in {baseline_year}.'
     )
     return (
@@ -400,8 +345,8 @@ def sentence_ltt_age9_or_1984() -> str:
     return _ltt_age_or(
         age=9,
         sentence_template=(
-            'Today, the odds of nine-year-olds reading for fun weekly or more '
-            'are {pct}% lower than they were in {baseline_year}.'
+            'In {latest_year}, the odds of nine-year-olds reading for fun weekly or '
+            'more are {pct}% lower than they were in {baseline_year}.'
         ),
     )
 
@@ -424,7 +369,7 @@ def sentence_ltt_age17_or_1984() -> str:
 
 
 CLAIMS = [
-    sentence_any_book_nonreaders,
+    sentence_sppa_any_book_nonreaders,
     sentence_atus_nonreaders,
     sentence_atus_or_2003,
     sentence_sppa_literature_or_1982,
@@ -434,13 +379,12 @@ CLAIMS = [
     sentence_atus_zero_minutes,
     sentence_atus_avg_minutes,
     sentence_atus_avg_minutes_participants,
-    sentence_atus_peak_2004_vs_2024,
+    sentence_atus_peak_2004_vs_latest,
     sentence_atus_or_2003_v2,
     sentence_leisure_time_change,
     sentence_ltt_age9_or_1984,
     sentence_ltt_age13_or_1984_v2,
     sentence_ltt_age17_or_1984,
-    sentence_ltt_ages9_13_or_2008,
 ]
 
 

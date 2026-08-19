@@ -6,6 +6,7 @@ from conftest import DERIVED
 WEEKLY_OR_MORE = {"Almost every day", "Once or twice a week"}
 
 CASES = [
+    {"name": "sppa_or", "output": "sppa_or.csv", "group_cols": ["Read in the last year"]},
     {"name": "atus_or", "output": "atus_or.csv", "group_cols": ["ID"]},
     {"name": "atus_ed_or", "output": "atus_ed_or.csv", "group_cols": ["Educational Attainment"]},
     {"name": "ltt_or", "output": "ltt_or.csv", "group_cols": ["Age", "Read for Fun"]},
@@ -72,3 +73,33 @@ def test_ltt_or_weekly_aggregates_before_odds():
     merged = output.merge(expected, on=["Year", "Age"], how="left", validate="one_to_one")
     assert merged["ExpectedPercent"].notna().all(), "output rows without a matching source aggregate"
     assert (merged["Percent"] - merged["ExpectedPercent"]).abs().max() < 1e-9
+
+
+# The manuscript's SPPA odds ratios name their baseline year in the prose ("lower
+# than they were in 1992"), so the baselines are part of the published claim, not
+# an implementation detail. Poetry is the one that cannot be left to the
+# earliest-year default: the 1982 and 1985 surveys asked whether respondents read
+# *or listened to* poetry, so `sppa_or.py` pins poetry to 1992 and drops the two
+# earlier rows.
+EXPECTED_SPPA_BASELINES = {
+    "Any book or magazine": 1982,
+    "Any book": 1992,
+    "Literature": 1982,
+    "Novels or short stories": 1992,
+    "Poetry": 1992,
+    "Plays": 1992,
+}
+
+
+def test_sppa_or_baseline_years():
+    df = _load_or_skip(DERIVED / "sppa_or.csv")
+    baselines = df.groupby("Read in the last year")["Year"].min().to_dict()
+    assert baselines == EXPECTED_SPPA_BASELINES
+
+
+def test_sppa_or_drops_precomparable_poetry():
+    """The pre-1992 poetry rows must not survive into the output at all — carrying
+    them at a ratio above 1.0 would read as a rise in poetry reading."""
+    df = _load_or_skip(DERIVED / "sppa_or.csv")
+    poetry_years = set(df.loc[df["Read in the last year"] == "Poetry", "Year"])
+    assert not poetry_years & {1982, 1985}

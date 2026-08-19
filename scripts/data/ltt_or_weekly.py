@@ -30,7 +30,9 @@ def main() -> None:
         for (year, age), percent in sums.items()
     ]
 
-    output_rows = add_odds_ratios(aggregated_rows, key=lambda r: r["Age"])
+    output_rows = add_odds_ratios(
+        aggregated_rows, key=lambda r: r["Age"], require_common_baseline=True
+    )
     output_rows.sort(key=lambda r: (r["Year"], r["Age"]))
 
     fieldnames = ["Year", "Age", "Read for Fun", "Percent", "Odds", "Odds Ratio"]

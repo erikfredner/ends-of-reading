@@ -24,7 +24,11 @@ def main() -> None:
                 }
             )
 
-    output_rows = add_odds_ratios(rows, key=lambda r: (r["Age"], r["Read for Fun"]))
+    output_rows = add_odds_ratios(
+        rows,
+        key=lambda r: (r["Age"], r["Read for Fun"]),
+        require_common_baseline=True,
+    )
     output_rows.sort(key=lambda r: (r["Year"], r["Age"], read_order[r["Read for Fun"]]))
 
     fieldnames = ["Year", "Age", "Read for Fun", "Percent", "Odds", "Odds Ratio"]
