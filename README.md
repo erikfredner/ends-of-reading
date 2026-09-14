@@ -25,6 +25,12 @@ uv sync
 uv run python scripts/run_all.py
 ```
 
+Figures are written to `figures/` in PNG, SVG, and PDF formats.
+`scripts/publication.py` sets the manuscript's ATUS cutoff to 2025, the latest
+national observation in the repository, for Figure 2, the reading forecast, and
+cited values. LTT outputs include the refreshed age-13 observation for 2023
+and continue through 2025.
+
 ## AI Statement
 
 I gathered and verified all data, analyses, and figures manually.

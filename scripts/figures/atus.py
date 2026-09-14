@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -14,12 +15,16 @@ LEGEND_LABELS = {
 
 def main() -> None:
     project_root = Path(__file__).resolve().parents[2]
+    sys.path.insert(0, str(project_root / "scripts"))
+    from publication import ATUS_END_YEAR
+
     odds_ratio_path = project_root / "data" / "derived" / "atus_or.csv"
     output_path = project_root / "figures" / "fig2.png"
 
     apply_style()
 
     atus_or_df = pd.read_csv(odds_ratio_path)
+    atus_or_df = atus_or_df[atus_or_df["Year"] <= ATUS_END_YEAR].copy()
     category_order = latest_value_order(atus_or_df, "Activity", "Odds Ratio")
     odds_ratio_series = atus_or_df["Odds Ratio"]
     padding = (odds_ratio_series.max() - odds_ratio_series.min()) * 0.05

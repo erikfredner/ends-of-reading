@@ -1,4 +1,4 @@
-"""Recompute values cited in the manuscript from the latest data.
+"""Recompute values cited in the manuscript at the publication data cutoffs.
 
 Run as ``python scripts/cited_values.py``. Each block prints one manuscript
 sentence followed by the value recomputed from the current CSVs, with the
@@ -26,6 +26,8 @@ import sys
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
+from publication import ATUS_END_YEAR
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 SPPA_OR_PATH = PROJECT_ROOT / "data" / "derived" / "sppa_or.csv"
@@ -40,7 +42,7 @@ ATUS_SOURCE_DIR = PROJECT_ROOT / "data" / "source" / "atus"
 # Raw BLS ATUS dumps; filenames are bare series ids (see _atus_estimate_rows).
 ATUS_AVG_HRS_READING_PATH = ATUS_SOURCE_DIR / "TUU10101AA01006315.txt"
 ATUS_AVG_HRS_READING_PARTICIPANTS_PATH = ATUS_SOURCE_DIR / "TUU20101AA01006315.txt"
-ATUS_AVG_HRS_LEISURE_PARTICIPANTS_PATH = ATUS_SOURCE_DIR / "TUU20101AA01013585.txt"
+ATUS_AVG_HRS_LEISURE_PATH = ATUS_SOURCE_DIR / "TUU10101AA01013585.txt"
 
 READING = "Reading for personal interest"
 # "fewer than one in ten Americans", the threshold the manuscript's forecast names.
@@ -66,7 +68,7 @@ def _read(path: Path) -> list[dict[str, str]]:
 def _atus_rows(activity: str) -> list[tuple[int, float]]:
     rows = []
     for row in _read(ATUS_PATH):
-        if row["Activity"] != activity:
+        if row["Activity"] != activity or int(row["Year"]) > ATUS_END_YEAR:
             continue
         percent = row["Percent"]
         if not percent:
@@ -99,21 +101,28 @@ def _atus_estimate_rows(path: Path) -> list[tuple[int, float]]:
             value = float(estimate)
         except ValueError:
             continue
-        if math.isnan(value):
+        if math.isnan(value) or year > ATUS_END_YEAR:
             continue
         rows.append((year, value))
     rows.sort(key=lambda r: r[0])
     return rows
 
 
-def _decline(path: Path, group_col: str, group: str) -> dict:
+def _decline(
+    path: Path, group_col: str, group: str, *, end_year: int | None = None
+) -> dict:
     """Decline in the odds for one group of a derived ``*_or.csv``.
 
     The group's baseline year is whichever year the derivation baselined it to,
     i.e. the earliest year present in its output rows, where its odds ratio is
     1.0 by construction.
     """
-    rows = [row for row in _read(path) if row[group_col] == group]
+    rows = [
+        row
+        for row in _read(path)
+        if row[group_col] == group
+        and (end_year is None or int(row["Year"]) <= end_year)
+    ]
     rows.sort(key=lambda row: int(row["Year"]))
     baseline, latest = rows[0], rows[-1]
     odds_ratio = float(latest["Odds Ratio"])
@@ -155,7 +164,7 @@ def _sppa_or_sentence(category: str, sentence_template: str) -> str:
 
 
 def _atus_reading_decline() -> dict:
-    return _decline(ATUS_OR_PATH, "Activity", READING)
+    return _decline(ATUS_OR_PATH, "Activity", READING, end_year=ATUS_END_YEAR)
 
 
 def sentence_atus_nonreaders() -> str:
@@ -375,21 +384,22 @@ def sentence_atus_or_2003_v2() -> str:
 
 
 def sentence_leisure_time_change() -> str:
-    rows = dict(_atus_estimate_rows(ATUS_AVG_HRS_LEISURE_PARTICIPANTS_PATH))
+    rows = dict(_atus_estimate_rows(ATUS_AVG_HRS_LEISURE_PATH))
     baseline_year = 2003
     latest_year = max(rows)
     baseline_hrs = rows[baseline_year]
     latest_hrs = rows[latest_year]
     change_pct = (latest_hrs - baseline_hrs) / baseline_hrs * 100
+    direction = "more" if change_pct >= 0 else "less"
     sentence = (
-        f"Surprisingly, people in the US reported about {_round(change_pct)}% more leisure "
+        f"People in the US reported about {_round(abs(change_pct))}% {direction} leisure "
         f"time in {latest_year} than in {baseline_year}."
     )
     return (
         f"Sentence: {sentence}\n"
         f"  Computed: {change_pct:+.1f}%  "
-        f'(ATUS "Avg hrs per day for participants - Leisure and sports (includes travel)" '
-        f"[TUU20101AA01013585], {baseline_year}: {baseline_hrs} hrs; "
+        f'(ATUS "Avg hrs per day - Leisure and sports (includes travel)" '
+        f"[TUU10101AA01013585], {baseline_year}: {baseline_hrs} hrs; "
         f"{latest_year}: {latest_hrs} hrs; (latest−baseline)/baseline)"
     )
 

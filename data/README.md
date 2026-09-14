@@ -32,6 +32,21 @@ The American Time Use Survey data on reading for personal interest can be access
 
 Series IDs are indicated in filenames in `data/source/atus`.
 
+Time-use series beginning `TUU10101` contain average hours per day across the
+population, including nonparticipants; `TUU20101` contains average hours among
+participants. These are hours, not percentages. The manuscript's change in leisure
+time uses the population-average series `TUU10101AA01013585`: 5.11 hours in 2003
+and 5.16 in 2025, a change of `(5.16 / 5.11 - 1) * 100 = +0.98%`.
+
+`atus/TUU10101AA01013585.txt` was retrieved on September 14, 2026 from the
+[BLS public API](https://api.bls.gov/publicAPI/v2/timeseries/data/TUU10101AA01013585),
+requesting 2003–2012, 2013–2022, and 2023–2025. It is a normalized transcription of
+the API's year, period, and value fields, with no rounding or imputed observations.
+The unavailable 2020 annual estimate remains `-` (BLS footnote M).
+
+Full national ATUS datasets retain observations through 2025. Publication figures
+and cited-value calculations use the same 2025 endpoint, set in `scripts/publication.py`.
+
 ### By education
 
 BLS does not publicize breakouts by education. I thank Michelle Freeman of the BLS, who shared these estimates with me.
@@ -43,5 +58,9 @@ Survey of Student Experiences, specifically the variable "reading for fun on
 your own time" (`S003501`).
 
 <https://www.nationsreportcard.gov/ndecore/xplore/ltt>
+
+The refreshed `ltt/13.txt` release includes 2023: 14% read almost every day and
+22% once or twice a week, totaling 36% weekly or more often. Both weekly
+derivations and Figure 5 include this observation.
 
 NAEP revised the assessment after 2004.

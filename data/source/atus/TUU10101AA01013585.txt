@@ -1,0 +1,32 @@
+BLS American Time Use Survey
+Series ID: TUU10101AA01013585
+Measure: Average hours per day, civilian population age 15 and over
+Activity: Leisure and sports (includes travel)
+Source: https://api.bls.gov/publicAPI/v2/timeseries/data/TUU10101AA01013585
+Retrieved: 2026-09-14
+Normalized API fields; 2020 unavailable (BLS footnote M).
+
+Year,Period,Estimate
+2003,A01,5.11
+2004,A01,5.19
+2005,A01,5.13
+2006,A01,5.09
+2007,A01,5.11
+2008,A01,5.18
+2009,A01,5.25
+2010,A01,5.18
+2011,A01,5.21
+2012,A01,5.37
+2013,A01,5.26
+2014,A01,5.30
+2015,A01,5.21
+2016,A01,5.13
+2017,A01,5.24
+2018,A01,5.27
+2019,A01,5.19
+2020,A01,-
+2021,A01,5.27
+2022,A01,5.20
+2023,A01,5.15
+2024,A01,5.07
+2025,A01,5.16

@@ -31,9 +31,11 @@ known-first-party = [
     "atus",
     "atus_ed",
     "atus_prediction",
+    "cited_values",
     "conftest",
     "ltt_extract",
     "odds",
     "plotting",
+    "publication",
     "style",
 ]

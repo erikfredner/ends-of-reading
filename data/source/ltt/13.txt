@@ -1,8 +1,9 @@
-Percentages for age 13 long-term trend reading, by read for fun on your own time [S003501] and jurisdiction: 2025, 2020, 2012, 2008, 2004, 1999, 1996, 1994, 1992, 1990, 1988, and 1984
+Percentages for age 13 long-term trend reading, by read for fun on your own time [S003501] and jurisdiction: 2025, 2023, 2020, 2012, 2008, 2004, 1999, 1996, 1994, 1992, 1990, 1988, and 1984
 Data Table 1
 Almost every day	Once or twice a week	Once or twice a month	A few times a year	Never or hardly ever
 Year	Jurisdiction	Percentage	Percentage	Percentage	Percentage	Percentage
 2025	National	14	21	18	18	29
+2023	National	14	22	17	16	31
 2020	National	17	23	16	15	29
 2012	National	27	26	14	11	22
 2008	National	26	25	13	12	24
@@ -16,4 +17,4 @@ Year	Jurisdiction	Percentage	Percentage	Percentage	Percentage	Percentage
 1984¹	National	35	35	14	7	8
 ¹ Original assessment format.
 NOTE: Some apparent differences between estimates may not be statistically significant.
-SOURCE: U.S. Department of Education, Institute of Education Sciences, National Center for Education Statistics, National Assessment of Educational Progress (NAEP), 1984, 1988, 1990, 1992, 1994, 1996, 1999, 2004, 2008, 2012, 2020, and 2025 Long-Term Trend Reading Assessments.
+SOURCE: U.S. Department of Education, Institute of Education Sciences, National Center for Education Statistics, National Assessment of Educational Progress (NAEP), 1984, 1988, 1990, 1992, 1994, 1996, 1999, 2004, 2008, 2012, 2020, 2023, and 2025 Long-Term Trend Reading Assessments.

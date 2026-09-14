@@ -1,0 +1,99 @@
+"""Regression checks for the manuscript's source choice and publication cutoffs."""
+
+import importlib.util
+
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+import pandas as pd
+import pytest
+
+import atus_prediction
+import cited_values
+from conftest import DERIVED, PROJECT_ROOT
+from publication import ATUS_END_YEAR
+
+
+def test_leisure_change_uses_population_hours():
+    sentence = cited_values.sentence_leisure_time_change()
+    assert "1% more leisure time in 2025 than in 2003" in sentence
+    assert "Computed: +1.0%" in sentence
+    assert "[TUU10101AA01013585]" in sentence
+    assert "2003: 5.11 hrs; 2025: 5.16 hrs" in sentence
+
+
+def test_atus_cited_values_share_latest_cutoff():
+    # A new release must advance the publication cutoff as well as the data.
+    assert pd.read_csv(DERIVED / "atus.csv")["Year"].max() == ATUS_END_YEAR == 2025
+    assert cited_values._atus_rows(cited_values.READING)[-1][0] == 2025
+    assert cited_values._atus_reading_decline()["latest_year"] == 2025
+    assert "As of 2025, 16 minutes" in cited_values.sentence_atus_avg_minutes()
+    assert "readers read for 100 minutes" in (
+        cited_values.sentence_atus_avg_minutes_participants()
+    )
+    prediction = cited_values.sentence_atus_prediction_year()
+    assert "first year below 10% = 2035" in prediction
+    assert "2003–2025, n=22" in prediction
+
+
+def test_figure2_uses_publication_cutoff(monkeypatch):
+    # Load by path to avoid collision with the data extractor named atus.py.
+    spec = importlib.util.spec_from_file_location(
+        "atus_figure", PROJECT_ROOT / "scripts" / "figures" / "atus.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    captured = {}
+    monkeypatch.setattr(module, "apply_style", lambda: None)
+    monkeypatch.setattr(
+        module, "plot_grouped_timeseries", lambda **kwargs: captured.update(kwargs)
+    )
+    module.main()
+    df = captured["df"]
+    assert df.groupby("Activity")["Year"].max().eq(2025).all()
+    assert df["Year"].min() == 2003
+
+
+def test_forecast_plot_matches_cited_values(monkeypatch):
+    def inspect_figure(fig, output_path):
+        try:
+            ax = fig.axes[0]
+            observations = ax.collections[0].get_offsets()
+            years = [mdates.num2date(float(x)).year for x in observations[:, 0]]
+            assert min(years) == 2003
+            assert max(years) == 2025
+            assert 2020 not in years
+            assert len(years) == 22
+            labels = [text.get_text() for text in ax.texts]
+            assert "2035" in labels
+            assert r"$R^2$ = 0.923" in labels
+        finally:
+            plt.close(fig)
+
+    monkeypatch.setattr(atus_prediction, "apply_style", lambda: None)
+    monkeypatch.setattr(atus_prediction, "save_figure", inspect_figure)
+    atus_prediction.main()
+
+
+def test_refreshed_ltt_2023_observation_reaches_all_derivations():
+    for filename in ("ltt.csv", "ltt_or.csv"):
+        df = pd.read_csv(DERIVED / filename)
+        rows = df[(df["Age"] == 13) & (df["Year"] == 2023)]
+        assert len(rows) == 5
+        assert dict(zip(rows["Read for Fun"], rows["Percent"])) == {
+            "Almost every day": 14,
+            "Once or twice a week": 22,
+            "Once or twice a month": 17,
+            "A few times a year": 16,
+            "Never or hardly ever": 31,
+        }
+    for filename, baseline_percent in (
+        ("ltt_or_weekly.csv", 70),
+        ("ltt_or_weekly_revised.csv", 51),
+    ):
+        df = pd.read_csv(DERIVED / filename)
+        rows = df[(df["Age"] == 13) & (df["Year"] == 2023)]
+        assert len(rows) == 1
+        row = rows.iloc[0]
+        assert row["Percent"] == 36
+        expected = (36 / 64) / (baseline_percent / (100 - baseline_percent))
+        assert row["Odds Ratio"] == pytest.approx(expected, abs=5e-7)

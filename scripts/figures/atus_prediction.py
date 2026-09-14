@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import sys
 from pathlib import Path
 from statistics import NormalDist, linear_regression
 
@@ -97,6 +98,8 @@ def first_year_below_threshold(model: dict[str, float], threshold: float) -> int
 
 def main() -> None:
     project_root = Path(__file__).resolve().parents[2]
+    sys.path.insert(0, str(project_root / "scripts"))
+    from publication import ATUS_END_YEAR
 
     apply_style()
 
@@ -104,7 +107,7 @@ def main() -> None:
     output_path = project_root / "figures" / "atus_prediction.png"
 
     df = pd.read_csv(data_path)
-    df = df[df["Activity"] == ACTIVITY].copy()
+    df = df[(df["Activity"] == ACTIVITY) & (df["Year"] <= ATUS_END_YEAR)].copy()
     df = df.sort_values("Year")
 
     years = df["Year"].to_numpy()
