@@ -17,6 +17,17 @@ from style import apply_style
 ACTIVITY = "Reading for personal interest"
 
 
+def year_start(years):
+    """January 1 of each integer year, as a Timestamp or DatetimeIndex.
+
+    Builds dates from ints without ``pd.to_datetime(int, format="%Y")``, which
+    pandas deprecates: a future release will read those ints as epoch offsets.
+    """
+    if np.ndim(years) == 0:
+        return pd.Timestamp(year=int(years), month=1, day=1)
+    return pd.to_datetime(np.asarray(years, dtype=int).astype(str), format="%Y")
+
+
 def t_critical(df: int, ci: float = 0.95) -> float:
     """Two-sided Student-t critical value for ``df`` degrees of freedom.
 
@@ -131,14 +142,14 @@ def main() -> None:
     color_pred = colors[1] if len(colors) > 1 else colors[0]
 
     ax.scatter(
-        pd.to_datetime(years, format="%Y"),
+        year_start(years),
         values,
         color=color_obs,
         label="Observed",
         zorder=3,
     )
     ax.plot(
-        pd.to_datetime(plot_years, format="%Y"),
+        year_start(plot_years),
         y_hat,
         color=color_pred,
         linewidth=1,
@@ -146,7 +157,7 @@ def main() -> None:
         marker="",
     )
     ax.fill_between(
-        pd.to_datetime(plot_years, format="%Y"),
+        year_start(plot_years),
         lower,
         upper,
         color=color_pred,
@@ -158,8 +169,8 @@ def main() -> None:
 
     if threshold_year is not None:
         predicted_value = model["intercept"] + model["slope"] * threshold_year
-        annotation_year = pd.to_datetime(threshold_year, format="%Y")
-        annotation_text_year = pd.to_datetime(threshold_year + 1, format="%Y")
+        annotation_year = year_start(threshold_year)
+        annotation_text_year = year_start(threshold_year + 1)
         ax.annotate(
             f"{threshold_year}",
             xy=(annotation_year, predicted_value),
@@ -173,8 +184,8 @@ def main() -> None:
     step = max(1, math.ceil(n_years / 8))
     ax.set_xlabel("Year")
     ax.set_ylabel("US adults reading for personal interest on an average day")
-    min_year_ts = pd.to_datetime(min_year, format="%Y")
-    max_year_ts = pd.to_datetime(end_year, format="%Y")
+    min_year_ts = year_start(min_year)
+    max_year_ts = year_start(end_year)
     padding = (max_year_ts - min_year_ts) * 0.04
     ax.set_xlim(min_year_ts - padding, max_year_ts + padding)
     ax.xaxis.set_major_locator(mdates.YearLocator(base=step))
