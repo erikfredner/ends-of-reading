@@ -1,0 +1,64 @@
+Sentence (p. 535): In 2022, 52 percent of US adults had not read any book in the preceding year.
+  Computed: 51.5%  (SPPA "Any book", 2022: 48.5% read → 100−48.5)
+
+Sentence (p. 535): In 2025, 84 percent of US adults did not read anything for personal interest on an average day, including the news.
+  Computed: 83.9%  (ATUS "Reading for personal interest", 2025: 16.1% → 100−16.1)
+
+Sentence (p. 535): The odds of US adults reading anything for personal interest on an average day were 46 percent lower in 2025 than they were in 2003.
+  Computed: 46.2% lower  (ATUS "Reading for personal interest", 2003: 26.3% → odds 0.3569; 2025: 16.1% → odds 0.1919; OR 0.5377 → 1−OR)
+
+Sentence (p. 536): The odds of US adults reading a novel, short story, poem, or play in the previous year were 49 percent lower in 2022 than they were in 1982.
+  Computed: 49.3% lower  (SPPA "Literature", 1982: 56.9% → odds 1.3202; 2022: 40.1% → odds 0.6694; OR 0.5071 → 1−OR)
+
+Sentence (p. 536): The odds of US thirteen-year-olds reading for fun weekly or more often were 48 percent lower in 2025 than they were in 2008.
+  Computed: 48.3% lower  (LTT "Weekly or more often", age 13, revised format, 2008: 51.0% → odds 1.0408; 2025: 35.0% → odds 0.5385; OR 0.5173 → 1−OR)
+  Compare: 76.9% lower across both assessment formats (1984–2025); the prose quotes the revised-format reading.
+
+Sentence (p. 536): To say that reading was in “crisis” in the 1980s and is still in “crisis” in the 2020s obscures the fact of a decline in the odds of voluntary reading by about half or more in the intervening years.
+  Computed:
+    SPPA Literature: 49.3% lower  (SPPA, 1982: 56.9% → odds 1.3202; 2022: 40.1% → odds 0.6694; OR 0.5071 → 1−OR)
+    LTT age 9: 63.3% lower, spanning NAEP's format change  (LTT "Weekly or more often", 1984: 81.0% → odds 4.2632; 2025: 61.0% → odds 1.5641; OR 0.3669 → 1−OR)
+    LTT age 13: 76.9% lower, spanning NAEP's format change  (LTT "Weekly or more often", 1984: 70.0% → odds 2.3333; 2025: 35.0% → odds 0.5385; OR 0.2308 → 1−OR)
+
+Sentence (p. 544): The odds of reading novels or short stories in 2022 are 45 percent lower than they were in 1992, whereas the odds of reading poetry or plays are down by 51 percent and 56 percent, respectively.
+  Computed:
+    Novels or short stories: 44.6% lower  (SPPA, 1992: 52.1% → odds 1.0877; 2022: 37.6% → odds 0.6026; OR 0.5540 → 1−OR)
+    Poetry: 50.5% lower  (SPPA, 1992: 17.0% → odds 0.2048; 2022: 9.2% → odds 0.1013; OR 0.4947 → 1−OR)
+    Plays: 56.1% lower  (SPPA, 1992: 5.3% → odds 0.0560; 2022: 2.4% → odds 0.0246; OR 0.4394 → 1−OR)
+
+Sentence (p. 545): The odds of reading literature in the preceding year are about 49 percent lower in 2022 than they were in 1982.
+  Computed: 49.3% lower  (SPPA "Literature", 1982: 56.9% → odds 1.3202; 2022: 40.1% → odds 0.6694; OR 0.5071 → 1−OR)
+
+Sentence (p. 546): As of 2025, 16 minutes a day is about the average amount of time Americans spent reading anything for personal interest on an average day.
+  Computed: 16.2 minutes/day  (ATUS "Avg hrs per day - Reading for personal interest" [TUU10101AA01006315], 2025: 0.27 hrs × 60)
+
+Sentence (p. 546): However, this average conceals the fact that 84 percent of people in the United States read for zero minutes on an average day.
+  Computed: 83.9%  (ATUS "Reading for personal interest", 2025: 16.1% participated → 100−16.1)
+
+Sentence (p. 546): On average, those who read for personal interest did so for 100 minutes.
+  Computed: 100.2 minutes/day  (ATUS "Avg hrs per day for participants - Reading for personal interest" [TUU20101AA01006315], 2025: 1.67 hrs × 60)
+
+Sentence (p. 546): In the peak year of 2004, 28 percent of the US population read for personal interest on an average day; in 2025, 16 percent did.
+  Computed: 2004 = 27.7%, 2025 = 16.1%  (ATUS "Reading for personal interest")
+
+Sentence (p. 546): In 2025, the odds of Americans reading for personal interest were 46 percent lower than they were in 2003.
+  Computed: 46.2% lower  (ATUS "Reading for personal interest", 2003: 26.3% → odds 0.3569; 2025: 16.1% → odds 0.1919; OR 0.5377 → 1−OR)
+
+Sentence (p. 546–47): Surprisingly, people in the United States reported about 1 percent more leisure time in 2025 than in 2003.
+  Computed: +1.0%  (ATUS "Avg hrs per day - Leisure and sports (includes travel)" [TUU10101AA01013585], 2003: 5.11 hrs; 2025: 5.16 hrs; (latest−baseline)/baseline)
+
+Check (p. 549): last LTT year in which most children read for fun weekly or more often, by age
+  Computed:
+    age 9: a majority in every year, 1984–2025; last surveyed 2025 (61%)
+    age 13: last majority 2012 (53%); below half from 2020 (40%); last surveyed 2025 (35%)
+    age 17: last majority 2004 (52%); below half from 2008 (42%); last surveyed 2012 (40%)
+
+Sentence (p. 549): In 2025, the odds of nine-year-olds reading for fun weekly or more are 36 percent lower than they were in 2008, but the odds of thirteen-year-olds reading for fun weekly or more are 48 percent lower.
+  Computed:
+    Age 9: 36.1% lower  (LTT "Weekly or more often", age 9, revised format, 2008: 71.0% → odds 2.4483; 2025: 61.0% → odds 1.5641; OR 0.6389 → 1−OR)
+      Compare: 63.3% lower across both assessment formats (1984–2025); the prose quotes the revised-format reading.
+    Age 13: 48.3% lower  (LTT "Weekly or more often", age 13, revised format, 2008: 51.0% → odds 1.0408; 2025: 35.0% → odds 0.5385; OR 0.5173 → 1−OR)
+      Compare: 76.9% lower across both assessment formats (1984–2025); the prose quotes the revised-format reading.
+
+Sentence (p. 550): If the federal government is still administering the ATUS, a simple linear model predicts that fewer than one in ten Americans will read for personal interest on an average day for the first time in 2035.
+  Computed: first year below 10% = 2035  (OLS on ATUS "Reading for personal interest", 2003–2025, n=22: slope -0.5343 points/year, intercept 1096.8, R² 0.923; same fit as scripts/figures/atus_prediction.py)

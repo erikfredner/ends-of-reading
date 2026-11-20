@@ -1,7 +1,7 @@
 [project]
 name = "ends-of-reading"
 version = "0.1.0"
-description = "Add your description here"
+description = "Data, code, and figures for Erik Fredner's essay \"The Ends of Reading.\""
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [

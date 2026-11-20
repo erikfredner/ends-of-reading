@@ -21,6 +21,8 @@ def apply_style() -> None:
         {
             "figure.figsize": (8, 6),
             "figure.dpi": 900,
+            # Fixed salt so SVG element ids are identical across runs.
+            "svg.hashsalt": "ends-of-reading",
             "font.family": "sans-serif",
             "font.sans-serif": ["Helvetica Now Micro", "Helvetica"],
             "axes.prop_cycle": cycler("color", palette) + cycler("marker", markers),

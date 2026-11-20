@@ -1,6 +1,8 @@
 """Recompute values cited in the manuscript at the publication data cutoffs.
 
-Run as ``python scripts/cited_values.py``. Each ``Sentence`` block prints one
+Run as ``python scripts/cited_values.py``. The output is printed and written
+to ``data/derived/cited_values.txt``, which is committed so that a change to
+any cited value shows up in ``git diff``. Each ``Sentence`` block prints one
 manuscript sentence, worded as in the corrected American Literature proofs and
 tagged with its proof page, followed by the value recomputed from the current
 CSVs, with the data source and arithmetic shown in parentheses for
@@ -42,6 +44,7 @@ LTT_OR_WEEKLY_PATH = PROJECT_ROOT / "data" / "derived" / "ltt_or_weekly.csv"
 LTT_OR_WEEKLY_REVISED_PATH = (
     PROJECT_ROOT / "data" / "derived" / "ltt_or_weekly_revised.csv"
 )
+CITED_VALUES_PATH = PROJECT_ROOT / "data" / "derived" / "cited_values.txt"
 FIGURES_DIR = PROJECT_ROOT / "scripts" / "figures"
 ATUS_SOURCE_DIR = PROJECT_ROOT / "data" / "source" / "atus"
 # Raw BLS ATUS dumps; filenames are bare series ids (see _atus_estimate_rows).
@@ -555,10 +558,15 @@ CLAIMS = [
 ]
 
 
+def render() -> str:
+    return "\n\n".join(claim() for claim in CLAIMS) + "\n"
+
+
 def main() -> None:
-    for claim in CLAIMS:
-        print(claim())
-        print()
+    # Also committed, so any drift in a cited value shows up in `git diff`.
+    text = render()
+    CITED_VALUES_PATH.write_text(text, encoding="utf-8")
+    print(text, end="")
 
 
 if __name__ == "__main__":

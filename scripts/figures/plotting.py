@@ -14,11 +14,19 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import pandas as pd
 
+# Drop the timestamps matplotlib embeds in SVG and PDF so reruns are
+# byte-identical (PNG has none). `svg.hashsalt` in style.py fixes SVG element ids.
+_FORMAT_METADATA = {
+    ".png": None,
+    ".svg": {"Date": None},
+    ".pdf": {"CreationDate": None},
+}
+
 
 def save_figure(fig, output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    for suffix in (".png", ".svg", ".pdf"):
-        fig.savefig(output_path.with_suffix(suffix))
+    for suffix, metadata in _FORMAT_METADATA.items():
+        fig.savefig(output_path.with_suffix(suffix), metadata=metadata)
     plt.close(fig)
 
 

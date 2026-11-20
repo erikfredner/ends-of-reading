@@ -122,3 +122,13 @@ def test_refreshed_ltt_2023_observation_reaches_all_derivations():
         assert row["Percent"] == 36
         expected = (36 / 64) / (baseline_percent / (100 - baseline_percent))
         assert row["Odds Ratio"] == pytest.approx(expected, abs=5e-7)
+
+
+def test_committed_cited_values_match_current_data():
+    # Pins every claim, including those without a targeted test above.
+    path = DERIVED / "cited_values.txt"
+    if not path.exists():
+        pytest.skip(f"{path} not found — run scripts/cited_values.py first")
+    assert path.read_text(encoding="utf-8") == cited_values.render(), (
+        "cited values changed; rerun scripts/cited_values.py and check the prose"
+    )

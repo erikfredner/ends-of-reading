@@ -1,0 +1,32 @@
+# Rebuild everything from data/source/ on a clean machine and fail if any
+# committed output (derived CSVs, cited values) differs from what was regenerated.
+name: Reproduce
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: astral-sh/setup-uv@v6
+
+      # Uses the Python in .python-version and the exact versions in uv.lock;
+      # --locked fails if uv.lock is out of date with pyproject.toml.
+      - run: uv sync --locked
+
+      - run: uv run --locked python scripts/run_all.py
+
+      - name: Committed outputs match regenerated outputs
+        run: |
+          git status --porcelain
+          test -z "$(git status --porcelain)"
+          git diff --exit-code
+
+      - run: uv run --locked pytest
+
+      - run: uv run --locked ruff check .

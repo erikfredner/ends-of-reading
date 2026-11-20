@@ -30,7 +30,8 @@ The American Time Use Survey data on reading for personal interest can be access
 
 <https://data.bls.gov/series-report>
 
-Series IDs are indicated in filenames in `data/source/atus`.
+Series IDs are indicated in filenames in `data/source/atus`. Each BLS series-report
+file records its own extraction date in its first line.
 
 Time-use series beginning `TUU10101` contain average hours per day across the
 population, including nonparticipants; `TUU20101` contains average hours among
@@ -50,6 +51,9 @@ and cited-value calculations use the same 2025 endpoint, set in `scripts/publica
 ### By education
 
 BLS does not publicize breakouts by education. I thank Michelle Freeman of the BLS, who shared these estimates with me.
+I received the estimates in `atus_ed.csv` in September 2023.
+Its values are percent participating on an average day in reading for personal interest,
+by educational attainment, as BLS supplied them.
 
 ## National Assessment of Education Progress (NAEP) Long-Term Trend (LTT)
 
@@ -58,6 +62,13 @@ Survey of Student Experiences, specifically the variable "reading for fun on
 your own time" (`S003501`).
 
 <https://www.nationsreportcard.gov/ndecore/xplore/ltt>
+
+Each file in `data/source/ltt/` is one Data Explorer table export, named by age
+(`9.txt`, `13.txt`, `17.txt`), with these settings: subject Long-Term Trend reading;
+variable `S003501`; jurisdiction National; statistic Percentages; all available
+years. The files are saved as exported, including NAEP's header, notes, and source
+line. `9.txt` and `17.txt` were last updated in this repository on June 10, 2026,
+and `13.txt` on September 14, 2026.
 
 The refreshed `ltt/13.txt` release includes 2023: 14% read almost every day and
 22% once or twice a week, totaling 36% weekly or more often. Both weekly
