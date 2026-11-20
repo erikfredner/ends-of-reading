@@ -1,10 +1,11 @@
 """Collapse the LTT frequency categories to "weekly or more often" and add odds ratios.
 
 Writes two files. ``ltt_or_weekly.csv`` covers the whole series, baselined to
-1984, and backs figure 5 and the manuscript's headline LTT claims.
+1984, and backs figure 5 and the introduction's 1980s-to-2020s comparison.
 ``ltt_or_weekly_revised.csv`` keeps only the years NAEP collected under the
-revised assessment format, baselined to the earliest of those, so a decline can
-be quoted without spanning the instrument change. Which years belong to which
+revised assessment format, baselined to the earliest of those (2008), so a
+decline can be quoted without spanning the instrument change; the manuscript's
+LTT odds-ratio sentences quote this file. Which years belong to which
 format comes from the ``Assessment Format`` column that ``ltt_extract.py``
 carries over from NAEP's own footnote markers.
 """

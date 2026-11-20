@@ -63,4 +63,7 @@ The refreshed `ltt/13.txt` release includes 2023: 14% read almost every day and
 22% once or twice a week, totaling 36% weekly or more often. Both weekly
 derivations and Figure 5 include this observation.
 
-NAEP revised the assessment after 2004.
+NAEP revised the assessment after 2004. The manuscript's LTT odds ratios are
+therefore baselined to 2008, the first revised-format year
+(`derived/ltt_or_weekly_revised.csv`); the 1984-baselined series
+(`derived/ltt_or_weekly.csv`) spans the change.

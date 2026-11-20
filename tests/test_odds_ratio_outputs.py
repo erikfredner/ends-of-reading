@@ -124,8 +124,9 @@ def test_sppa_or_drops_precomparable_poetry():
 
 
 def test_ltt_revised_output_holds_only_revised_format_years():
-    """The revised-format variants exist to avoid spanning NAEP's instrument
-    change, so a single original-format row leaking in would defeat them."""
+    """The manuscript quotes the revised-format series to avoid spanning NAEP's
+    instrument change, so a single original-format row leaking in would defeat
+    it."""
     full = _load_or_skip(DERIVED / "ltt_or_weekly.csv")
     revised = _load_or_skip(DERIVED / "ltt_or_weekly_revised.csv")
 

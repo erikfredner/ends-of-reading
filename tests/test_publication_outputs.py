@@ -15,7 +15,7 @@ from publication import ATUS_END_YEAR
 
 def test_leisure_change_uses_population_hours():
     sentence = cited_values.sentence_leisure_time_change()
-    assert "1% more leisure time in 2025 than in 2003" in sentence
+    assert "about 1 percent more leisure time in 2025 than in 2003" in sentence
     assert "Computed: +1.0%" in sentence
     assert "[TUU10101AA01013585]" in sentence
     assert "2003: 5.11 hrs; 2025: 5.16 hrs" in sentence
@@ -27,12 +27,37 @@ def test_atus_cited_values_share_latest_cutoff():
     assert cited_values._atus_rows(cited_values.READING)[-1][0] == 2025
     assert cited_values._atus_reading_decline()["latest_year"] == 2025
     assert "As of 2025, 16 minutes" in cited_values.sentence_atus_avg_minutes()
-    assert "readers read for 100 minutes" in (
+    assert "did so for 100 minutes" in (
         cited_values.sentence_atus_avg_minutes_participants()
+    )
+    # The introduction's bullets name the same year as the body (p. 546).
+    assert "In 2025, 84 percent of US adults" in cited_values.sentence_atus_nonreaders()
+    assert "46 percent lower in 2025 than they were in 2003" in (
+        cited_values.sentence_atus_or_2003()
     )
     prediction = cited_values.sentence_atus_prediction_year()
     assert "first year below 10% = 2035" in prediction
     assert "2003–2025, n=22" in prediction
+
+
+def test_ltt_sentences_quote_the_revised_format_baseline():
+    # The prose baselines LTT odds to 2008, the first revised-format year; the
+    # 1984 reading spans NAEP's instrument change and appears only to compare.
+    age13 = cited_values.sentence_ltt_age13_or_2008()
+    assert "48 percent lower in 2025 than they were in 2008" in age13
+    assert "Compare: 76.9% lower across both assessment formats (1984–2025)" in age13
+
+    both = cited_values.sentence_ltt_age9_age13_or_2008()
+    assert "36 percent lower than they were in 2008" in both
+    assert "thirteen-year-olds reading for fun weekly or more are 48 percent" in both
+
+
+def test_ltt_weekly_majority_check():
+    check = cited_values.check_ltt_weekly_majority()
+    assert "age 9: a majority in every year, 1984–2025" in check
+    assert "age 13: last majority 2012 (53%); below half from 2020 (40%)" in check
+    assert "age 17: last majority 2004 (52%); below half from 2008 (42%)" in check
+    assert "last surveyed 2012" in check
 
 
 def test_figure2_uses_publication_cutoff(monkeypatch):
